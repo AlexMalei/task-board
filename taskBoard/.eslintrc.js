@@ -32,6 +32,8 @@ module.exports = {
         when: 'always',
       },
     ],
+    'react/jsx-indent-props': [2, 2] /**/,
+    'react/jsx-first-prop-new-line': 'multiline-multiprop' /**/,
     'react/jsx-filename-extension': [
       2,
       {
