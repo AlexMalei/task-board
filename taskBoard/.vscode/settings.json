@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    {
+      "text": "@todo:",
+      "color": "#ffff",
+      "backgroundColor": "orange",
+      "overviewRulerColor": "black"
+    }
+  ],
+  "todohighlight.keywordsPattern": "(@todo:|@fixme:)",
+  "eslint.enable": true //highlight `TODO:`,`FIXME:` or content between parentheses
+}
