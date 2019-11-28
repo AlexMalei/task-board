@@ -1,12 +1,18 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
+import { ThemeProvider } from 'styled-components'
 
-import Test from '@/components/Test'
+import SignUp from '@/screens/SignUp'
+import ScreenContainer from '@/components/ScreenContainer'
+import { theme } from '@/theme'
 
 const App = () => {
-  return <Test />
+  return (
+    <ThemeProvider theme={theme}>
+      {/* <ScreenContainer> */}
+      <SignUp />
+      {/* </ScreenContainer> */}
+    </ThemeProvider>
+  )
 }
-
-const styles = StyleSheet.create({})
 
 export default App
