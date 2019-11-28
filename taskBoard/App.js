@@ -1,12 +1,7 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
 
-import Test from '@/components/Test'
+import AppNavigator from './routes'
 
-const App = () => {
-  return <Test />
+export default function App() {
+  return <AppNavigator />
 }
-
-const styles = StyleSheet.create({})
-
-export default App
