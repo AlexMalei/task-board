@@ -4,10 +4,11 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 
-import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH } from '@/constants'
+import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH, WEBSITE_REDESIGN_PATH } from '@/constants'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
+import WebsiteRedesign from '@/components/WebsiteRedesign'
 
 const HomeScreens = createStackNavigator(
   {
@@ -65,11 +66,29 @@ const MyTasksScreens = createStackNavigator(
   },
 )
 
+const WebsiteRedesignScreens = createStackNavigator(
+  {
+    [WEBSITE_REDESIGN_PATH]: {
+      screen: WebsiteRedesign,
+    },
+  },
+  {
+    initialRouteName: WEBSITE_REDESIGN_PATH,
+    navigationOptions: {
+      drawerLabel: WEBSITE_REDESIGN_PATH,
+      title: WEBSITE_REDESIGN_PATH,
+      tabBarLabel: WEBSITE_REDESIGN_PATH,
+      inactiveTintColor: 'grey',
+    },
+  },
+)
+
 export const Navigator = createDrawerNavigator(
   {
     [HOME_PAGE_PATH]: HomeScreens,
     [PROFILE_PAGE_PATH]: ProfileScreens,
     [MY_TASKS_PAGE_PATH]: MyTasksScreens,
+    [WEBSITE_REDESIGN_PATH]: WebsiteRedesignScreens,
   },
   {
     initialRouteName: HOME_PAGE_PATH,
