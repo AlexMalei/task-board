@@ -1,16 +1,17 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, Text, Image, Button } from 'react-native'
+import { DrawerActions } from 'react-navigation-drawer'
 
-const Profile = () => {
+const MyTasks = ({ navigation: { navigate } }) => {
   return (
     <View style={styles.appContainer}>
-      <Text>Profile</Text>
+      <Text>MyTasks</Text>
     </View>
   )
 }
 
-Profile.navigationOptions = ({ navigation }) => ({
-  title: 'Profile',
+MyTasks.navigationOptions = ({ navigation }) => ({
+  title: 'MyTasks',
   headerLeft: (
     <Button
       source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
@@ -29,4 +30,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Profile
+export default MyTasks

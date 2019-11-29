@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, Button } from 'react-native'
+import { DrawerActions } from 'react-navigation-drawer'
 
-const Home = () => {
+const Home = ({ navigation: { navigate } }) => {
   return (
     <View style={styles.appContainer}>
       <Text>Home</Text>
@@ -12,10 +13,10 @@ const Home = () => {
 Home.navigationOptions = ({ navigation }) => ({
   title: 'Home',
   headerLeft: (
-    <Image
-      style={{ width: 30, height: 30, marginLeft: 10 }}
+    <Button
       source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
       onPress={() => navigation.toggleDrawer()}
+      title="Ic"
     />
   ),
 })
