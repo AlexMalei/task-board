@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
 
 import FormTitle from '@/fields/FormTitle'
@@ -7,8 +8,19 @@ import Input from '@/fields/Input'
 import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signUpSchema } from '@/validators'
+import { AuthAPI } from '@/api'
 
 const SignUpForm = ({ initialValues }) => {
+  useEffect(() => {
+    return firebase.auth().onUserChanged(user => {
+      //@todo: redirect to main screen
+      //@todo: make gql request for adding info about_me(bio)
+      //@todo: potential problem: redirect can apply multiple times
+      console.log('changed user', user)
+    })
+  })
+
+  //@todo: make error messages
   return (
     <Formik initialValues={initialValues} validationSchema={signUpSchema}>
       {({ values, touched, errors, handleChange, handleBlur }) => {
@@ -47,7 +59,7 @@ const SignUpForm = ({ initialValues }) => {
               placeholder="Something about yourself"
             />
 
-            <Button>Sign Up</Button>
+            <Button onClick={() => AuthAPI.signUp(values.email, values.password)}>Sign Up</Button>
           </Form>
         )
       }}

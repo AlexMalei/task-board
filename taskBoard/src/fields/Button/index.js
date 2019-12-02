@@ -2,10 +2,10 @@ import React from 'react'
 
 import { ButtonContainer, Button as TouchableButton, ButtonText } from './component'
 
-const Button = ({ children }) => {
+const Button = ({ children, onClick, ...props }) => {
   return (
     <ButtonContainer>
-      <TouchableButton>
+      <TouchableButton onPress={onClick} {...props}>
         <ButtonText>{children}</ButtonText>
       </TouchableButton>
     </ButtonContainer>
