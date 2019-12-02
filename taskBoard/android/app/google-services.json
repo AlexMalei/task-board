@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "525795567195",
+    "firebase_url": "https://education-board-api.firebaseio.com",
+    "project_id": "education-board-api",
+    "storage_bucket": "education-board-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525795567195:android:2cca7308148a70ad87417e",
+        "android_client_info": {
+          "package_name": "com.taskboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525795567195-s78cgad51t58evs4n7v0i3jk6knngg24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwhk522m2mkktjqrCM9Y0WYBT-weKOdak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525795567195-s78cgad51t58evs4n7v0i3jk6knngg24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

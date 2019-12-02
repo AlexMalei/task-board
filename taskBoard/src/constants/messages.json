@@ -1,0 +1,17 @@
+{
+  "messages": {
+    "error": {
+      "email": "Invalid email!",
+      "password": "Invalid password!",
+      "aboutYourself": "Invalid info about youself!",
+    },
+    "required": {
+      "email": "Email is required!",
+      "password": "Password is required!",
+      "aboutYourself": "Info about yourself is required!"
+    },
+    "min": {
+      "password": "Password must be ay least 4 symbols"
+    }
+  }
+}
