@@ -30,8 +30,6 @@ const HomeScreens = createStackNavigator(
       drawerIcon: () => <Icon style={styles.icon} name="home"
 size={32} color="#FFFFFF" />,
     },
-    gesturesEnabled: true,
-    // tabBarLabel: 'Home!',
   },
 )
 
@@ -73,31 +71,11 @@ size={32} color="#FFFFFF" />,
   },
 )
 
-const WebsiteRedesignScreens = createStackNavigator(
-  {
-    [WEBSITE_REDESIGN_PATH]: {
-      screen: WebsiteRedesign,
-    },
-  },
-  {
-    initialRouteName: WEBSITE_REDESIGN_PATH,
-    navigationOptions: {
-      drawerLabel: WEBSITE_REDESIGN_PATH,
-      title: WEBSITE_REDESIGN_PATH,
-      tabBarLabel: WEBSITE_REDESIGN_PATH,
-      inactiveTintColor: 'grey',
-      drawerIcon: () => <IconM style={styles.icon} name="local-play"
-size={32} color="#FFFFFF" />,
-    },
-  },
-)
-
 export const Navigator = createDrawerNavigator(
   {
     [HOME_PAGE_PATH]: HomeScreens,
     [PROFILE_PAGE_PATH]: ProfileScreens,
     [MY_TASKS_PAGE_PATH]: MyTasksScreens,
-    [WEBSITE_REDESIGN_PATH]: WebsiteRedesignScreens,
   },
   {
     initialRouteName: HOME_PAGE_PATH,
@@ -105,9 +83,10 @@ export const Navigator = createDrawerNavigator(
     contentOptions: {
       activeTintColor: 'white',
       inactiveTintColor: 'gray',
+
       style: {
         marginVertical: 10,
-        marginHorizontal: 15,
+        marginHorizontal: 0,
         color: 'red',
       },
       labelStyle: {
@@ -116,13 +95,6 @@ export const Navigator = createDrawerNavigator(
     },
     drawerWidth: Dimensions.get('window').width - 100,
     drawerBackgroundColor: 'black',
-    gesturesEnabled: true,
-    swipeEnable: true,
-    animationEnabled: true,
-
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle',
   },
 )
 
