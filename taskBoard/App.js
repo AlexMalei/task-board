@@ -1,18 +1,21 @@
 import React from 'react'
 
 import { ThemeProvider } from 'styled-components'
+import { ApolloProvider } from '@apollo/react-hooks'
 import AppNavigator from './routes'
 
 import { theme } from '@/theme'
-
+import { gqlClient } from '@/utils'
+import SignIn from '@/screens/SignIn'
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <AppNavigator />
-    </ThemeProvider>
+    <ApolloProvider client={gqlClient}>
+      <ThemeProvider theme={theme}>
+        <AppNavigator />
+      </ThemeProvider>
+    </ApolloProvider>
   )
 }
 
 export default App
-

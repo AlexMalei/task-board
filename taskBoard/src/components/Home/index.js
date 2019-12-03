@@ -1,13 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button } from 'react-native'
+import { StyleSheet, View, Text, Image, Button, ActivityIndicator } from 'react-native'
 import { DrawerActions } from 'react-navigation-drawer'
+import Projects from '@/components/Projects'
 
 const Home = ({ navigation: { navigate } }) => {
-  return (
-    <View style={styles.appContainer}>
-      <Text>Home</Text>
-    </View>
-  )
+  return <Projects />
 }
 
 Home.navigationOptions = ({ navigation }) => ({
@@ -19,15 +16,6 @@ Home.navigationOptions = ({ navigation }) => ({
       title="Ic"
     />
   ),
-})
-
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eded',
-  },
 })
 
 export default Home
