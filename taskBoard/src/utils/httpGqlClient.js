@@ -26,9 +26,3 @@ export const gqlClient = new ApolloClient({
   link: concat(withToken, httpLink),
   cache,
 })
-
-cache.writeData({
-  data: {
-    auth: { uid: '' },
-  },
-})
