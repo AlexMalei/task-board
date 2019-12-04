@@ -16,6 +16,7 @@ const SignUpForm = ({ initialValues }) => {
       //@todo: redirect to main screen
       //@todo: make gql request for adding info about_me(bio)
       //@todo: potential problem: redirect can apply multiple times
+      setJwtToken()
       console.log('changed user', user)
     })
   })
