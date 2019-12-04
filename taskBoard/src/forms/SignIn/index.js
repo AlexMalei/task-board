@@ -9,11 +9,13 @@ import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
+import { setJwtToken } from '@/utils'
 
 const SignInForm = ({ initialValues }) => {
   useEffect(() => {
     return firebase.auth().onUserChanged(user => {
       //@todo: redirect to main screen
+      setJwtToken()
       console.log('changed user', user)
     })
   })

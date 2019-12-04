@@ -5,12 +5,12 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import AppNavigator from './routes'
 
 import { theme } from '@/theme'
-import { gqlClient } from '@/utils'
+import { wsGqlClient } from '@/utils'
 import SignIn from '@/screens/SignIn'
 
 const App = () => {
   return (
-    <ApolloProvider client={gqlClient}>
+    <ApolloProvider client={wsGqlClient}>
       <ThemeProvider theme={theme}>
         <AppNavigator />
       </ThemeProvider>
