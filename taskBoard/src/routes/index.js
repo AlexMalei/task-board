@@ -4,14 +4,12 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
-import IconM from 'react-native-vector-icons/dist/MaterialIcons'
 import IconA from 'react-native-vector-icons/dist/FontAwesome5'
 
-import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH, WEBSITE_REDESIGN_PATH } from '@/constants'
+import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH } from '@/constants'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
-import WebsiteRedesign from '@/components/WebsiteRedesign'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
 
 const HomeScreens = createStackNavigator(

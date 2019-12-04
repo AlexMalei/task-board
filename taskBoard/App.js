@@ -1,7 +1,14 @@
 import React from 'react'
+import { ThemeProvider } from 'styled-components'
 
-import AppNavigator from './routes'
+import { theme } from '@/theme'
+
+import AppNavigator from './src/routes'
 
 export default function App() {
-  return <AppNavigator />
+  return (
+    <ThemeProvider theme={theme}>
+      <AppNavigator />
+    </ThemeProvider>
+  )
 }

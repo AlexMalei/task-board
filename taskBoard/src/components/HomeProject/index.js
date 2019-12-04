@@ -1,19 +1,18 @@
 import React from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import IconMenu from '@/components/IconMenu'
 
 import { WEBSITE_REDESIGN_PATH } from '@/constants'
 
-const WebsiteRedesign = () => {
+const HomeProject = () => {
   return (
     <View style={styles.appContainer}>
-      <Text>WebsiteRedesign</Text>
+      <Text>HomeProject</Text>
     </View>
   )
 }
 
-WebsiteRedesign.navigationOptions = ({ navigation }) => ({
+HomeProject.navigationOptions = ({ navigation }) => ({
   title: WEBSITE_REDESIGN_PATH,
   headerLeft: <IconMenu navigation={navigation} />,
 })
@@ -27,4 +26,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default WebsiteRedesign
+export default HomeProject
