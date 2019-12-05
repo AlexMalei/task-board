@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export const StyledDrawerHeader = styled(Header)`
   height: 80;
-  background-color: #202020;
+  background-color: ${props => props.theme.colors.black};
   justify-content: space-around;
   align-items: center;
   flex-direction: row;

@@ -1,17 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import { HOME_PAGE_PATH } from '@/constants'
 import IconMenu from '@/components/IconMenu'
-
-import { StyledHomeContainer } from './component'
+import Projects from '@/components/Projects'
 
 const Home = () => {
-  return (
-    <StyledHomeContainer>
-      <Text>Home</Text>
-    </StyledHomeContainer>
-  )
+  return <Projects />
 }
 
 Home.navigationOptions = ({ navigation }) => ({

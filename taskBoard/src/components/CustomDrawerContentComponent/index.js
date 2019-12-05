@@ -51,7 +51,7 @@ const DATA = [
 ]
 
 YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested', // TODO: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
+  'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
 ])
 
 function Item({ title }) {
@@ -85,8 +85,7 @@ const CustomDrawerContentComponent = props => (
         <DrawerItems {...props} />
         <StyledTitleProject>PROJECTS</StyledTitleProject>
         <SafeAreaView>
-          <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />}
-keyExtractor={item => item.id} />
+          <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />
           <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
         </SafeAreaView>
       </StyledDrawerContentMargin>

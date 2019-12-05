@@ -1,6 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 
+import imageProfile from '@/assets/user_logo.jpeg'
+
 import {
   StyledDrawerHeader,
   StyledDrawerImageProfile,
@@ -12,7 +14,7 @@ import {
 const DrawerHeader = () => {
   return (
     <StyledDrawerHeader>
-      <StyledDrawerImageProfile source={require('@/assets/user_logo.jpeg')} />
+      <StyledDrawerImageProfile source={imageProfile} />
       <View>
         <StyledDrawerProfileText>Sacha Belui</StyledDrawerProfileText>
         <StyledDrawerTextGray>Junior</StyledDrawerTextGray>

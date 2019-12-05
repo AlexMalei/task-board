@@ -9,7 +9,7 @@ export const StyledDrawerContainer = styled(Container)`
 `
 export const StyledDrawerHeader = styled(Header)`
   height: 80;
-  background-color: #202020;
+  background-color: ${props => props.theme.colors.black};
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
@@ -43,7 +43,7 @@ export const StyledDataTasks = styled.View`
 export const StyledDataTasksText = styled.Text`
   color: ${props => props.theme.colors.white};
   font-size: 20;
-  font-weight: bold '';
+  /* font-weight: bold; */
 `
 const textStyleMixin = css`
   font-size: 14;

@@ -20,6 +20,7 @@ export const removeJwtToken = async () => {
 }
 
 export const refreshJwtToken = async () => {
+  //@todo: upgrade
   const newToken = await firebase.auth().currentUser.getIdToken()
   await AsyncStorage.setItem(TOKEN_STORAGE_KEY, newToken)
 }
