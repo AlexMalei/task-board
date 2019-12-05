@@ -9,6 +9,7 @@ import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signUpSchema } from '@/validators'
 import { AuthAPI } from '@/api'
+import { setJwtToken } from '@/utils'
 
 const SignUpForm = ({ initialValues }) => {
   useEffect(() => {
