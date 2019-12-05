@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Image, View, FlatList, ActivityIndicator, Dimensions } from 'react-native'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
@@ -11,6 +11,9 @@ import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
+
+import Login from '@/forms/SignIn'
+import Register from '@/forms/SignUp'
 
 const HomeScreens = createStackNavigator(
   {
@@ -93,6 +96,26 @@ export const Navigator = createDrawerNavigator(
   },
 )
 
+const AuthNavigator = createStackNavigator(
+  {
+    Login: { screen: Login },
+    Register: { screen: Register },
+  },
+  {
+    headerMode: 'none',
+  },
+)
+
+const SwitchNavigator = createSwitchNavigator(
+  {
+    Login: AuthNavigator,
+    App: Navigator,
+  },
+  {
+    initialRouteName: 'Login',
+  },
+)
+
 const styles = StyleSheet.create({
   icon: {
     width: 30,
@@ -100,4 +123,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default createAppContainer(Navigator)
+export default createAppContainer(SwitchNavigator)

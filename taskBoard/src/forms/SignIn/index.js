@@ -11,11 +11,25 @@ import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
 import { setJwtToken } from '@/utils'
 
-const SignInForm = ({ initialValues }) => {
+const SignInForm = ({ initialValues, navigation }) => {
   useEffect(() => {
     return firebase.auth().onUserChanged(user => {
       //@todo: redirect to main screen
-      setJwtToken()
+      console.log('this.PROPS', navigation)
+      firebase
+        .auth()
+        .signOut()
+        .then(result => console.log('signout'))
+      try {
+        if (user !== null) {
+          navigation.navigate('Home')
+          setJwtToken()
+        }
+
+        console.log('You Log_in')
+      } catch (e) {
+        console.log('error', e)
+      }
       console.log('changed user', user)
     })
   })
@@ -60,7 +74,7 @@ const SignInForm = ({ initialValues }) => {
 SignInForm.defaultProps = {
   initialValues: {
     email: 'example.mail@gmail.com',
-    password: 'example-password',
+    password: 'example-password1',
   },
 }
 
