@@ -1,12 +1,32 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { Button } from 'react-native'
+import { useQuery } from '@apollo/react-hooks'
+import jwtDecode from 'jwt-decode'
+
+import { getJwtToken, PROFILE_DATA_QUERY } from '@/utils'
+import { useAsync } from '@/hooks'
+import ProfileForm from '@/forms/Profile'
+
+const getCurrentUserId = async () => {
+  const jwtToken = await getJwtToken()
+  const { user_id } = await jwtDecode(jwtToken)
+
+  return user_id
+}
 
 const Profile = () => {
-  return (
-    <View style={styles.appContainer}>
-      <Text>Profile</Text>
-    </View>
-  )
+  const { loading: loadingUserId, error: userIdError, data: userId } = useAsync(getCurrentUserId)
+  const { loading: profileLoading, error: profileError, data } = useQuery(PROFILE_DATA_QUERY, {
+    variables: { id: userId },
+  })
+  console.log('data', data)
+  const { users_by_pk: { about_me = '', avatar_url = '', display_name = '', role = '' } = {} } = data || {}
+  console.log('role', role)
+  console.log('display_name', display_name)
+  console.log('avatar_url', avatar_url)
+  console.log('about_me', about_me)
+
+  return <ProfileForm about={about_me} avatarUrl={avatar_url} name={display_name} role={role} />
 }
 
 Profile.navigationOptions = ({ navigation }) => ({
@@ -18,15 +38,6 @@ Profile.navigationOptions = ({ navigation }) => ({
       title="Ic"
     />
   ),
-})
-
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eded',
-  },
 })
 
 export default Profile

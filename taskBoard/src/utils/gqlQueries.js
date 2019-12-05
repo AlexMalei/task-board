@@ -18,9 +18,9 @@ export const PROJECTS_QUERY = gql`
   }
 `
 
-export const USER_DATA_QUERY = gql`
-  query User($id: String!) {
-    user(id: $id) {
+export const PROFILE_DATA_QUERY = gql`
+  query ProfileData($id: String!) {
+    users_by_pk(id: $id) {
       id
       about_me
       avatar_url
