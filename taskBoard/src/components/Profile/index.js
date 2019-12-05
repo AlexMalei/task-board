@@ -15,6 +15,9 @@ const getCurrentUserId = async () => {
   return user_id
 }
 
+import { PROFILE_PAGE_PATH } from '@/constants'
+import IconMenu from '../IconMenu'
+
 const Profile = () => {
   const { loading: loadingUserId, error: userIdError, data: userId } = useAsync(getCurrentUserId)
   const { loading: profileLoading, error: profileError, data, refetch } = useQuery(PROFILE_DATA_QUERY, {
@@ -37,14 +40,8 @@ const Profile = () => {
 }
 
 Profile.navigationOptions = ({ navigation }) => ({
-  title: 'Profile',
-  headerLeft: (
-    <Button
-      source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
-      onPress={() => navigation.toggleDrawer()}
-      title="Ic"
-    />
-  ),
+  title: PROFILE_PAGE_PATH,
+  headerLeft: <IconMenu navigation={navigation} />,
 })
 
 export default Profile
