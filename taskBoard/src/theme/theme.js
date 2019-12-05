@@ -1,7 +1,7 @@
 const lightGreen = '#CEF9C6'
 const white = '#FFFFFF'
-const black = '#131313'
-const superBlack = '#000000'
+const codGray = '#131313'
+const black = '#000000'
 const darkGrey = '#EAEAEA'
 const lightGrey = '#ECECEC'
 const pampas = '#EEEBE5'
@@ -17,7 +17,7 @@ const colors = {
   pampas,
   gray,
   gold,
-  superBlack,
+  codGray,
 }
 
 const fontSizes = [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 8]
