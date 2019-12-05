@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 
 export const ButtonContainer = styled.View`
-  flex: 1;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+
+  border: 1px solid red;
 `
 
 export const Button = styled.TouchableOpacity`

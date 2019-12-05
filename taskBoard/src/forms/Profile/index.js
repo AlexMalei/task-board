@@ -5,6 +5,7 @@ import { Formik } from 'formik'
 
 import Input from '@/fields/Input'
 import Button from '@/fields/Button'
+import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
 
@@ -15,6 +16,8 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
         //@todo: make avatar in the center of form. (initial if url is null)
         return (
           <Form>
+            <Avatar avatarUrl={avatarUrl} name={name} size="large" />
+
             <Input
               label="Name"
               value={values.name}

@@ -5,6 +5,8 @@ const darkGrey = '#EAEAEA'
 const lightGrey = '#ECECEC'
 const pampas = '#EEEBE5'
 
+const error = '#CF1A17'
+
 const colors = {
   black,
   white,
@@ -15,8 +17,19 @@ const colors = {
   darkGrey,
 
   pampas,
+
+  error,
+}
+
+const sizes = [20, 60, 100]
+
+const avatarSizes = {
+  small: sizes[0],
+  medium: sizes[1],
+  large: sizes[2],
 }
 
 export const theme = {
   colors,
+  avatarSizes,
 }

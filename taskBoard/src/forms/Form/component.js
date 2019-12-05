@@ -1,10 +1,12 @@
 import styled from 'styled-components'
-//@todo: keyboard avoiding in form
-export default styled.View`
+
+export const StyledFormContainer = styled.KeyboardAvoidingView`
   flex: 1;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 
   padding: 20px;
+  padding-bottom: 30px;
 
   border-radius: 10px;
   background-color: ${props => props.theme.colors.white};

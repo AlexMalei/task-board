@@ -4,7 +4,9 @@ export const getInitials = fullName => {
 }
 
 export const getAvatarColor = fullName => {
-  const hexCode = fullName
+  const localName = fullName || 'NN'
+
+  const hexCode = localName
     .split('')
     .reduce((acc, char) => (acc * char.charCodeAt(0)) % 0xffffff, 1)
     .toString(16)
