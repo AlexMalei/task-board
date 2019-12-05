@@ -1,21 +1,22 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button, ActivityIndicator } from 'react-native'
-import { DrawerActions } from 'react-navigation-drawer'
-import Projects from '@/components/Projects'
+import { Text } from 'react-native'
 
-const Home = ({ navigation: { navigate } }) => {
-  return <Projects />
+import { HOME_PAGE_PATH } from '@/constants'
+import IconMenu from '@/components/IconMenu'
+
+import { StyledHomeContainer } from './component'
+
+const Home = () => {
+  return (
+    <StyledHomeContainer>
+      <Text>Home</Text>
+    </StyledHomeContainer>
+  )
 }
 
 Home.navigationOptions = ({ navigation }) => ({
-  title: 'Home',
-  headerLeft: (
-    <Button
-      source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
-      onPress={() => navigation.toggleDrawer()}
-      title="Ic"
-    />
-  ),
+  title: HOME_PAGE_PATH,
+  headerLeft: <IconMenu navigation={navigation} />,
 })
 
 export default Home

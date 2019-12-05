@@ -1,6 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
 
+import { PROFILE_PAGE_PATH } from '@/constants'
+import IconMenu from '../IconMenu'
+
 const Profile = () => {
   return (
     <View style={styles.appContainer}>
@@ -10,14 +13,8 @@ const Profile = () => {
 }
 
 Profile.navigationOptions = ({ navigation }) => ({
-  title: 'Profile',
-  headerLeft: (
-    <Button
-      source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
-      onPress={() => navigation.toggleDrawer()}
-      title="Ic"
-    />
-  ),
+  title: PROFILE_PAGE_PATH,
+  headerLeft: <IconMenu navigation={navigation} />,
 })
 
 const styles = StyleSheet.create({

@@ -3,11 +3,14 @@ import { StyleSheet, Image, View, FlatList, ActivityIndicator, Dimensions } from
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
+import Icon from 'react-native-vector-icons/dist/FontAwesome'
+import IconA from 'react-native-vector-icons/dist/FontAwesome5'
 
 import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH } from '@/constants'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
+import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
 
 const HomeScreens = createStackNavigator(
   {
@@ -22,12 +25,8 @@ const HomeScreens = createStackNavigator(
       title: HOME_PAGE_PATH,
       tabBarLabel: HOME_PAGE_PATH,
       inactiveTintColor: 'grey',
-      // drawerIcon: ({ tintColor }) => (
-      //   <Image source={require('@/assets/tiny_logo.png')} style={[styles.icon, { tintColor: tintColor }]} />
-      // ),
+      drawerIcon: () => <Icon style={styles.icon} name="home" size={32} color="#FFFFFF" />,
     },
-    gesturesEnabled: true,
-    // tabBarLabel: 'Home!',
   },
 )
 
@@ -44,6 +43,7 @@ const ProfileScreens = createStackNavigator(
       title: PROFILE_PAGE_PATH,
       tabBarLabel: PROFILE_PAGE_PATH,
       inactiveTintColor: 'grey',
+      drawerIcon: () => <Icon style={styles.icon} name="user" size={32} color="#FFFFFF" />,
     },
   },
 )
@@ -61,6 +61,7 @@ const MyTasksScreens = createStackNavigator(
       title: MY_TASKS_PAGE_PATH,
       tabBarLabel: MY_TASKS_PAGE_PATH,
       inactiveTintColor: 'grey',
+      drawerIcon: () => <IconA style={styles.icon} name="tasks" size={32} color="#FFFFFF" />,
     },
   },
 )
@@ -73,12 +74,14 @@ export const Navigator = createDrawerNavigator(
   },
   {
     initialRouteName: HOME_PAGE_PATH,
+    contentComponent: CustomDrawerContentComponent,
     contentOptions: {
-      activeTintColor: 'gray',
-      inactiveTintColor: 'white',
+      activeTintColor: 'white',
+      inactiveTintColor: 'gray',
+
       style: {
         marginVertical: 10,
-        marginHorizontal: 15,
+        marginHorizontal: 0,
         color: 'red',
       },
       labelStyle: {
@@ -87,17 +90,14 @@ export const Navigator = createDrawerNavigator(
     },
     drawerWidth: Dimensions.get('window').width - 100,
     drawerBackgroundColor: 'black',
-    gesturesEnabled: true,
-    swipeEnable: true,
-    animationEnabled: true,
   },
 )
 
-// const styles = StyleSheet.create({
-//   icon: {
-//     width: 24,
-//     height: 24,
-//   },
-// })
+const styles = StyleSheet.create({
+  icon: {
+    width: 30,
+    height: 30,
+  },
+})
 
 export default createAppContainer(Navigator)
