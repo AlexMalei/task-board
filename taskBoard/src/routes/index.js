@@ -5,8 +5,17 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import IconA from 'react-native-vector-icons/dist/FontAwesome5'
+import IconD from 'react-native-vector-icons/dist/AntDesign'
 
-import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH } from '@/constants'
+import {
+  HOME_PAGE_PATH,
+  PROFILE_PAGE_PATH,
+  MY_TASKS_PAGE_PATH,
+  LOGIN_PATH,
+  APP_PATH,
+  REGISTER_PATH,
+  LOGOUT_PATH,
+} from '@/constants'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
@@ -98,8 +107,8 @@ export const Navigator = createDrawerNavigator(
 
 const AuthNavigator = createStackNavigator(
   {
-    Login: { screen: Login },
-    Register: { screen: Register },
+    [LOGIN_PATH]: { screen: Login },
+    [REGISTER_PATH]: { screen: Register },
   },
   {
     headerMode: 'none',
@@ -108,11 +117,11 @@ const AuthNavigator = createStackNavigator(
 
 const SwitchNavigator = createSwitchNavigator(
   {
-    Login: AuthNavigator,
-    App: Navigator,
+    [LOGIN_PATH]: AuthNavigator,
+    [APP_PATH]: Navigator,
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: LOGIN_PATH,
   },
 )
 

@@ -13,24 +13,19 @@ import { setJwtToken } from '@/utils'
 
 const SignInForm = ({ initialValues, navigation }) => {
   useEffect(() => {
-    return firebase.auth().onUserChanged(user => {
-      //@todo: redirect to main screen
-      console.log('this.PROPS', navigation)
-      firebase
-        .auth()
-        .signOut()
-        .then(result => console.log('signout'))
+    return firebase.auth().onUserChanged(async user => {
       try {
-        if (user !== null) {
+        if (user) {
+          const jwtToken = await user.getIdToken()
+          setJwtToken(jwtToken)
           navigation.navigate('Home')
-          setJwtToken()
         }
-
-        console.log('You Log_in')
-      } catch (e) {
-        console.log('error', e)
+      } finally {
+        /* catch (e) {
+        console.log('HUI PIZDA ZALUPA', e)
+      } */
+        console.log('HUI PIZDA ZALUPA')
       }
-      console.log('changed user', user)
     })
   })
 
@@ -78,11 +73,11 @@ SignInForm.defaultProps = {
   },
 }
 
-SignInForm.propTypes = {
-  initialValues: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string,
-  }),
-}
+// SignInForm.propTypes = {
+//   initialValues: PropTypes.shape({
+//     email: PropTypes.string,
+//     password: PropTypes.string,
+//   }),
+// }
 
 export default SignInForm

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, SafeAreaView, ScrollView, YellowBox } from 'react-native'
+import { View, FlatList, SafeAreaView, ScrollView, Button, YellowBox } from 'react-native'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
 
@@ -18,6 +18,7 @@ import {
 
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
+import { AuthAPI } from '@/api'
 
 const DATA = [
   {
@@ -83,6 +84,7 @@ const CustomDrawerContentComponent = props => (
       <StyledDrawerContentMargin>
         <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
         <DrawerItems {...props} />
+        <Button title="Logout" onPress={() => AuthAPI.signOut()} />
         <StyledTitleProject>PROJECTS</StyledTitleProject>
         <SafeAreaView>
           <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />
