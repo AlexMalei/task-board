@@ -4,14 +4,14 @@ export const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-
-  border: 1px solid red;
 `
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableHighlight.attrs(({ useBackground, theme }) => ({
+  underlayColor: useBackground ? theme.colors.lightGreen : theme.colors.white,
+}))`
   width: 70%;
 
-  background-color: ${props => props.theme.colors.lightGreen};
+  ${({ useBackground, theme }) => useBackground && `background-color:${theme.colors.lightGreen}`}
   border-radius: 25px;
 `
 

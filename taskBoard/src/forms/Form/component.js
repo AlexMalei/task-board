@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const StyledFormContainer = styled.KeyboardAvoidingView`
+export const StyledFormContainer = styled.View`
   flex: 1;
   justify-content: space-around;
   align-items: center;

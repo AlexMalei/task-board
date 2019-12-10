@@ -1,22 +1,42 @@
 import React from 'react'
-import { Image, Text } from 'react-native'
+import { Image, Text, View } from 'react-native'
 
-import { StyledAvatarContainer, StyledButton } from './component'
+import { StyledAvatarContainer, StyledAvatarButton, StyledInitials, StyledAvatar } from './component'
 import { getInitials, getAvatarColor } from '@/utils'
 
-const Avatar = ({ avatarUrl, name, size = 'medium', edit = false }) => {
+const DEFAULT_USER_NAME = 'No Name'
+
+const Avatar = ({ avatarUrl, name, size, edit }) => {
+  let noPhotoAvatarColor
+
   if (!avatarUrl) {
-    const userInitials = name ? getInitials(name) : 'NN' /*No name*/
-    const avatarColor = getAvatarColor(name)
+    noPhotoAvatarColor = getAvatarColor(name || DEFAULT_USER_NAME)
   }
 
   return (
     <StyledAvatarContainer>
-      <StyledButton size={size} onPress={() => console.log('onPressAvatar')}>
-        <Text>TEXT</Text>
-      </StyledButton>
+      {!avatarUrl ? (
+        <StyledAvatarButton
+          activeOpacity={0.5}
+          underlayColor={noPhotoAvatarColor}
+          color={noPhotoAvatarColor}
+          size={size}
+          onPress={() => console.log('onPressAvatar')}
+        >
+          <StyledInitials>{getInitials(name || DEFAULT_USER_NAME)}</StyledInitials>
+        </StyledAvatarButton>
+      ) : (
+        <StyledAvatarButton size={size} onPress={() => console.log('onPressAvatar')}>
+          <StyledAvatar size={size} source={{ uri: avatarUrl }} />
+        </StyledAvatarButton>
+      )}
     </StyledAvatarContainer>
   )
+}
+
+Avatar.defaultProps = {
+  size: 'medium',
+  edit: false,
 }
 
 export default Avatar

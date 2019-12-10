@@ -13,7 +13,6 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
   return (
     <Formik initialValues={{ name, role, about }} validationSchema={profileSchema}>
       {({ values, touched, errors, handleChange, handleBlur }) => {
-        //@todo: make avatar in the center of form. (initial if url is null)
         return (
           <Form>
             <Avatar avatarUrl={avatarUrl} name={name} size="large" />
@@ -49,7 +48,9 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
             />
 
             <Button onClick={() => console.log('update profile')}>Update profile</Button>
-            <Button onClick={() => console.log('cancel')}>Cancel</Button>
+            <Button useBackground={false} onClick={() => console.log('cancel')}>
+              Cancel
+            </Button>
           </Form>
         )
       }}

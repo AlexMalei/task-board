@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Button, View, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Button, View, ActivityIndicator, Text } from 'react-native'
 import { useQuery } from '@apollo/react-hooks'
 import jwtDecode from 'jwt-decode'
 
@@ -19,6 +19,7 @@ import { PROFILE_PAGE_PATH } from '@/constants'
 import IconMenu from '../IconMenu'
 
 const Profile = () => {
+  const editMode = useState(true)
   const { loading: loadingUserId, error: userIdError, data: userId } = useAsync(getCurrentUserId)
   const { loading: profileLoading, error: profileError, data, refetch } = useQuery(PROFILE_DATA_QUERY, {
     variables: { id: userId || '' },
@@ -27,6 +28,8 @@ const Profile = () => {
     refetch()
   }, [])
 
+  console.log('data', data)
+
   const { users_by_pk: { about_me = '', avatar_url = '', display_name = '', role = '' } = {} } = data || {}
 
   return (
@@ -34,7 +37,12 @@ const Profile = () => {
       {loadingUserId && profileLoading && <ActivityIndicator size="large" />}
       {userIdError && <Text>{userIdError}</Text>}
       {profileError && <Text>{profileError}</Text>}
-      <ProfileForm about={about_me} avatarUrl={avatar_url} name={display_name} role={role} />
+
+      {editMode ? (
+        <ProfileForm about={about_me} avatarUrl={avatar_url} name={display_name} role={role} />
+      ) : (
+        <Text></Text>
+      )}
     </React.Fragment>
   )
 }
