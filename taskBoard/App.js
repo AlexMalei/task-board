@@ -2,17 +2,17 @@ import React from 'react'
 
 import { ThemeProvider } from 'styled-components'
 import { ApolloProvider } from '@apollo/react-hooks'
-import AppNavigator from '@/routes'
+import Navigation from '@/routes'
 
 import { theme } from '@/theme'
-import { wsGqlClient } from '@/utils'
-import SignIn from '@/screens/SignIn'
+import { wsClient } from '@/client'
+import NavigationService from '@/services/Navigation'
 
 const App = () => {
   return (
-    <ApolloProvider client={wsGqlClient}>
+    <ApolloProvider client={wsClient}>
       <ThemeProvider theme={theme}>
-        <AppNavigator />
+        <Navigation ref={NavigationService.init} />
       </ThemeProvider>
     </ApolloProvider>
   )
