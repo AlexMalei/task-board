@@ -10,6 +10,7 @@ import Form from '@/forms/Form'
 import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
 import { setJwtToken } from '@/utils'
+import { HOME_PAGE_PATH } from '@/constants'
 
 const SignInForm = ({ initialValues, navigation }) => {
   useEffect(() => {
@@ -18,10 +19,10 @@ const SignInForm = ({ initialValues, navigation }) => {
         if (user) {
           const jwtToken = await user.getIdToken()
           setJwtToken(jwtToken)
-          navigation.navigate('Home')
+          navigation.navigate(HOME_PAGE_PATH)
         }
       } finally {
-        console.log('BLA')
+        console.log('test')
       }
     })
   })

@@ -19,6 +19,7 @@ import {
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
 import { AuthAPI } from '@/api'
+import { LOGIN_PATH } from '@/constants'
 
 const DATA = [
   {
@@ -64,6 +65,11 @@ function Item({ title }) {
   )
 }
 
+const onSignOut = navigation => {
+  AuthAPI.signOut(navigation)
+  navigation.navigate(LOGIN_PATH)
+}
+
 const CustomDrawerContentComponent = props => (
   <StyledDrawerContainer>
     <ScrollView>
@@ -84,7 +90,7 @@ const CustomDrawerContentComponent = props => (
       <StyledDrawerContentMargin>
         <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
         <DrawerItems {...props} />
-        <Button title="Logout" onPress={() => AuthAPI.signOut(props.navigation)} />
+        <Button title="Logout" onPress={() => onSignOut(props.navigation)} />
         <StyledTitleProject>PROJECTS</StyledTitleProject>
         <SafeAreaView>
           <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />
