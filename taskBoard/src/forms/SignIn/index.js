@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Alert } from 'react-native'
 import firebase from 'react-native-firebase'
@@ -12,10 +12,17 @@ import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
 import { HOME_PAGE_PATH, TOKEN_STORAGE_KEY } from '@/constants'
 import NavigationService from '@/services/Navigation'
+import { useRedirectIfAuthorized } from '@/hooks'
 
 const SignInForm = ({ initialValues }) => {
+  const [loading, setLoading] = useState(false)
+
+  useRedirectIfAuthorized(setLoading)
+
   const handleSignIn = async (email, password) => {
     try {
+      setLoading(true)
+
       const result = await AuthAPI.signIn(email, password)
       const token = await firebase.auth().currentUser.getIdToken()
       AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
@@ -28,6 +35,8 @@ const SignInForm = ({ initialValues }) => {
         Alert.alert('No user with this email!')
       }
       console.log('AUTH ERROR: ', message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -60,7 +69,9 @@ const SignInForm = ({ initialValues }) => {
               placeholder="*************"
             />
 
-            <Button onClick={() => handleSignIn(values.email, values.password)}>Sign In</Button>
+            <Button loading={loading} onClick={() => handleSignIn(values.email, values.password)}>
+              Sign In
+            </Button>
           </Form>
         )
       }}

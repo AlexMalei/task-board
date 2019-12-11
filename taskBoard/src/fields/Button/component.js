@@ -7,14 +7,13 @@ export const ButtonContainer = styled.View`
 
 export const Button = styled.TouchableOpacity`
   width: 70%;
+  padding: 15px;
 
   background-color: ${props => props.theme.colors.lightGreen};
   border-radius: 25px;
 `
 
 export const ButtonText = styled.Text`
-  padding: 15px;
-
   text-align: center;
   font-weight: bold;
   font-size: 14px;
