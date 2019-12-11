@@ -1,16 +1,28 @@
 import React from 'react'
 import { StyleSheet, Image, View, FlatList, ActivityIndicator, Dimensions } from 'react-native'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import IconA from 'react-native-vector-icons/dist/FontAwesome5'
+import IconD from 'react-native-vector-icons/dist/AntDesign'
 
-import { HOME_PAGE_PATH, PROFILE_PAGE_PATH, MY_TASKS_PAGE_PATH } from '@/constants'
+import {
+  HOME_PAGE_PATH,
+  PROFILE_PAGE_PATH,
+  MY_TASKS_PAGE_PATH,
+  LOGIN_PATH,
+  APP_PATH,
+  REGISTER_PATH,
+  LOGOUT_PATH,
+} from '@/constants'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
+
+import Login from '@/forms/SignIn'
+import Register from '@/forms/SignUp'
 
 const HomeScreens = createStackNavigator(
   {
@@ -93,6 +105,26 @@ export const Navigator = createDrawerNavigator(
   },
 )
 
+const AuthNavigator = createStackNavigator(
+  {
+    [LOGIN_PATH]: { screen: Login },
+    [REGISTER_PATH]: { screen: Register },
+  },
+  {
+    headerMode: 'none',
+  },
+)
+
+const SwitchNavigator = createSwitchNavigator(
+  {
+    [LOGIN_PATH]: AuthNavigator,
+    [APP_PATH]: Navigator,
+  },
+  {
+    initialRouteName: LOGIN_PATH,
+  },
+)
+
 const styles = StyleSheet.create({
   icon: {
     width: 30,
@@ -100,4 +132,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default createAppContainer(Navigator)
+export default createAppContainer(SwitchNavigator)

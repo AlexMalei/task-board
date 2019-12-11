@@ -10,13 +10,20 @@ import Form from '@/forms/Form'
 import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
 import { setJwtToken } from '@/utils'
+import { HOME_PAGE_PATH } from '@/constants'
 
-const SignInForm = ({ initialValues }) => {
+const SignInForm = ({ initialValues, navigation }) => {
   useEffect(() => {
-    return firebase.auth().onUserChanged(user => {
-      //@todo: redirect to main screen
-      setJwtToken()
-      console.log('changed user', user)
+    return firebase.auth().onUserChanged(async user => {
+      try {
+        if (user) {
+          const jwtToken = await user.getIdToken()
+          setJwtToken(jwtToken)
+          navigation.navigate(HOME_PAGE_PATH)
+        }
+      } finally {
+        console.log('test')
+      }
     })
   })
 
@@ -64,11 +71,11 @@ SignInForm.defaultProps = {
   },
 }
 
-SignInForm.propTypes = {
-  initialValues: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string,
-  }),
-}
+// SignInForm.propTypes = {
+//   initialValues: PropTypes.shape({
+//     email: PropTypes.string,
+//     password: PropTypes.string,
+//   }),
+// }
 
 export default SignInForm
