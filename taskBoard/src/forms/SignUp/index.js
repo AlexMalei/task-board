@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
@@ -9,8 +9,13 @@ import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signUpSchema } from '@/validators'
 import { AuthAPI } from '@/api'
+import { useRedirectIfAuthorized } from '@/hooks'
 
 const SignUpForm = ({ initialValues }) => {
+  const [loading, setLoading] = useState(false)
+
+  useRedirectIfAuthorized(setLoading)
+
   const handleSignUp = async (email, password) => {
     try {
       const result = await AuthAPI.signIn(email, password)
@@ -64,7 +69,9 @@ const SignUpForm = ({ initialValues }) => {
               placeholder="Something about yourself"
             />
 
-            <Button onClick={() => handleSignUp(values.email, values.password)}>Sign Up</Button>
+            <Button loading={loading} onClick={() => handleSignUp(values.email, values.password)}>
+              Sign Up
+            </Button>
           </Form>
         )
       }}
