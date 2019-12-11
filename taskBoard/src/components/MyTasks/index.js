@@ -1,8 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button } from 'react-native'
-import { DrawerActions } from 'react-navigation-drawer'
+import { StyleSheet, View, Text, Button } from 'react-native'
 
-const MyTasks = ({ navigation: { navigate } }) => {
+import { MY_TASKS_PAGE_PATH } from '@/constants'
+import IconMenu from '@/components/IconMenu'
+
+const MyTasks = () => {
   return (
     <View style={styles.appContainer}>
       <Text>MyTasks</Text>
@@ -11,14 +13,8 @@ const MyTasks = ({ navigation: { navigate } }) => {
 }
 
 MyTasks.navigationOptions = ({ navigation }) => ({
-  title: 'MyTasks',
-  headerLeft: (
-    <Button
-      source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
-      onPress={() => navigation.toggleDrawer()}
-      title="Ic"
-    />
-  ),
+  title: MY_TASKS_PAGE_PATH,
+  headerLeft: <IconMenu navigation={navigation} />,
 })
 
 const styles = StyleSheet.create({
