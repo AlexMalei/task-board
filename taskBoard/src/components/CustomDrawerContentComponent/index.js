@@ -84,7 +84,7 @@ const CustomDrawerContentComponent = props => (
       <StyledDrawerContentMargin>
         <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
         <DrawerItems {...props} />
-        <Button title="Logout" onPress={() => AuthAPI.signOut()} />
+        <Button title="Logout" onPress={() => AuthAPI.signOut(props.navigation)} />
         <StyledTitleProject>PROJECTS</StyledTitleProject>
         <SafeAreaView>
           <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />

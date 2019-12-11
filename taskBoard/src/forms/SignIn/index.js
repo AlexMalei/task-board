@@ -21,10 +21,7 @@ const SignInForm = ({ initialValues, navigation }) => {
           navigation.navigate('Home')
         }
       } finally {
-        /* catch (e) {
-        console.log('HUI PIZDA ZALUPA', e)
-      } */
-        console.log('HUI PIZDA ZALUPA')
+        console.log('BLA')
       }
     })
   })
@@ -69,7 +66,7 @@ const SignInForm = ({ initialValues, navigation }) => {
 SignInForm.defaultProps = {
   initialValues: {
     email: 'example.mail@gmail.com',
-    password: 'example-password1',
+    password: 'example-password',
   },
 }
 
