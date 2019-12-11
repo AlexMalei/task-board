@@ -1,14 +1,19 @@
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { WebSocketLink } from 'apollo-link-ws'
+import { HttpLink } from 'apollo-link-http'
 import { RetryLink } from 'apollo-link-retry'
 import { onError } from 'apollo-link-error'
+import { setContext } from 'apollo-link-context'
 import { getMainDefinition } from 'apollo-utilities'
 import { ApolloLink, split } from 'apollo-link'
 
-import { GQL_SERVER_URL, TOKEN_STORAGE_KEY } from '@/constants'
-import { refreshJwtToken, getJwtToken } from '@/utils'
+import { TOKEN_STORAGE_KEY } from '@/constants'
+import { doRefresh } from '@/utils/firebase'
+import getEnvVars from '../environment'
+
+const { api } = getEnvVars()
 
 const retryLink = new RetryLink({
   delay: {
@@ -37,7 +42,7 @@ const authLink = setContext(async (_, { headers }) => {
 })
 
 export const wsLink = new WebSocketLink({
-  uri: GQL_SERVER_URL,
+  uri: api.graphqlWSS,
   options: {
     reconnect: true,
     lazy: true,
@@ -46,6 +51,7 @@ export const wsLink = new WebSocketLink({
       console.log('Connection: ', error || 'Successful!')
 
       if (error && error.includes('JWTExpired')) {
+        console.log('Make refresh token!')
         await doRefresh()
         reconnect()
       } else if (error) {
@@ -78,6 +84,8 @@ const errorHandlingLink = onError(({ graphQLErrors, networkError }) => {
 
   if (networkError) {
     if (networkError.message === 'start received before the connection is initialised') {
+      console.log('[Network error]:', networkError)
+      console.log('Trying to reconnect')
       reconnect()
     }
     console.log('[Network error]: ', networkError)

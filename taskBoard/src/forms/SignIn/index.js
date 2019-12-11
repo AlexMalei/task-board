@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
+import { Alert } from 'react-native'
 import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
 
@@ -9,23 +10,26 @@ import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
-import { setJwtToken } from '@/utils'
-import { HOME_PAGE_PATH } from '@/constants'
+import { HOME_PAGE_PATH, TOKEN_STORAGE_KEY } from '@/constants'
+import NavigationService from '@/services/Navigation'
 
-const SignInForm = ({ initialValues, navigation }) => {
-  useEffect(() => {
-    return firebase.auth().onUserChanged(async user => {
-      try {
-        if (user) {
-          const jwtToken = await user.getIdToken()
-          setJwtToken(jwtToken)
-          navigation.navigate(HOME_PAGE_PATH)
-        }
-      } finally {
-        console.log('test')
+const SignInForm = ({ initialValues }) => {
+  const handleSignIn = async (email, password) => {
+    try {
+      const result = await AuthAPI.signIn(email, password)
+      const token = await firebase.auth().currentUser.getIdToken()
+      AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
+
+      NavigationService.navigate(HOME_PAGE_PATH)
+    } catch ({ message }) {
+      if (message.includes('The password is invalid')) {
+        Alert.alert('Password is invalid!')
+      } else if (message.includes('There is no user record corresponding to this identifier')) {
+        Alert.alert('No user with this email!')
       }
-    })
-  })
+      console.log('AUTH ERROR: ', message)
+    }
+  }
 
   //@todo: make error messages
   return (
@@ -56,7 +60,7 @@ const SignInForm = ({ initialValues, navigation }) => {
               placeholder="*************"
             />
 
-            <Button onClick={() => AuthAPI.signIn(values.email, values.password)}>Sign In</Button>
+            <Button onClick={() => handleSignIn(values.email, values.password)}>Sign In</Button>
           </Form>
         )
       }}
@@ -70,12 +74,5 @@ SignInForm.defaultProps = {
     password: 'example-password',
   },
 }
-
-// SignInForm.propTypes = {
-//   initialValues: PropTypes.shape({
-//     email: PropTypes.string,
-//     password: PropTypes.string,
-//   }),
-// }
 
 export default SignInForm

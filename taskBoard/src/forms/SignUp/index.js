@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
@@ -9,18 +9,21 @@ import Button from '@/fields/Button'
 import Form from '@/forms/Form'
 import { signUpSchema } from '@/validators'
 import { AuthAPI } from '@/api'
-import { setJwtToken } from '@/utils'
 
 const SignUpForm = ({ initialValues }) => {
-  useEffect(() => {
-    return firebase.auth().onUserChanged(user => {
-      //@todo: redirect to main screen
-      //@todo: make gql request for adding info about_me(bio)
-      //@todo: potential problem: redirect can apply multiple times
-      setJwtToken()
-      console.log('changed user', user)
-    })
-  })
+  const handleSignUp = async (email, password) => {
+    try {
+      const result = await AuthAPI.signIn(email, password)
+      const token = await firebase.auth().currentUser.getIdToken()
+      AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
+
+      //@todo: make gql mutation for adding info about_me(bio)
+
+      NavigationService.navigate(HOME_PAGE_PATH)
+    } catch ({ message }) {
+      //@todo: handle firebase errors(for example: already exists email)
+    }
+  }
 
   //@todo: make error messages
   return (
@@ -61,7 +64,7 @@ const SignUpForm = ({ initialValues }) => {
               placeholder="Something about yourself"
             />
 
-            <Button onClick={() => AuthAPI.signUp(values.email, values.password)}>Sign Up</Button>
+            <Button onClick={() => handleSignUp(values.email, values.password)}>Sign Up</Button>
           </Form>
         )
       }}

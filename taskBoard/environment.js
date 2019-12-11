@@ -1,4 +1,4 @@
-const API_GRAPHQL_ENDPOINT = ''
+const API_GRAPHQL_ENDPOINT = 'https://education-board-api.herokuapp.com/v1/graphql'
 const API_GRAPHQL_WSS_ENDPOINT = ''
 
 const ENV = {
@@ -12,7 +12,7 @@ const ENV = {
   prod: {},
 }
 
-const getEnvVars = (env = Constants.manifest.releaseChannel) => {
+const getEnvVars = env => {
   if (__DEV__) {
     return ENV.dev
   }

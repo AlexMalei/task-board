@@ -20,6 +20,7 @@ import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
 import { AuthAPI } from '@/api'
 import { LOGIN_PATH } from '@/constants'
+import NavigationService from '@/services/Navigation'
 
 const DATA = [
   {
@@ -65,9 +66,9 @@ function Item({ title }) {
   )
 }
 
-const onSignOut = navigation => {
-  AuthAPI.signOut(navigation)
-  navigation.navigate(LOGIN_PATH)
+const onSignOut = () => {
+  AuthAPI.signOut()
+  NavigationService.navigate(LOGIN_PATH)
 }
 
 const CustomDrawerContentComponent = props => (

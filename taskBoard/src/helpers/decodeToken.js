@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import decodeJWT from 'jwt-decode'
 
 import { TOKEN_STORAGE_KEY } from '@/constants'
