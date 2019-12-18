@@ -1,0 +1,77 @@
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import firebase from 'react-native-firebase'
+import { Formik } from 'formik'
+
+import Input from '@/fields/Input'
+import Button from '@/fields/Button'
+import Avatar from '@/fields/Avatar'
+import Form from '@/forms/Form'
+import { profileSchema } from '@/validators'
+
+const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPress }) => {
+  return (
+    <Formik initialValues={{ name, role, about }} validationSchema={profileSchema}>
+      {({ values, touched, errors, handleChange, handleBlur }) => {
+        return (
+          <Form>
+            <Avatar avatarUrl={avatarUrl} name={name} size="large" />
+
+            <Input
+              label="Name"
+              value={values.name}
+              onChangeText={handleChange('name')}
+              onBlur={handleBlur('name')}
+              error={errors['name']}
+              touched={touched['name']}
+              placeholder="Input name"
+            />
+
+            <Input
+              label="Role"
+              value={values.role}
+              onChangeText={handleChange('role')}
+              onBlur={handleBlur('role')}
+              error={errors['role']}
+              touched={touched['role']}
+              placeholder="Input role"
+            />
+
+            <Input
+              label="About"
+              value={values.about}
+              onChangeText={handleChange('about')}
+              onBlur={handleBlur('about')}
+              error={errors['about']}
+              touched={touched['about']}
+              placeholder="Input info about yourself"
+            />
+
+            <Button onClick={() => onUpdatePress(values.name, values.role, values.about)}>Update profile</Button>
+            <Button useBackground={false} onClick={onCancelPress}>
+              Cancel
+            </Button>
+          </Form>
+        )
+      }}
+    </Formik>
+  )
+}
+
+ProfileForm.defaultProps = {
+  avatarUrl: '',
+  name: '',
+  role: '',
+  about: '',
+  onUpdatePress: () => {},
+  onCancelPress: () => {},
+}
+
+ProfileForm.propTypes = {
+  name: PropTypes.string,
+  role: PropTypes.string,
+  about: PropTypes.string,
+  avatarUrl: PropTypes.string,
+}
+
+export default ProfileForm

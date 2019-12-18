@@ -1,9 +1,9 @@
 import React from 'react'
 import { FlatList, ActivityIndicator, Text } from 'react-native'
-import { useQuery } from '@apollo/react-hooks'
+import { useSubscription } from '@apollo/react-hooks'
 
 import { StyledProjectsContainer, StyledPageTitle } from './component'
-import { PROJECTS_QUERY } from '@/utils'
+import { PROJECTS_SUBSCRIPTION } from '@/subscriptions'
 import Project from '@/components/Project'
 
 const keyExtractor = ({ id }) => id.toString()
@@ -24,7 +24,7 @@ const renderItem = ({ item: { id, name, members, boards, background_color } }) =
 }
 
 const Projects = () => {
-  const { loading, error, data } = useQuery(PROJECTS_QUERY)
+  const { loading, error, data } = useSubscription(PROJECTS_SUBSCRIPTION)
   const { projects } = data || {}
 
   return (
