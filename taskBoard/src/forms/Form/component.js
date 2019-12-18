@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledFormContainer = styled.View`
   flex: 1;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 
   padding: 20px;

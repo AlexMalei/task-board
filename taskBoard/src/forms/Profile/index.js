@@ -47,8 +47,8 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
               placeholder="Input info about yourself"
             />
 
-            <Button onClick={() => console.log('update profile')}>Update profile</Button>
-            <Button useBackground={false} onClick={() => console.log('cancel')}>
+            <Button onClick={() => onUpdatePress(values.name, values.role, values.about)}>Update profile</Button>
+            <Button useBackground={false} onClick={onCancelPress}>
               Cancel
             </Button>
           </Form>
@@ -63,6 +63,8 @@ ProfileForm.defaultProps = {
   name: '',
   role: '',
   about: '',
+  onUpdatePress: () => {},
+  onCancelPress: () => {},
 }
 
 ProfileForm.propTypes = {

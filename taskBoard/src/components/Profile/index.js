@@ -1,47 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { Button, View, ActivityIndicator, Text } from 'react-native'
-import { useQuery } from '@apollo/react-hooks'
-import jwtDecode from 'jwt-decode'
+import React, { useState } from 'react'
+import { ActivityIndicator, Text } from 'react-native'
+import { useSubscription, useMutation } from '@apollo/react-hooks'
 
-import { StyledErrorText } from './component'
-import { getJwtToken, PROFILE_DATA_QUERY } from '@/utils'
-import { useAsync } from '@/hooks'
+import ProfileView from '@/components/ProfileView'
+import HeaderIcon from '@/components/HeaderIcon'
 import ProfileForm from '@/forms/Profile'
-
-const getCurrentUserId = async () => {
-  const jwtToken = await getJwtToken()
-  const { user_id } = await jwtDecode(jwtToken)
-
-  return user_id
-}
-
+import { PROFILE_DATA_SUBSCRIPTION } from '@/subscriptions'
+import { UPDATE_PROFILE_DATA } from '@/mutations'
+import { useAsync } from '@/hooks'
 import { PROFILE_PAGE_PATH } from '@/constants'
-import IconMenu from '../IconMenu'
+import { getUserFromToken } from '@/helpers'
 
 const Profile = () => {
-  const editMode = useState(true)
-  const { loading: loadingUserId, error: userIdError, data: userId } = useAsync(getCurrentUserId)
-  const { loading: profileLoading, error: profileError, data, refetch } = useQuery(PROFILE_DATA_QUERY, {
+  const [editMode, setEditMode] = useState(true)
+  const { data: userId } = useAsync(getUserFromToken)
+  const { loading: profileLoading, error: profileError, data } = useSubscription(PROFILE_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
-  useEffect(() => {
-    refetch()
-  }, [])
 
-  console.log('data', data)
+  const [updateProfile] = useMutation(UPDATE_PROFILE_DATA)
 
-  const { users_by_pk: { about_me = '', avatar_url = '', display_name = '', role = '' } = {} } = data || {}
+  const handleUpdateProfile = (name, role, about) => {
+    updateProfile({ variables: { id: userId, role, name, about } })
+  }
+
+  const { users_by_pk: { about_me, avatar_url, display_name, role, email } = {} } = data || {}
 
   return (
     <React.Fragment>
-      {loadingUserId && profileLoading && <ActivityIndicator size="large" />}
-      {userIdError && <Text>{userIdError}</Text>}
-      {profileError && <Text>{profileError}</Text>}
-
-      {editMode ? (
-        <ProfileForm about={about_me} avatarUrl={avatar_url} name={display_name} role={role} />
+      {profileLoading ? (
+        <ActivityIndicator size="large" />
+      ) : editMode ? (
+        <ProfileForm
+          about={about_me}
+          avatarUrl={avatar_url}
+          name={display_name}
+          role={role}
+          onCancelPress={() => setEditMode(false)}
+          onUpdatePress={(name, role, about) => handleUpdateProfile(name, role, about)}
+        />
       ) : (
-        <Text></Text>
+        <ProfileView avatar={avatar_url} email={email} name={display_name} role={role}></ProfileView>
       )}
     </React.Fragment>
   )
@@ -49,7 +48,10 @@ const Profile = () => {
 
 Profile.navigationOptions = ({ navigation }) => ({
   title: PROFILE_PAGE_PATH,
-  headerLeft: <IconMenu navigation={navigation} />,
+  headerLeft: <HeaderIcon name="menu" onPress={() => navigation.toggleDrawer()} />,
+  headerRight: (
+    <HeaderIcon name="settings" onPress={() => console.log('On settings click') /*Make menu with 'Edit' option */} />
+  ),
 })
 
 export default Profile

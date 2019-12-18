@@ -12,21 +12,13 @@ const Form = ({ children }) => {
     if (height === 0) {
       setHeight(event.nativeEvent.layout.height)
     }
-    console.log('height', height)
   }
   const heightStyle = height === 0 ? {} : { height }
 
   return (
     <View style={{ flex: 1, height }} onLayout={event => saveAllScreenContainerHeight(event)}>
       <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={0} extraScrollHeight={0}>
-        <StyledFormContainer
-          style={[heightStyle]}
-          behavior="padding"
-          keyboardVerticalOffset={0}
-          onLayout={event => {
-            console.log('event.nativeEvent.layout.height', event.nativeEvent.layout.height)
-          }}
-        >
+        <StyledFormContainer style={[heightStyle]} behavior="padding" keyboardVerticalOffset={0}>
           {children}
         </StyledFormContainer>
       </KeyboardAwareScrollView>

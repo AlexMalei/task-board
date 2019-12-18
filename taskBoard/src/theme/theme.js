@@ -23,14 +23,6 @@ const colors = {
   error,
 }
 
-const sizes = [20, 60, 100]
-
-const avatarSizes = {
-  small: sizes[0],
-  medium: sizes[1],
-  large: sizes[2],
-}
-
 const fontSizes = [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 8]
 
 const sizePx = {
@@ -43,12 +35,10 @@ const sizePx = {
   0: '0px',
 }
 
-
 const space = [0, 4, 8, 16, 20, 24, 28, 32, 64, 128]
 
 export const theme = {
   colors,
   space,
   fontSizes,
-  avatarSizes,
 }
