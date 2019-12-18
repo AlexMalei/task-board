@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, SafeAreaView, ScrollView, Button, YellowBox } from 'react-native'
+import { View, FlatList, SafeAreaView, ScrollView } from 'react-native'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
 
@@ -18,8 +18,6 @@ import {
 
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
-import { AuthAPI } from '@/api'
-import { LOGIN_PATH } from '@/constants'
 
 const DATA = [
   {
@@ -52,9 +50,7 @@ const DATA = [
   },
 ]
 
-YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
-])
+// console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
 
 function Item({ title }) {
   return (
@@ -63,11 +59,6 @@ function Item({ title }) {
       <StyledDrawerProjectText>{title}</StyledDrawerProjectText>
     </StyledDrawerProjectContainer>
   )
-}
-
-const onSignOut = navigation => {
-  AuthAPI.signOut(navigation)
-  navigation.navigate(LOGIN_PATH)
 }
 
 const CustomDrawerContentComponent = props => (
@@ -90,7 +81,6 @@ const CustomDrawerContentComponent = props => (
       <StyledDrawerContentMargin>
         <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
         <DrawerItems {...props} />
-        <Button title="Logout" onPress={() => onSignOut(props.navigation)} />
         <StyledTitleProject>PROJECTS</StyledTitleProject>
         <SafeAreaView>
           <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />

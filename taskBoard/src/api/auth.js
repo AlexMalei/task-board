@@ -5,16 +5,15 @@ export const AuthAPI = {
     new Promise(async resolve => resolve(await firebase.auth().createUserWithEmailAndPassword(email, password))),
 
   signIn: (email, password) =>
-    new Promise(async resolve => {
+    new Promise(async (resolve, reject) => {
       try {
-        const userCreds = await firebase.auth().signInWithEmailAndPassword(email, password)
-        resolve(userCreds)
+        resolve(await firebase.auth().signInWithEmailAndPassword(email, password))
       } catch (error) {
-        console.log('testERROR', error)
+        reject(error)
       }
     }),
 
-  signOut: navigation =>
+  signOut: () =>
     new Promise(async resolve => {
       resolve(await firebase.auth().signOut())
     }),

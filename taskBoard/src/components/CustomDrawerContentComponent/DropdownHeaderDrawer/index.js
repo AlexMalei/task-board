@@ -1,11 +1,20 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import ModalDropdown from 'react-native-modal-dropdown'
 
-const ModalDropdown = () => {
+import NavigationService from '@/services/Navigation'
+import { LOGIN_PATH, PROFILE_PAGE_PATH, NOTIFICATIONS_PAGE_PATH, LOGOUT_PATH } from '@/constants'
+import { doLogout } from '@/utils'
+import { AuthAPI } from '@/api'
+
+import { StyledDrawerIcon } from './component'
+
+const MENU_OPTIONS = [PROFILE_PAGE_PATH, NOTIFICATIONS_PAGE_PATH, LOGOUT_PATH]
+
+const DropdownProfileDrawer = () => {
   return (
     <ModalDropdown
-      options={DEMO_OPTIONS_1}
+      options={MENU_OPTIONS}
       defaultValue={<StyledDrawerIcon name="more-horiz" />}
       keyboardShouldPersistTaps={'always'}
       style={styles.bla}
@@ -14,9 +23,46 @@ const ModalDropdown = () => {
       dropdownTextHighlightStyle={styles.dropText}
       animated={true}
       renderButtonText={() => <StyledDrawerIcon name="more-horiz" />}
-      onSelect={onPressDropdown}
+      onSelect={index => onPressDropdown(index)}
     />
   )
 }
 
-export default ModalDropdown
+const onSignOut = () => {
+  AuthAPI.signOut()
+  doLogout()
+  NavigationService.navigate(LOGIN_PATH)
+}
+
+const onPressDropdown = index => {
+  switch (index) {
+    case '0':
+      break
+    case '1':
+      break
+    case '2':
+      onSignOut()
+      break
+    default:
+      break
+  }
+}
+
+const styles = StyleSheet.create({
+  drop: {
+    marginTop: 25,
+    marginRight: -22,
+    width: 120,
+    height: 118,
+  },
+  dropText: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: '#202020',
+    color: 'white',
+    fontSize: 14,
+  },
+})
+
+export default DropdownProfileDrawer

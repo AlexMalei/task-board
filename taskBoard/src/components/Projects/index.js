@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, ActivityIndicator, Text } from 'react-native'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useSubscription } from '@apollo/react-hooks'
 
 import { StyledProjectsContainer, StyledPageTitle } from './component'
 import { PROJECTS_QUERY } from '@/utils'
@@ -24,7 +24,10 @@ const renderItem = ({ item: { id, name, members, boards, background_color } }) =
 }
 
 const Projects = () => {
-  const { loading, error, data } = useQuery(PROJECTS_QUERY)
+  // const { loading, error, data } = useSubscription(PROJECTS_QUERY)
+  let data = {}
+  let loading = false
+  let error = false
   const { projects } = data || {}
 
   return (
