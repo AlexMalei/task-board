@@ -1,16 +1,49 @@
 import React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-import { ButtonContainer, Button as TouchableButton, ButtonText } from './component'
+import { Button as ReactButton } from 'react-native-elements'
 
-const Button = ({ loading = false, children, onClick, ...props }) => {
+import { theme } from '@/theme'
+
+const Button = ({ children, loading, onClick, useBackground, ...props }) => {
+  const backgroundStyle = { backgroundColor: useBackground ? theme.colors.lightGreen : theme.colors.white }
+
   return (
-    <ButtonContainer>
-      <TouchableButton onPress={onClick} {...props}>
-        {loading ? <ActivityIndicator /> : <ButtonText>{children}</ButtonText>}
-      </TouchableButton>
-    </ButtonContainer>
+    <ReactButton
+      buttonStyle={[styles.button, backgroundStyle]}
+      titleStyle={styles.content}
+      loadingStyle={styles.content}
+      loadingProps={{ color: 'black' }}
+      title={children}
+      type={useBackground ? 'solid' : 'clear'}
+      loading={loading}
+      onPress={onClick}
+    />
   )
+}
+
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '70%',
+    padding: 15,
+
+    borderRadius: 25,
+  },
+
+  content: {
+    flex: 1,
+
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'black',
+  },
+})
+
+Button.defaultProps = {
+  useBackground: true,
+  loading: false,
 }
 
 export default Button

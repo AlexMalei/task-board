@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { TextInput, InputTitle } from './component'
+import { StyledInputContainer, TextInput, InputTitle } from './component'
 
 const Input = ({ label, error, touched, ...props }) => {
   const errorStyle = {
@@ -10,7 +10,7 @@ const Input = ({ label, error, touched, ...props }) => {
   }
   //@todo: error text layout
   return (
-    <>
+    <StyledInputContainer>
       {label ? <InputTitle>{label}</InputTitle> : null}
       <TextInput
         style={error && touched ? errorStyle : null}
@@ -18,7 +18,7 @@ const Input = ({ label, error, touched, ...props }) => {
         placeholderTextColor="#13131380"
         {...props}
       />
-    </>
+    </StyledInputContainer>
   )
 }
 

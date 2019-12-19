@@ -10,8 +10,5 @@ export const getUserFromToken = async () => {
   const token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY)
   const data = await decodeJWT(token)
 
-  return {
-    id: data[HASURA_CLAIMS][HASURA_USER_ID_CLAIM],
-    email: data.email,
-  }
+  return data[HASURA_CLAIMS][HASURA_USER_ID_CLAIM]
 }

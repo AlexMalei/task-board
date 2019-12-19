@@ -47,6 +47,16 @@ export const wsLink = new WebSocketLink({
     reconnect: true,
     lazy: true,
 
+    connectionParams: async () => {
+      const token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY)
+
+      return {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : null,
+        },
+      }
+    },
+
     connectionCallback: async error => {
       console.log('Connection: ', error || 'Successful!')
 
@@ -56,16 +66,6 @@ export const wsLink = new WebSocketLink({
         reconnect()
       } else if (error) {
         reconnect()
-      }
-    },
-
-    connectionParams: async () => {
-      const token = AsyncStorage.getItem(TOKEN_STORAGE_KEY)
-
-      return {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : null,
-        },
       }
     },
 
@@ -95,7 +95,7 @@ const errorHandlingLink = onError(({ graphQLErrors, networkError }) => {
 const link = split(
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query)
-    return kind === 'OperationDefinition' && 'operation' === 'subscription'
+    return kind === 'OperationDefinition' && operation === 'subscription'
   },
   retryLink.concat(wsLink),
   authLink.concat(httpLink),

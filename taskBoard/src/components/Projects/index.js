@@ -3,7 +3,7 @@ import { FlatList, ActivityIndicator, Text } from 'react-native'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 
 import { StyledProjectsContainer, StyledPageTitle } from './component'
-import { PROJECTS_QUERY } from '@/utils'
+import { PROJECTS_SUBSCRIPTION } from '@/subscriptions'
 import Project from '@/components/Project'
 
 const keyExtractor = ({ id }) => id.toString()
@@ -28,6 +28,8 @@ const Projects = () => {
   let data = {}
   let loading = false
   let error = false
+
+  const { loading, error, data } = useSubscription(PROJECTS_SUBSCRIPTION)
   const { projects } = data || {}
 
   return (

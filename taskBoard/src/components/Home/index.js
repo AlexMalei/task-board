@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { HOME_PAGE_PATH } from '@/constants'
-import IconMenu from '@/components/IconMenu'
+import HeaderIcon from '@/components/HeaderIcon'
 import Projects from '@/components/Projects'
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 
 Home.navigationOptions = ({ navigation }) => ({
   title: HOME_PAGE_PATH,
-  headerLeft: <IconMenu navigation={navigation} />,
+  headerLeft: <HeaderIcon name="menu" onPress={() => navigation.toggleDrawer()} />,
 })
 
 export default Home

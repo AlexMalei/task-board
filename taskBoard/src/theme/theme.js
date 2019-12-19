@@ -8,6 +8,8 @@ const pampas = '#EEEBE5'
 const gray = '#9b9b9b'
 const gold = '#FFC200'
 
+const error = '#CF1A17'
+
 const colors = {
   black,
   white,
@@ -18,6 +20,7 @@ const colors = {
   gray,
   gold,
   codGray,
+  error,
 }
 
 const fontSizes = [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 8]
@@ -30,13 +33,6 @@ const sizePx = {
   10: '10px',
   1: '1px',
   0: '0px',
-}
-
-const avatarFontSizes = {
-  small: fontSizes[2],
-  medium: fontSizes[3],
-  large: fontSizes[5],
-  xlarge: fontSizes[7],
 }
 
 const space = [0, 4, 8, 16, 20, 24, 28, 32, 64, 128]
