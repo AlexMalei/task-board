@@ -21,13 +21,15 @@ import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
 
-import Login from '@/forms/SignIn'
-import Register from '@/forms/SignUp'
+import ProjectTabNavigator from './ProjectTabNavigator'
+
+import SignInScreen from '@/screens/SignIn'
+import SignUpScreen from '@/screens/SignUp'
 
 const HomeScreens = createStackNavigator(
   {
     [HOME_PAGE_PATH]: {
-      screen: Home,
+      screen: ProjectTabNavigator,
     },
   },
   {
@@ -107,8 +109,8 @@ export const Navigator = createDrawerNavigator(
 
 const AuthNavigator = createStackNavigator(
   {
-    [LOGIN_PATH]: { screen: Login },
-    [REGISTER_PATH]: { screen: Register },
+    [LOGIN_PATH]: SignInScreen,
+    [REGISTER_PATH]: SignUpScreen,
   },
   {
     headerMode: 'none',
