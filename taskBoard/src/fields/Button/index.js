@@ -11,7 +11,7 @@ const Button = ({ children, loading, onClick, useBackground, ...props }) => {
   return (
     <ReactButton
       buttonStyle={[styles.button, backgroundStyle]}
-      titleStyle={styles.content}
+      titleStyle={[styles.content, styles.boldText]}
       loadingStyle={styles.content}
       loadingProps={{ color: 'black' }}
       title={children}
@@ -34,9 +34,12 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+  },
 
+  boldText: {
     fontWeight: 'bold',
     fontSize: 14,
+
     color: 'black',
   },
 })
