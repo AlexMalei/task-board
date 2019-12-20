@@ -5,9 +5,9 @@ import { Button, colors } from 'react-native-elements'
 
 import { theme } from '@/theme'
 
-const BoardButton = ({ children, onClick }) => {
+const BoardButton = ({ children, onPress }) => {
   return (
-    <Button buttonStyle={styles.button} titleStyle={styles.content} title={children} type={'solid'} onPress={onClick} />
+    <Button buttonStyle={styles.button} titleStyle={styles.content} title={children} type={'solid'} onPress={onPress} />
   )
 }
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 BoardButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
 }
 
 export default BoardButton

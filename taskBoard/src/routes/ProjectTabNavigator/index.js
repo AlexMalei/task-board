@@ -45,7 +45,7 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
     },
   },
   {
-    initialRouteName: TASKS_PAGE_PATH,
+    initialRouteName: BOARDS_PAGE_PATH,
     lazy: true,
     //lazyPlaceholderComponent
     swipeEnabled: false,
