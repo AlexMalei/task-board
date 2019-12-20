@@ -2,14 +2,14 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import ModalDropdown from 'react-native-modal-dropdown'
 
+import { LOGIN_PATH, PROFILE_PAGE_PATH, LOGOUT_PATH, SETTINGS_PATH } from '@/constants'
 import NavigationService from '@/services/Navigation'
-import { LOGIN_PATH, PROFILE_PAGE_PATH, NOTIFICATIONS_PAGE_PATH, LOGOUT_PATH } from '@/constants'
 import { doLogout } from '@/utils'
 import { AuthAPI } from '@/api'
 
 import { StyledDrawerIcon } from './component'
 
-const MENU_OPTIONS = [PROFILE_PAGE_PATH, NOTIFICATIONS_PAGE_PATH, LOGOUT_PATH]
+const MENU_OPTIONS = [PROFILE_PAGE_PATH, SETTINGS_PATH, LOGOUT_PATH]
 
 const DropdownProfileDrawer = () => {
   return (
@@ -51,7 +51,7 @@ const onPressDropdown = index => {
 const styles = StyleSheet.create({
   drop: {
     marginTop: 25,
-    marginRight: -22,
+    marginRight: -15,
     width: 120,
     height: 118,
   },

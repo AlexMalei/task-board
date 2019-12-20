@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, ActivityIndicator, Text } from 'react-native'
-import { useQuery, useSubscription } from '@apollo/react-hooks'
+import { useSubscription } from '@apollo/react-hooks'
 
 import { StyledProjectsContainer, StyledPageTitle } from './component'
 import { PROJECTS_SUBSCRIPTION } from '@/subscriptions'
@@ -24,11 +24,6 @@ const renderItem = ({ item: { id, name, members, boards, background_color } }) =
 }
 
 const Projects = () => {
-  // const { loading, error, data } = useSubscription(PROJECTS_QUERY)
-  let data = {}
-  let loading = false
-  let error = false
-
   const { loading, error, data } = useSubscription(PROJECTS_SUBSCRIPTION)
   const { projects } = data || {}
 

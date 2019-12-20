@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Picker, YellowBox } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Picker, YellowBox, TouchableHighlight } from 'react-native'
 
-import imageProfile from '@/assets/user_logo.jpeg'
 import DropdownProfileDrawer from '@/components/CustomDrawerContentComponent/DropdownHeaderDrawer'
+import NavigationService from '@/services/Navigation'
 
 import {
   StyledDrawerHeader,
@@ -11,29 +11,26 @@ import {
   StyledDrawerTextGray,
 } from './component'
 
-YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
-])
+// YellowBox.ignoreWarnings([
+//   'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
+// ])
 
-useEffect(() => {
-  const getContacts = async () => {
-    const contacts = await fetchContacts()
+const onUserProfile = () => {
+  NavigationService.navigate('Profile')
+}
 
-    setState({
-      ...state,
-      contacts,
-      loading: false,
-      error: false,
-    })
-  }
-}, [])
-
-const DrawerHeader = () => {
+const DrawerHeader = ({ name, avatar }) => {
   return (
     <StyledDrawerHeader>
-      <StyledDrawerImageProfile source={imageProfile} />
+      <TouchableHighlight onPress={() => onUserProfile()}>
+        <StyledDrawerImageProfile
+          source={{
+            uri: avatar,
+          }}
+        />
+      </TouchableHighlight>
       <View>
-        <StyledDrawerProfileText>Sacha Belui</StyledDrawerProfileText>
+        <StyledDrawerProfileText>{name}</StyledDrawerProfileText>
         <StyledDrawerTextGray>Junior</StyledDrawerTextGray>
       </View>
       <DropdownProfileDrawer />
