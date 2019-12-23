@@ -13,3 +13,19 @@ export const PROFILE_DATA_SUBSCRIPTION = gql`
     }
   }
 `
+export const USER_DATA_SUBSCRIPTION = gql`
+  subscription profileData($id: String!) {
+    users_by_pk(id: $id) {
+      id
+      role
+      about_me
+      avatar_url
+      display_name
+      email
+      projects {
+        id
+        name
+      }
+    }
+  }
+`

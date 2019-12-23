@@ -1,35 +1,36 @@
 import React from 'react'
-import { StyleSheet, Image, View, FlatList, ActivityIndicator, Dimensions } from 'react-native'
+import { StyleSheet, Image, View, FlatList, ActivityIndicator, Dimensions, Text } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
+import IconB from 'react-native-vector-icons/dist/Entypo'
 import IconA from 'react-native-vector-icons/dist/FontAwesome5'
-import IconD from 'react-native-vector-icons/dist/AntDesign'
 
 import {
   HOME_PAGE_PATH,
   PROFILE_PAGE_PATH,
-  MY_TASKS_PAGE_PATH,
   LOGIN_PATH,
   APP_PATH,
   REGISTER_PATH,
-  LOGOUT_PATH,
+  NOTIFICATIONS_PAGE_PATH,
+  MY_TASKS_PAGE_PATH,
 } from '@/constants'
-import Home from '@/components/Home'
-import Profile from '@/components/Profile'
-import MyTasks from '@/components/MyTasks'
-import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
-
-import ProjectTabNavigator from './ProjectTabNavigator'
-
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
+import MyTasks from '@/components/MyTasks'
+import Notifications from '@/components/Notifications'
+import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
+import ProjectTabNavigator from './ProjectTabNavigator'
+import Profile from '@/components/Profile'
 
 const HomeScreens = createStackNavigator(
   {
     [HOME_PAGE_PATH]: {
       screen: ProjectTabNavigator,
+    },
+    [PROFILE_PAGE_PATH]: {
+      screen: Profile,
     },
   },
   {
@@ -40,24 +41,6 @@ const HomeScreens = createStackNavigator(
       tabBarLabel: HOME_PAGE_PATH,
       inactiveTintColor: 'grey',
       drawerIcon: () => <Icon style={styles.icon} name="home" size={32} color="#FFFFFF" />,
-    },
-  },
-)
-
-const ProfileScreens = createStackNavigator(
-  {
-    [PROFILE_PAGE_PATH]: {
-      screen: Profile,
-    },
-  },
-  {
-    initialRouteName: PROFILE_PAGE_PATH,
-    navigationOptions: {
-      drawerLabel: PROFILE_PAGE_PATH,
-      title: PROFILE_PAGE_PATH,
-      tabBarLabel: PROFILE_PAGE_PATH,
-      inactiveTintColor: 'grey',
-      drawerIcon: () => <Icon style={styles.icon} name="user" size={32} color="#FFFFFF" />,
     },
   },
 )
@@ -80,11 +63,29 @@ const MyTasksScreens = createStackNavigator(
   },
 )
 
+const NotificationsScreens = createStackNavigator(
+  {
+    [NOTIFICATIONS_PAGE_PATH]: {
+      screen: Notifications,
+    },
+  },
+  {
+    initialRouteName: NOTIFICATIONS_PAGE_PATH,
+    navigationOptions: {
+      drawerLabel: NOTIFICATIONS_PAGE_PATH,
+      title: NOTIFICATIONS_PAGE_PATH,
+      tabBarLabel: NOTIFICATIONS_PAGE_PATH,
+      inactiveTintColor: 'grey',
+      drawerIcon: () => <IconB style={styles.icon} name="message" size={32} color="#FFFFFF" />,
+    },
+  },
+)
+
 export const Navigator = createDrawerNavigator(
   {
     [HOME_PAGE_PATH]: HomeScreens,
-    [PROFILE_PAGE_PATH]: ProfileScreens,
     [MY_TASKS_PAGE_PATH]: MyTasksScreens,
+    [NOTIFICATIONS_PAGE_PATH]: NotificationsScreens,
   },
   {
     initialRouteName: HOME_PAGE_PATH,

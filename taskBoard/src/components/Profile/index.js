@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 
@@ -9,11 +9,11 @@ import { PROFILE_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_PROFILE_DATA } from '@/mutations'
 import { useAsync } from '@/hooks'
 import { PROFILE_PAGE_PATH } from '@/constants'
-import { getUserFromToken } from '@/helpers'
+import { getUserIdFromToken } from '@/helpers'
 
-const Profile = () => {
-  const [editMode, setEditMode] = useState(true)
-  const { data: userId } = useAsync(getUserFromToken)
+const Profile = ({ navigation: { state, setParams } }) => {
+  const [editMode, setEditMode] = useState(false)
+  const { data: userId } = useAsync(getUserIdFromToken)
   const { loading: profileLoading, error: profileError, data } = useSubscription(PROFILE_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
@@ -22,9 +22,23 @@ const Profile = () => {
 
   const handleUpdateProfile = (name, role, about) => {
     updateProfile({ variables: { id: userId, role, name, about } })
+    onClose()
+  }
+  const { users_by_pk: { about_me, avatar_url, display_name, role, email } = {} } = data || {}
+
+  const onClose = () => {
+    setEditMode(false)
   }
 
-  const { users_by_pk: { about_me, avatar_url, display_name, role, email } = {} } = data || {}
+  const { params } = state
+  const editModeParam = params?.editMode
+
+  useEffect(() => {
+    if (editModeParam && editMode !== editModeParam) {
+      setEditMode(editModeParam)
+      setParams({ editMode: false })
+    }
+  })
 
   return (
     <React.Fragment>
@@ -36,7 +50,7 @@ const Profile = () => {
           avatarUrl={avatar_url}
           name={display_name}
           role={role}
-          onCancelPress={() => setEditMode(false)}
+          onCancelPress={() => onClose()}
           onUpdatePress={(name, role, about) => handleUpdateProfile(name, role, about)}
         />
       ) : (
@@ -49,9 +63,7 @@ const Profile = () => {
 Profile.navigationOptions = ({ navigation }) => ({
   title: PROFILE_PAGE_PATH,
   headerLeft: <HeaderIcon name="menu" onPress={() => navigation.toggleDrawer()} />,
-  headerRight: (
-    <HeaderIcon name="settings" onPress={() => console.log('On settings click') /*Make menu with 'Edit' option */} />
-  ),
+  headerRight: <HeaderIcon name="settings" onPress={() => navigation.setParams({ editMode: true })} />,
 })
 
 export default Profile

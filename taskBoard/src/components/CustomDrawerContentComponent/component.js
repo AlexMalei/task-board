@@ -23,6 +23,7 @@ export const StyledDrawerImageProfile = styled.Image`
 export const StyledDrawerContentMargin = styled.View`
   margin-left: 20;
   margin-right: 20;
+  color: yellow;
 `
 export const StyledDrawerProfileText = styled.Text`
   color: ${props => props.theme.colors.white};
