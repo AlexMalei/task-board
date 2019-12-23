@@ -12,7 +12,9 @@ import { PROFILE_PAGE_PATH } from '@/constants'
 import { getUserIdFromToken } from '@/helpers'
 
 const Profile = props => {
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(() => {
+    return false
+  })
   const { data: userId } = useAsync(getUserIdFromToken)
   const { loading: profileLoading, error: profileError, data } = useSubscription(PROFILE_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
@@ -22,20 +24,23 @@ const Profile = props => {
 
   const handleUpdateProfile = (name, role, about) => {
     updateProfile({ variables: { id: userId, role, name, about } })
+    onClose()
   }
-
   const { users_by_pk: { about_me, avatar_url, display_name, role, email } = {} } = data || {}
-
-  const onStart = () => {
-    if (props.navigation?.state?.params?.editMode) {
-      // finish editing
-      setEditMode(true)
-    }
-  }
 
   const onClose = () => {
     setEditMode(false)
   }
+
+  const { params } = props.navigation.state
+  const editModeParam = params?.editMode
+
+  useEffect(() => {
+    if (editModeParam && editMode !== editModeParam) {
+      setEditMode(editModeParam)
+      props.navigation.setParams({ editMode: false })
+    }
+  })
 
   return (
     <React.Fragment>
@@ -60,12 +65,7 @@ const Profile = props => {
 Profile.navigationOptions = ({ navigation }) => ({
   title: PROFILE_PAGE_PATH,
   headerLeft: <HeaderIcon name="menu" onPress={() => navigation.toggleDrawer()} />,
-  headerRight: (
-    <HeaderIcon
-      name="settings"
-      onPress={() => navigation.setParams({ editMode: true }) /*Make menu with 'Edit' option */}
-    />
-  ),
+  headerRight: <HeaderIcon name="settings" onPress={() => navigation.setParams({ editMode: true })} />,
 })
 
 export default Profile

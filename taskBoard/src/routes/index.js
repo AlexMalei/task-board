@@ -18,10 +18,9 @@ import {
 } from '@/constants'
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
-import Profile from '@/components/Profile'
 import MyTasks from '@/components/MyTasks'
+import Notifications from '@/components/Notifications'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
-
 import ProjectTabNavigator from './ProjectTabNavigator'
 
 const HomeScreens = createStackNavigator(
@@ -42,10 +41,10 @@ const HomeScreens = createStackNavigator(
   },
 )
 
-const ProfileScreens = createStackNavigator(
+const MyTasksScreens = createStackNavigator(
   {
     [MY_TASKS_PAGE_PATH]: {
-      screen: Profile,
+      screen: MyTasks,
     },
   },
   {
@@ -63,7 +62,7 @@ const ProfileScreens = createStackNavigator(
 const NotificationsScreens = createStackNavigator(
   {
     [NOTIFICATIONS_PAGE_PATH]: {
-      screen: MyTasks,
+      screen: Notifications,
     },
   },
   {
@@ -81,7 +80,7 @@ const NotificationsScreens = createStackNavigator(
 export const Navigator = createDrawerNavigator(
   {
     [HOME_PAGE_PATH]: HomeScreens,
-    [PROFILE_PAGE_PATH]: ProfileScreens,
+    [MY_TASKS_PAGE_PATH]: MyTasksScreens,
     [NOTIFICATIONS_PAGE_PATH]: NotificationsScreens,
   },
   {

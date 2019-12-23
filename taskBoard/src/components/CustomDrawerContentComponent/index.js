@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { View, FlatList, SafeAreaView, ScrollView, ActivityIndicator, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
@@ -8,6 +17,7 @@ import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { getUserIdFromToken } from '@/helpers'
+import { TASKS_PAGE_PATH } from '@/constants'
 import { useAsync } from '@/hooks'
 
 import {
@@ -23,12 +33,16 @@ import {
   StyledDrawerProjectText,
 } from './component'
 
-function Item({ title }) {
+const Item = ({ item, onPress }) => {
+  const { id, name } = item
+
   return (
-    <StyledDrawerProjectContainer>
-      <StyledDrawerIcon name="local-play" />
-      <StyledDrawerProjectText>{title}</StyledDrawerProjectText>
-    </StyledDrawerProjectContainer>
+    <TouchableHighlight onPress={onPress}>
+      <StyledDrawerProjectContainer>
+        <StyledDrawerIcon name="local-play" />
+        <StyledDrawerProjectText>{name}</StyledDrawerProjectText>
+      </StyledDrawerProjectContainer>
+    </TouchableHighlight>
   )
 }
 
@@ -69,7 +83,17 @@ const CustomDrawerContentComponent = props => {
               <SafeAreaView>
                 <FlatList
                   data={projects}
-                  renderItem={project => <Item title={project.item.name} />}
+                  ListEmptyComponent={
+                    <View>
+                      <Text>The list of projects is empty...</Text>
+                    </View>
+                  }
+                  renderItem={({ item: project }) => (
+                    <Item
+                      item={project}
+                      onPress={() => props.navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id })}
+                    />
+                  )}
                   keyExtractor={project => project.id}
                 />
                 <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
