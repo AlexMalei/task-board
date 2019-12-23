@@ -35,6 +35,7 @@ import {
 
 const Item = ({ item, onPress }) => {
   const { id, name } = item
+  console.log('123123')
 
   return (
     <TouchableHighlight onPress={onPress}>
@@ -54,6 +55,9 @@ const CustomDrawerContentComponent = props => {
   })
 
   const { users_by_pk: { about_me, avatar_url, display_name, role, email, projects } = {} } = data || {}
+  const {
+    navigation: { navigate },
+  } = props
 
   return (
     <React.Fragment>
@@ -63,7 +67,7 @@ const CustomDrawerContentComponent = props => {
         <StyledDrawerContainer>
           <ScrollView>
             <DrawerTitle />
-            <DrawerHeader name={display_name} avatar={avatar_url} />
+            <DrawerHeader name={display_name} avatar={avatar_url} role={role} />
 
             <StyledDataTasks>
               <View>
@@ -89,10 +93,7 @@ const CustomDrawerContentComponent = props => {
                     </View>
                   }
                   renderItem={({ item: project }) => (
-                    <Item
-                      item={project}
-                      onPress={() => props.navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id })}
-                    />
+                    <Item item={project} onPress={() => navigate(TASKS_PAGE_PATH, { projectId: project.id })} />
                   )}
                   keyExtractor={project => project.id}
                 />

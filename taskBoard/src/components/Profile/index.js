@@ -11,10 +11,8 @@ import { useAsync } from '@/hooks'
 import { PROFILE_PAGE_PATH } from '@/constants'
 import { getUserIdFromToken } from '@/helpers'
 
-const Profile = props => {
-  const [editMode, setEditMode] = useState(() => {
-    return false
-  })
+const Profile = ({ navigation: { state, setParams } }) => {
+  const [editMode, setEditMode] = useState(false)
   const { data: userId } = useAsync(getUserIdFromToken)
   const { loading: profileLoading, error: profileError, data } = useSubscription(PROFILE_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
@@ -32,13 +30,13 @@ const Profile = props => {
     setEditMode(false)
   }
 
-  const { params } = props.navigation.state
+  const { params } = state
   const editModeParam = params?.editMode
 
   useEffect(() => {
     if (editModeParam && editMode !== editModeParam) {
       setEditMode(editModeParam)
-      props.navigation.setParams({ editMode: false })
+      setParams({ editMode: false })
     }
   })
 

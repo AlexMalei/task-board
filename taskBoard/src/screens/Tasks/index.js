@@ -6,7 +6,6 @@ const Tasks = ({
     state: { params },
   },
 }) => {
-  console.log('params', params)
   return (
     <View>
       <Text>Project Tasks</Text>

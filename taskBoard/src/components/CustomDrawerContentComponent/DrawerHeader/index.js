@@ -10,16 +10,17 @@ import {
   StyledDrawerProfileText,
   StyledDrawerTextGray,
 } from './component'
+import { PROFILE_PAGE_PATH } from '@/constants'
 
 // YellowBox.ignoreWarnings([
 //   'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
 // ])
 
 const onUserProfile = () => {
-  NavigationService.navigate('Profile')
+  NavigationService.navigate(PROFILE_PAGE_PATH)
 }
 
-const DrawerHeader = ({ name, avatar }) => {
+const DrawerHeader = ({ name, avatar, role }) => {
   return (
     <StyledDrawerHeader>
       <TouchableHighlight onPress={() => onUserProfile()}>
@@ -31,7 +32,7 @@ const DrawerHeader = ({ name, avatar }) => {
       </TouchableHighlight>
       <View>
         <StyledDrawerProfileText>{name}</StyledDrawerProfileText>
-        <StyledDrawerTextGray>Junior</StyledDrawerTextGray>
+        <StyledDrawerTextGray>{role}</StyledDrawerTextGray>
       </View>
       <DropdownProfileDrawer />
     </StyledDrawerHeader>
