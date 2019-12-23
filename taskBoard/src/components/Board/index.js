@@ -1,16 +1,25 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 import { StyledContainer, StyledTitle, StyledBoardHeader } from './component'
 import BoardButton from '@/fields/BoardButton'
 
-const Board = ({ name, tasks }) => {
+const Board = ({ name, tasks, onLongPress, isActive }) => {
   return (
-    <StyledContainer>
+    <StyledContainer
+      style={{
+        borderColor: isActive ? 'red' : 'none',
+        borderWidth: isActive ? 2 : 0,
+      }}
+      activeOpacity={0.8}
+      onLongPress={onLongPress}
+      isActive={isActive}
+    >
       <StyledBoardHeader>
         <StyledTitle>{name}</StyledTitle>
         <BoardButton
-          onClick={() => {
+          onPress={() => {
+            //@todo: touchable highlight don't bubble event when onLongPress defined
             console.log('click')
           }}
         >
