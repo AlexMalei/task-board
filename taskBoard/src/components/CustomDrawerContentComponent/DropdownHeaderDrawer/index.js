@@ -17,7 +17,6 @@ const DropdownProfileDrawer = () => {
       options={MENU_OPTIONS}
       defaultValue={<StyledDrawerIcon name="more-horiz" />}
       keyboardShouldPersistTaps={'always'}
-      style={styles.bla}
       dropdownStyle={styles.drop}
       dropdownTextStyle={styles.dropText}
       dropdownTextHighlightStyle={styles.dropText}
