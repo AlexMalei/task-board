@@ -12,10 +12,6 @@ import {
 } from './component'
 import { PROFILE_PAGE_PATH } from '@/constants'
 
-// YellowBox.ignoreWarnings([
-//   'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
-// ])
-
 const onUserProfile = () => {
   NavigationService.navigate(PROFILE_PAGE_PATH)
 }

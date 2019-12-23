@@ -81,24 +81,6 @@ const NotificationsScreens = createStackNavigator(
   },
 )
 
-// const ProfileScreens = createStackNavigator(
-//   {
-//     [PROFILE_PAGE_PATH]: {
-//       screen: Profile,
-//     },
-//   },
-//   {
-//     initialRouteName: PROFILE_PAGE_PATH,
-//     navigationOptions: {
-//       drawerLabel: PROFILE_PAGE_PATH,
-//       title: PROFILE_PAGE_PATH,
-//       tabBarLabel: PROFILE_PAGE_PATH,
-//       inactiveTintColor: 'grey',
-//       drawerIcon: () => <IconB style={styles.icon} name="message" size={32} color="#FFFFFF" />,
-//     },
-//   },
-// )
-
 export const Navigator = createDrawerNavigator(
   {
     [HOME_PAGE_PATH]: HomeScreens,

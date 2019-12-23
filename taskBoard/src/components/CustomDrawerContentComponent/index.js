@@ -35,7 +35,6 @@ import {
 
 const Item = ({ item, onPress }) => {
   const { id, name } = item
-  console.log('123123')
 
   return (
     <TouchableHighlight onPress={onPress}>
