@@ -36,4 +36,12 @@ export default class NavigationService {
 
     NavigationService.navigator.dispatch(NavigationActions.back())
   }
+
+  static openDrawer() {
+    if (!NavigationService.navigator) {
+      return
+    }
+
+    NavigationService.navigator.dispatch(NavigationActions.back())
+  }
 }

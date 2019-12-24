@@ -15,14 +15,15 @@ import {
   REGISTER_PATH,
   NOTIFICATIONS_PAGE_PATH,
   MY_TASKS_PAGE_PATH,
+  PROJECT_TAB_NAVIGATOR,
 } from '@/constants'
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
 import MyTasks from '@/components/MyTasks'
 import Notifications from '@/components/Notifications'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
-import ProjectTabNavigator from './ProjectTabNavigator'
 import Profile from '@/components/Profile'
+import ProjectTabNavigator from './ProjectTabNavigator'
 
 const HomeScreens = createStackNavigator(
   {
@@ -122,6 +123,7 @@ const SwitchNavigator = createSwitchNavigator(
   {
     [LOGIN_PATH]: AuthNavigator,
     [APP_PATH]: Navigator,
+    [PROJECT_TAB_NAVIGATOR]: ProjectTabNavigator,
   },
   {
     initialRouteName: LOGIN_PATH,
