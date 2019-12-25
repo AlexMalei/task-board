@@ -1,5 +1,6 @@
 import { InteractionManager } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { DrawerActions } from 'react-navigation-drawer'
 
 const NAVIGATION_NAVIGATE_TYPE = 'Navigation/NAVIGATE'
 
@@ -42,6 +43,14 @@ export default class NavigationService {
       return
     }
 
-    NavigationService.navigator.dispatch(NavigationActions.back())
+    NavigationService.navigator.dispatch(DrawerActions.openDrawer())
+  }
+
+  static closeDrawer() {
+    if (!NavigationService.navigator) {
+      return
+    }
+
+    NavigationService.navigator.dispatch(DrawerActions.closeDrawer())
   }
 }

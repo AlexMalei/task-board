@@ -33,9 +33,7 @@ import {
   StyledDrawerProjectText,
 } from './component'
 
-const Item = ({ item, onPress }) => {
-  const { id, name } = item
-
+const Item = ({ item: { id, name }, onPress }) => {
   return (
     <TouchableHighlight onPress={onPress}>
       <StyledDrawerProjectContainer>
@@ -54,9 +52,7 @@ const CustomDrawerContentComponent = props => {
   })
 
   const { users_by_pk: { about_me, avatar_url, display_name, role, email, projects } = {} } = data || {}
-  const {
-    navigation: { navigate },
-  } = props
+  const { navigation } = props
 
   return (
     <React.Fragment>
@@ -92,7 +88,13 @@ const CustomDrawerContentComponent = props => {
                     </View>
                   }
                   renderItem={({ item: project }) => (
-                    <Item item={project} onPress={() => navigate(TASKS_PAGE_PATH, { projectId: project.id })} />
+                    <Item
+                      item={project}
+                      onPress={() => {
+                        navigation.setParams({ projectName: project.name })
+                        navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
+                      }}
+                    />
                   )}
                   keyExtractor={project => project.id}
                 />
