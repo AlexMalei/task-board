@@ -8,6 +8,7 @@ import Button from '@/fields/Button'
 import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
+import { theme } from '@/theme'
 
 const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPress }) => {
   return (
@@ -15,7 +16,7 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
       {({ values, touched, errors, handleChange, handleBlur }) => {
         return (
           <Form>
-            <Avatar avatarUrl={avatarUrl} name={name} size="large" />
+            <Avatar avatarUrl={avatarUrl} userName={name} size={theme.avatarSizes.large} />
 
             <Input
               label="Name"
