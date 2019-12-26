@@ -12,16 +12,10 @@ import CalendarScreen from '@/screens/Calendar'
 import { theme } from '@/theme'
 import HeaderIcon from '@/components/HeaderIcon'
 
-const nameTitle = props => {
-  return 'Bla'
-}
-
-const Title = withNavigation(nameTitle)
-
-const Menu = props => {
-  return <HeaderIcon name="menu" onPress={() => props.navigation.openDrawer()} />
-}
-const MenuComponent = withNavigation(Menu)
+// const Menu = props => {
+//   return <HeaderIcon name="menu" onPress={() => props.navigation.openDrawer()} />
+// }
+// const MenuComponent = withNavigation(Menu)
 
 const ProjectTabNavigator = createMaterialTopTabNavigator(
   {
@@ -78,7 +72,7 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
     },
     navigationOptions: {
       drawerLabel: 'ProjectNavigator',
-      title: '123',
+      title: '',
       tabBarLabel: 'ProjectNavigator',
       inactiveTintColor: 'grey',
       headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
@@ -86,7 +80,13 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
   },
 )
 
-// ProjectTabNavigator.navigationOptions = ({ navigation }) =>
-//   console.log('navigation!!!_____!!!', navigation.getParam('projectName'))
+export const changeTitleTabNavigator = ({ name }) => {
+  ProjectTabNavigator.navigationOptions = () => {
+    return {
+      headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
+      title: name,
+    }
+  }
+}
 
 export default ProjectTabNavigator

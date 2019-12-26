@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import { DrawerItems } from 'react-navigation-drawer'
@@ -15,6 +16,7 @@ import PropTypes from 'prop-types'
 
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
+import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { getUserIdFromToken } from '@/helpers'
 import { TASKS_PAGE_PATH } from '@/constants'
@@ -32,20 +34,32 @@ import {
   StyledTitleAddProject,
   StyledDrawerProjectText,
 } from './component'
+import NavigationService from '@/services/Navigation'
+import styled from 'styled-components'
 
 const Item = ({ item: { id, name }, onPress }) => {
   return (
-    <TouchableHighlight onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <StyledDrawerProjectContainer>
         <StyledDrawerIcon name="local-play" />
         <StyledDrawerProjectText>{name}</StyledDrawerProjectText>
       </StyledDrawerProjectContainer>
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
+}
+
+const initialState = {
+  selected_category: '',
 }
 
 const CustomDrawerContentComponent = props => {
   const { data: userId } = useAsync(getUserIdFromToken)
+
+  const [state, setState] = useState(initialState)
+
+  const _handleCategorySelect = index => {
+    setState({ selected_category: index })
+  }
 
   const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
@@ -87,13 +101,20 @@ const CustomDrawerContentComponent = props => {
                       <Text>The list of projects is empty...</Text>
                     </View>
                   }
-                  renderItem={({ item: project }) => (
+                  renderItem={({ item: project, index }) => (
                     <Item
                       item={project}
+                      index={index}
                       onPress={() => {
-                        navigation.setParams({ projectName: project.name })
+                        changeTitleTabNavigator(project)
                         navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
+                        NavigationService.closeDrawer()
+
+                        _handleCategorySelect(index)
+
+                        // navigation.setParams({ projectName: project.name })
                       }}
+                      style={state.selected_category === index ? styles.selected : null}
                     />
                   )}
                   keyExtractor={project => project.id}
@@ -115,3 +136,9 @@ Item.propTypes = {
 }
 
 export default CustomDrawerContentComponent
+
+const styles = StyleSheet.create({
+  selected: {
+    color: 'red',
+  },
+})
