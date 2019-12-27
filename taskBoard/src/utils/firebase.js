@@ -8,6 +8,7 @@ export const doRefresh = async () => {
   try {
     //force refresh user token
     const refreshedToken = await firebase.auth().currentUser.getIdToken(true)
+    console.log('refreshedToken', refreshedToken)
 
     await AsyncStorage.setItem(TOKEN_STORAGE_KEY, refreshedToken)
   } catch (error) {

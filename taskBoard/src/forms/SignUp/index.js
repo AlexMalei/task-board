@@ -18,7 +18,7 @@ const SignUpForm = ({ initialValues }) => {
 
   const handleSignUp = async (email, password) => {
     try {
-      const result = await AuthAPI.signIn(email, password)
+      const result = await AuthAPI.signUp(email, password)
       const token = await firebase.auth().currentUser.getIdToken()
       AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
 

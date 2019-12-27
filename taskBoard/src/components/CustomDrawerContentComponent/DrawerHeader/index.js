@@ -1,25 +1,36 @@
-import React from 'react'
-import { View } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Picker, YellowBox, TouchableHighlight } from 'react-native'
 
-import imageProfile from '@/assets/user_logo.jpeg'
+import DropdownProfileDrawer from '@/components/CustomDrawerContentComponent/DropdownHeaderDrawer'
+import NavigationService from '@/services/Navigation'
 
 import {
   StyledDrawerHeader,
   StyledDrawerImageProfile,
   StyledDrawerProfileText,
   StyledDrawerTextGray,
-  StyledDrawerIcon,
 } from './component'
+import { PROFILE_PAGE_PATH } from '@/constants'
 
-const DrawerHeader = () => {
+const onUserProfile = () => {
+  NavigationService.navigate(PROFILE_PAGE_PATH)
+}
+
+const DrawerHeader = ({ name, avatar, role }) => {
   return (
     <StyledDrawerHeader>
-      <StyledDrawerImageProfile source={imageProfile} />
+      <TouchableHighlight onPress={() => onUserProfile()}>
+        <StyledDrawerImageProfile
+          source={{
+            uri: avatar,
+          }}
+        />
+      </TouchableHighlight>
       <View>
-        <StyledDrawerProfileText>Sacha Belui</StyledDrawerProfileText>
-        <StyledDrawerTextGray>Junior</StyledDrawerTextGray>
+        <StyledDrawerProfileText>{name}</StyledDrawerProfileText>
+        <StyledDrawerTextGray>{role}</StyledDrawerTextGray>
       </View>
-      <StyledDrawerIcon name="more-horiz" />
+      <DropdownProfileDrawer />
     </StyledDrawerHeader>
   )
 }

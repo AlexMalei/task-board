@@ -1,7 +1,24 @@
-import React from 'react'
-import { View, FlatList, SafeAreaView, ScrollView, Button, YellowBox } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native'
+import { useSubscription, useMutation } from '@apollo/react-hooks'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
+
+import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
+import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
+import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
+import { getUserIdFromToken } from '@/helpers'
+import { TASKS_PAGE_PATH } from '@/constants'
+import { useAsync } from '@/hooks'
 
 import {
   StyledDrawerProjectContainer,
@@ -16,93 +33,80 @@ import {
   StyledDrawerProjectText,
 } from './component'
 
-import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
-import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
-import { AuthAPI } from '@/api'
-import { LOGIN_PATH } from '@/constants'
-import NavigationService from '@/services/Navigation'
-import { doLogout } from '@/utils'
+const Item = ({ item, onPress }) => {
+  const { id, name } = item
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Project',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Project',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Project',
-  },
-  {
-    id: '5862294a0f-3da1-471f-bd96-145571e29d72',
-    title: '4 Project',
-  },
-  {
-    id: '5864294a0f-3da1-471f-bd96-145571e29d72',
-    title: '5 Project',
-  },
-  {
-    id: '554294a0f-3da1-471f-bd96-145571e29d72',
-    title: '6 Project',
-  },
-  {
-    id: '5899294a0f-3da1-471f-bd96-145571e29d72',
-    title: '7 Project',
-  },
-]
-
-YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested', // @todo: Remove when fixed https://github.com/GeekyAnts/NativeBase/issues/2947
-])
-
-function Item({ title }) {
   return (
-    <StyledDrawerProjectContainer>
-      <StyledDrawerIcon name="local-play" />
-      <StyledDrawerProjectText>{title}</StyledDrawerProjectText>
-    </StyledDrawerProjectContainer>
+    <TouchableHighlight onPress={onPress}>
+      <StyledDrawerProjectContainer>
+        <StyledDrawerIcon name="local-play" />
+        <StyledDrawerProjectText>{name}</StyledDrawerProjectText>
+      </StyledDrawerProjectContainer>
+    </TouchableHighlight>
   )
 }
 
-const onSignOut = () => {
-  AuthAPI.signOut()
-  doLogout()
-  NavigationService.navigate(LOGIN_PATH)
+const CustomDrawerContentComponent = props => {
+  const { data: userId } = useAsync(getUserIdFromToken)
+
+  const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
+    variables: { id: userId || '' },
+  })
+
+  const { users_by_pk: { about_me, avatar_url, display_name, role, email, projects } = {} } = data || {}
+  const {
+    navigation: { navigate },
+  } = props
+
+  return (
+    <React.Fragment>
+      {profileLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <StyledDrawerContainer>
+          <ScrollView>
+            <DrawerTitle />
+            <DrawerHeader name={display_name} avatar={avatar_url} role={role} />
+
+            <StyledDataTasks>
+              <View>
+                <StyledDataTasksText>129</StyledDataTasksText>
+                <StyledDrawerTextGray>Completed Tasks</StyledDrawerTextGray>
+              </View>
+              <View>
+                <StyledDataTasksText>24</StyledDataTasksText>
+                <StyledDrawerTextGray>Open Tasks</StyledDrawerTextGray>
+              </View>
+            </StyledDataTasks>
+
+            <StyledDrawerContentMargin>
+              <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
+              <DrawerItems {...props} />
+              <StyledTitleProject>PROJECTS</StyledTitleProject>
+              <SafeAreaView>
+                <FlatList
+                  data={projects}
+                  ListEmptyComponent={
+                    <View>
+                      <Text>The list of projects is empty...</Text>
+                    </View>
+                  }
+                  renderItem={({ item: project }) => (
+                    <Item item={project} onPress={() => navigate(TASKS_PAGE_PATH, { projectId: project.id })} />
+                  )}
+                  keyExtractor={project => project.id}
+                />
+                <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
+              </SafeAreaView>
+            </StyledDrawerContentMargin>
+          </ScrollView>
+        </StyledDrawerContainer>
+      )}
+    </React.Fragment>
+  )
 }
 
-const CustomDrawerContentComponent = props => (
-  <StyledDrawerContainer>
-    <ScrollView>
-      <DrawerTitle />
-      <DrawerHeader />
-
-      <StyledDataTasks>
-        <View>
-          <StyledDataTasksText>129</StyledDataTasksText>
-          <StyledDrawerTextGray>Completed Tasks</StyledDrawerTextGray>
-        </View>
-        <View>
-          <StyledDataTasksText>24</StyledDataTasksText>
-          <StyledDrawerTextGray>Open Tasks</StyledDrawerTextGray>
-        </View>
-      </StyledDataTasks>
-
-      <StyledDrawerContentMargin>
-        <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
-        <DrawerItems {...props} />
-        <Button title="Logout" onPress={() => onSignOut(props.navigation)} />
-        <StyledTitleProject>PROJECTS</StyledTitleProject>
-        <SafeAreaView>
-          <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} keyExtractor={item => item.id} />
-          <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
-        </SafeAreaView>
-      </StyledDrawerContentMargin>
-    </ScrollView>
-  </StyledDrawerContainer>
-)
+console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
 
 Item.propTypes = {
   title: PropTypes.string.isRequired,
