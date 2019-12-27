@@ -5,6 +5,8 @@ export const NOTIFICATIONS_PAGE_PATH = 'Notifications'
 export const WEBSITE_REDESIGN_PATH = 'WebsiteRedesign'
 export const SETTINGS_PATH = 'Settings'
 
+export const PROJECT_TAB_NAVIGATOR = 'ProjectTabNavigator'
+
 export const APP_PATH = 'App'
 export const LOGIN_PATH = 'Login'
 export const LOGOUT_PATH = 'Logout'

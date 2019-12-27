@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { withNavigation } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import NavigationService from '@/services/Navigation'
 
 import { HOME_PAGE_PATH, TASKS_PAGE_PATH, BOARDS_PAGE_PATH, ACTIVITY_PAGE_PATH, CALENDAR_PAGE_PATH } from '@/constants'
 import TasksScreen from '@/screens/Tasks'
@@ -9,6 +10,7 @@ import ActivityScreen from '@/screens/Activity'
 import CalendarScreen from '@/screens/Calendar'
 
 import { theme } from '@/theme'
+import HeaderIcon from '@/components/HeaderIcon'
 
 const ProjectTabNavigator = createMaterialTopTabNavigator(
   {
@@ -64,13 +66,22 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
       },
     },
     navigationOptions: {
-      drawerLabel: HOME_PAGE_PATH,
-      title: HOME_PAGE_PATH,
-      tabBarLabel: HOME_PAGE_PATH,
+      drawerLabel: 'ProjectNavigator',
+      title: '',
+      tabBarLabel: 'ProjectNavigator',
       inactiveTintColor: 'grey',
-      drawerIcon: () => <Icon style={styles.icon} name="home" size={32} color="#FFFFFF" />,
+      headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
     },
   },
 )
+
+export const changeTitleTabNavigator = ({ name }) => {
+  ProjectTabNavigator.navigationOptions = () => {
+    return {
+      headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
+      title: name,
+    }
+  }
+}
 
 export default ProjectTabNavigator
