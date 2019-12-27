@@ -15,22 +15,28 @@ import {
   REGISTER_PATH,
   NOTIFICATIONS_PAGE_PATH,
   MY_TASKS_PAGE_PATH,
+  PROJECT_TAB_NAVIGATOR,
+  TASKS_PAGE_PATH,
 } from '@/constants'
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
 import MyTasks from '@/components/MyTasks'
 import Notifications from '@/components/Notifications'
 import CustomDrawerContentComponent from '@/components/CustomDrawerContentComponent'
-import ProjectTabNavigator from './ProjectTabNavigator'
 import Profile from '@/components/Profile'
+import ProjectTabNavigator from './ProjectTabNavigator'
+import Home from '@/components/Home'
 
 const HomeScreens = createStackNavigator(
   {
     [HOME_PAGE_PATH]: {
-      screen: ProjectTabNavigator,
+      screen: Home,
     },
     [PROFILE_PAGE_PATH]: {
       screen: Profile,
+    },
+    [TASKS_PAGE_PATH]: {
+      screen: ProjectTabNavigator,
     },
   },
   {
@@ -105,6 +111,7 @@ export const Navigator = createDrawerNavigator(
     },
     drawerWidth: Dimensions.get('window').width - 100,
     drawerBackgroundColor: 'black',
+    edgeWidth: 300,
   },
 )
 
@@ -122,6 +129,7 @@ const SwitchNavigator = createSwitchNavigator(
   {
     [LOGIN_PATH]: AuthNavigator,
     [APP_PATH]: Navigator,
+    [PROJECT_TAB_NAVIGATOR]: ProjectTabNavigator,
   },
   {
     initialRouteName: LOGIN_PATH,
