@@ -24,7 +24,8 @@ const Profile = ({ navigation: { state, setParams } }) => {
     updateProfile({ variables: { id: userId, role, name, about } })
     onClose()
   }
-  const { users_by_pk: { about_me, avatar_url, display_name, role, email } = {} } = data || {}
+
+  const { about_me, display_name, avatar_url, role, email } = data?.users_by_pk ? data.users_by_pk : {}
 
   const onClose = () => {
     setEditMode(false)

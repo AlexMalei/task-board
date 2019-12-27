@@ -111,6 +111,7 @@ export const Navigator = createDrawerNavigator(
     },
     drawerWidth: Dimensions.get('window').width - 100,
     drawerBackgroundColor: 'black',
+    edgeWidth: 300,
   },
 )
 

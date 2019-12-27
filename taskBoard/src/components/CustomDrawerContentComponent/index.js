@@ -49,7 +49,7 @@ const Item = ({ item: { id, name }, onPress }) => {
 }
 
 const initialState = {
-  selected_category: '',
+  selectedCategory: '',
 }
 
 const CustomDrawerContentComponent = props => {
@@ -58,20 +58,20 @@ const CustomDrawerContentComponent = props => {
   const [state, setState] = useState(initialState)
 
   const _handleCategorySelect = index => {
-    setState({ selected_category: index })
+    setState({ ...state, selectedCategory: index })
   }
 
   const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
 
-  const { users_by_pk: { about_me, avatar_url, display_name, role, email, projects } = {} } = data || {}
+  const { projects, display_name, avatar_url, role } = data?.users_by_pk || {}
   const { navigation } = props
 
   return (
     <React.Fragment>
       {profileLoading ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }} />
       ) : (
         <StyledDrawerContainer>
           <ScrollView>
@@ -109,12 +109,10 @@ const CustomDrawerContentComponent = props => {
                         changeTitleTabNavigator(project)
                         navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
                         NavigationService.closeDrawer()
-
                         _handleCategorySelect(index)
-
                         // navigation.setParams({ projectName: project.name })
                       }}
-                      style={state.selected_category === index ? styles.selected : null}
+                      style={state.selectedCategory === index ? styles.selected : null}
                     />
                   )}
                   keyExtractor={project => project.id}
@@ -139,6 +137,9 @@ export default CustomDrawerContentComponent
 
 const styles = StyleSheet.create({
   selected: {
+    color: 'red',
+  },
+  buttonText: {
     color: 'red',
   },
 })
