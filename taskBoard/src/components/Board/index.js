@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 import BoardButton from '@/fields/BoardButton'
@@ -6,15 +6,6 @@ import Task from '@/components/Task'
 import DraggableButton from '@/components/Draggable/Button'
 
 const Board = ({ name, tasks, onLongPress, isActive }) => {
-  const [height, setHeight] = useState(0)
-
-  const saveAllScreenContainerHeight = event => {
-    if (height === 0) {
-      setHeight(event.nativeEvent.layout.height)
-    }
-  }
-  const minHeightStyle = height === 0 ? {} : { minHeight: height }
-
   const handleAddTaskClick = () => {
     console.log('button ADD TASK was clicked')
   }
@@ -22,7 +13,6 @@ const Board = ({ name, tasks, onLongPress, isActive }) => {
   return (
     <StyledContainer
       onLongPress={onLongPress}
-      style={minHeightStyle}
       style={{
         borderColor: isActive ? 'red' : 'none',
         borderWidth: isActive ? 2 : 0,
