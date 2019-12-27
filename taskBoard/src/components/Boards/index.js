@@ -7,7 +7,6 @@ import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
 import Board from '@/components/Board'
-
 const keyExtractor = ({ id }) => id
 
 const renderItem = ({ item: { name, tasks }, drag, isActive }) => {
@@ -20,7 +19,7 @@ const orderSortCallback = (first, second) => first.order - second.order
 //@todo: to avoid this must use React.memo with function, that check changes in received data and try to avoid unnecessary re-renderings
 
 const Boards = () => {
-  const exampleProjectId = '2fd42ceb-7341-4059-84c8-423766d3b70a'
+  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
   const [localBoards, setLocalBoards] = useState([])
 
   const { loading } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {
@@ -50,62 +49,12 @@ const Boards = () => {
     setLocalBoards(dragListData)
   }
 
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: (evt, gestureState) => {
-      console.log('capturing')
-      return true
-    },
-
-    onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-      console.log('capturing')
-      return true
-    },
-
-    onMoveShouldSetPanResponder: (evt, gestureState) => {
-      console.log('move set responder')
-      return true
-    },
-
-    onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-      console.log('move capturing')
-      return true
-    },
-
-    onPanResponderGrant: (evt, gestureState) => {
-      console.log('\nPan Responder Grant')
-      console.log('=========================================')
-    },
-
-    onPanResponderMove: (evt, gestureState) => {
-      console.log('move')
-    },
-
-    onPanResponderTerminationRequest: (evt, gestureState) => {
-      console.log('terminate request')
-      return true
-    },
-
-    onPanResponderRelease: (evt, gestureState) => {
-      console.log('release')
-    },
-
-    onPanResponderTerminate: (evt, gestureState) => {
-      console.log('terminate')
-    },
-
-    onShouldBlockNativeResponder: (evt, gestureState) => {
-      console.log('native block')
-      return true
-    },
-  })
-
   return (
     <StyledBackgroundContainer>
       {loading ? (
         <ActivityIndicator size="large" color="black" />
       ) : (
         <DraggableFlatList
-          /* {...panResponder.panHandlers} */
           data={localBoards}
           renderItem={renderItem}
           keyExtractor={keyExtractor}

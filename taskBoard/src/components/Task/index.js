@@ -24,7 +24,7 @@ const Task = ({
   const typeStyle = { color, backgroundColor: background_color }
   return (
     <StyledContainer>
-      <StyledContent>{content}</StyledContent>
+      <StyledContent>{name}</StyledContent>
       <StyledFooter>
         <StyledUserAvatar userName={userName} avatarUrl={avatarUrl} size={theme.avatarSizes.xsmall}></StyledUserAvatar>
         <StyledTypeLabel style={typeStyle}>{typeName}</StyledTypeLabel>

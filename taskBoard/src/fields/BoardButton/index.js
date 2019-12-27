@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 
 import { theme } from '@/theme'
 
-const BoardButton = ({ children, onPress }) => {
+const BoardButton = ({ children, onPress, ...props }) => {
   return (
-    <Button buttonStyle={styles.button} titleStyle={styles.content} title={children} type="solid" onPress={onPress} />
+    <View {...props}>
+      <Button buttonStyle={styles.button} titleStyle={styles.content} title={children} type="solid" onPress={onPress} />
+    </View>
   )
 }
 
