@@ -25,7 +25,11 @@ const Profile = ({ navigation: { state, setParams } }) => {
     onClose()
   }
 
-  const { about_me, display_name, avatar_url, role, email } = data?.users_by_pk ? data.users_by_pk : {}
+  const onClose = () => {
+    setEditMode(false)
+  }
+
+  const { about_me: aboutMe, avatar_url: avatarUrl, display_name: displayName, role, email } = data?.users_by_pk || {}
 
   const onClose = () => {
     setEditMode(false)
@@ -47,15 +51,15 @@ const Profile = ({ navigation: { state, setParams } }) => {
         <ActivityIndicator size="large" />
       ) : editMode ? (
         <ProfileForm
-          about={about_me}
-          avatarUrl={avatar_url}
-          name={display_name}
+          about={aboutMe}
+          avatarUrl={avatarUrl}
+          name={displayName}
           role={role}
           onCancelPress={() => onClose()}
           onUpdatePress={(name, role, about) => handleUpdateProfile(name, role, about)}
         />
       ) : (
-        <ProfileView avatar={avatar_url} email={email} name={display_name} role={role}></ProfileView>
+        <ProfileView avatar={avatarUrl} email={email} name={displayName} role={role}></ProfileView>
       )}
     </React.Fragment>
   )
