@@ -57,10 +57,6 @@ const CustomDrawerContentComponent = props => {
 
   const [state, setState] = useState(initialState)
 
-  const _handleCategorySelect = index => {
-    setState({ ...state, selectedCategory: index })
-  }
-
   const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
@@ -109,8 +105,6 @@ const CustomDrawerContentComponent = props => {
                         changeTitleTabNavigator(project)
                         navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
                         NavigationService.closeDrawer()
-                        _handleCategorySelect(index)
-                        // navigation.setParams({ projectName: project.name })
                       }}
                       style={state.selectedCategory === index ? styles.selected : null}
                     />

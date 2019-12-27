@@ -20,20 +20,16 @@ const Profile = ({ navigation: { state, setParams } }) => {
 
   const [updateProfile] = useMutation(UPDATE_PROFILE_DATA)
 
+  const onClose = () => {
+    setEditMode(false)
+  }
+
   const handleUpdateProfile = (name, role, about) => {
     updateProfile({ variables: { id: userId, role, name, about } })
     onClose()
   }
 
-  const onClose = () => {
-    setEditMode(false)
-  }
-
   const { about_me: aboutMe, avatar_url: avatarUrl, display_name: displayName, role, email } = data?.users_by_pk || {}
-
-  const onClose = () => {
-    setEditMode(false)
-  }
 
   const { params } = state
   const editModeParam = params?.editMode

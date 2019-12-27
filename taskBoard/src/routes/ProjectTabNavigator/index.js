@@ -12,11 +12,6 @@ import CalendarScreen from '@/screens/Calendar'
 import { theme } from '@/theme'
 import HeaderIcon from '@/components/HeaderIcon'
 
-// const Menu = props => {
-//   return <HeaderIcon name="menu" onPress={() => props.navigation.openDrawer()} />
-// }
-// const MenuComponent = withNavigation(Menu)
-
 const ProjectTabNavigator = createMaterialTopTabNavigator(
   {
     [TASKS_PAGE_PATH]: {
