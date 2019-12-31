@@ -7,6 +7,8 @@ const lightGrey = '#ECECEC'
 const pampas = '#EEEBE5'
 const gray = '#9b9b9b'
 const gold = '#FFC200'
+const cararra = '#F7F6F3'
+const dawnPink = '#F6E9E9'
 
 const error = '#CF1A17'
 
@@ -17,11 +19,15 @@ const colors = {
   lightGrey,
   darkGrey,
   pampas,
+  cararra,
+  dawnPink,
   gray,
   gold,
   codGray,
   error,
 }
+
+const font = 'Heebo'
 
 const fontSizes = [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 8]
 
@@ -67,4 +73,5 @@ export const theme = {
   fontSizes,
   fontWeights,
   avatarSizes,
+  font,
 }

@@ -2,14 +2,24 @@ import gql from 'graphql-tag'
 
 export const CALENDAR_TASKS_SUBSCRIPTIONS = gql`
   subscription profileData($projectId: uuid!) {
-    projects_by_pk(id: "f2bcc7b4-d1c6-472d-bf87-6e57e19033eb") {
+    projects_by_pk(id: $projectId) {
       boards {
         id
-        name
-        order
         tasks(where: { archived: { _eq: false } }) {
+          id
           deadline
           name
+          order
+          content
+          type {
+            color
+            background_color
+            name
+          }
+          user {
+            avatar_url
+            display_name
+          }
         }
       }
     }
