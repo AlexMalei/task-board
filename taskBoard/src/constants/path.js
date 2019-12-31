@@ -16,3 +16,9 @@ export const TASKS_PAGE_PATH = 'ProjectTasks'
 export const BOARDS_PAGE_PATH = 'ProjectBoards'
 export const ACTIVITY_PAGE_PATH = 'ProjectActivity'
 export const CALENDAR_PAGE_PATH = 'ProjectCalendar'
+
+export const defaultRoute = [
+  { name: 'Home', icon: 'home' },
+  { name: 'My Tasks', icon: 'tasks' },
+  { name: 'Notifications', icon: 'comments-dollar' },
+]

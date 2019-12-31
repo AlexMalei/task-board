@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 import { Container, Header } from 'native-base'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+// import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import Icon from 'react-native-vector-icons/dist/FontAwesome5'
 
 export const StyledDrawerContainer = styled(Container)`
   flex: 1;
@@ -30,7 +31,7 @@ export const StyledDrawerProfileText = styled.Text`
 `
 export const StyledDrawerIcon = styled(Icon)`
   color: ${props => props.theme.colors.gray};
-  font-size: ${props => props.theme.fontSizes[6]};
+  font-size: ${props => props.theme.fontSizes[5]};
 `
 
 export const StyledDataTasks = styled.View`

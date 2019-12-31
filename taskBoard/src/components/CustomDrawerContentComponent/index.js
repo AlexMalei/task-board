@@ -13,13 +13,15 @@ import {
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
 import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
+import NavigationService from '@/services/Navigation'
 import { getUserIdFromToken } from '@/helpers'
-import { TASKS_PAGE_PATH } from '@/constants'
+import { TASKS_PAGE_PATH, MY_TASKS_PAGE_PATH, HOME_PAGE_PATH, NOTIFICATIONS_PAGE_PATH, defaultRoute } from '@/constants'
 import { useAsync } from '@/hooks'
 
 import {
@@ -34,23 +36,35 @@ import {
   StyledTitleAddProject,
   StyledDrawerProjectText,
 } from './component'
-import NavigationService from '@/services/Navigation'
-import styled from 'styled-components'
 
 const Item = ({ item: { id, name }, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <StyledDrawerProjectContainer>
-        <StyledDrawerIcon name="local-play" />
+        <StyledDrawerIcon name="pied-piper-alt" />
         <StyledDrawerProjectText>{name}</StyledDrawerProjectText>
       </StyledDrawerProjectContainer>
     </TouchableOpacity>
   )
 }
+//meetup
+//leaf
+//coins
+//cube
 
 const initialState = {
   selectedCategory: '',
 }
+
+const FlatListHeaderMenu = () => {
+  return <StyledTitleProject>MENU</StyledTitleProject>
+}
+
+const FlatListHeaderProjects = () => {
+  return <StyledTitleProject>PROJECTS</StyledTitleProject>
+}
+
+const handleKeyExtractor = ({ id }) => id
 
 const CustomDrawerContentComponent = props => {
   const { data: userId } = useAsync(getUserIdFromToken)
@@ -86,17 +100,35 @@ const CustomDrawerContentComponent = props => {
             </StyledDataTasks>
 
             <StyledDrawerContentMargin>
-              <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
-              <DrawerItems {...props} />
-              <StyledTitleProject>PROJECTS</StyledTitleProject>
+              {/* <StyledDrawerTextGray>MENU</StyledDrawerTextGray> */}
+              {/* <DrawerItems {...props} /> */}
+
+              {/* <TouchableOpacity onPress={() => onPageRoute(HOME_PAGE_PATH)}>
+                <StyledDrawerProjectContainer>
+                  <StyledDrawerIcon name="home" />
+                  <Text style={styles.navItemStyle}>Home</Text>
+                </StyledDrawerProjectContainer>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => onPageRoute(MY_TASKS_PAGE_PATH)}>
+                <StyledDrawerProjectContainer>
+                  <StyledDrawerIcon name="tasks" />
+                  <Text style={styles.navItemStyle}>My Tasks</Text>
+                </StyledDrawerProjectContainer>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => onPageRoute(NOTIFICATIONS_PAGE_PATH)}>
+                <StyledDrawerProjectContainer>
+                  <StyledDrawerIcon name="comments-dollar" />
+                  <Text style={styles.nav}>Notifications</Text>
+                </StyledDrawerProjectContainer>
+              </TouchableOpacity> */}
+
               <SafeAreaView>
                 <FlatList
-                  data={projects}
-                  ListEmptyComponent={
-                    <View>
-                      <Text>The list of projects is empty...</Text>
-                    </View>
-                  }
+                  data={defaultRoute}
+                  ListHeaderComponent={FlatListHeaderMenu}
+                  keyExtractor={handleKeyExtractor}
                   renderItem={({ item: project, index }) => (
                     <Item
                       item={project}
@@ -106,10 +138,25 @@ const CustomDrawerContentComponent = props => {
                         navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
                         NavigationService.closeDrawer()
                       }}
-                      style={state.selectedCategory === index ? styles.selected : null}
                     />
                   )}
-                  keyExtractor={project => project.id}
+                />
+
+                <FlatList
+                  data={projects}
+                  ListHeaderComponent={FlatListHeaderProjects}
+                  keyExtractor={handleKeyExtractor}
+                  renderItem={({ item: project, index }) => (
+                    <Item
+                      item={project}
+                      index={index}
+                      onPress={() => {
+                        changeTitleTabNavigator(project)
+                        navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
+                        NavigationService.closeDrawer()
+                      }}
+                    />
+                  )}
                 />
                 <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
               </SafeAreaView>
@@ -123,17 +170,28 @@ const CustomDrawerContentComponent = props => {
 
 console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
 
-Item.propTypes = {
-  title: PropTypes.string.isRequired,
-}
+// Item.propTypes = {
+//   title: PropTypes.string.isRequired,
+// }
 
 export default CustomDrawerContentComponent
 
 const styles = StyleSheet.create({
   selected: {
-    color: 'red',
+    color: 'white',
   },
   buttonText: {
     color: 'red',
+  },
+  navItemStyle: {
+    color: 'red',
+    paddingLeft: 30,
+    color: 'gray',
+    fontSize: 14,
+  },
+  nav: {
+    color: 'white',
+    paddingLeft: 30,
+    fontSize: 14,
   },
 })
