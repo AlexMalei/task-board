@@ -18,7 +18,7 @@ export const ACTIVITY_PAGE_PATH = 'ProjectActivity'
 export const CALENDAR_PAGE_PATH = 'ProjectCalendar'
 
 export const defaultRoute = [
-  { name: 'Home', icon: 'home' },
-  { name: 'My Tasks', icon: 'tasks' },
-  { name: 'Notifications', icon: 'comments-dollar' },
+  { name: HOME_PAGE_PATH, icon: 'home' },
+  { name: MY_TASKS_PAGE_PATH, icon: 'tasks' },
+  { name: NOTIFICATIONS_PAGE_PATH, icon: 'comments-dollar' },
 ]

@@ -17,3 +17,17 @@ export const PROJECTS_SUBSCRIPTION = gql`
     }
   }
 `
+
+export const ADD_PROJECT_QUERY = gql`
+  query User($id: String!) {
+    user(id: $id) {
+      id
+      about_me
+      avatar_url
+      created_at
+      display_name
+      email
+      role
+    }
+  }
+`

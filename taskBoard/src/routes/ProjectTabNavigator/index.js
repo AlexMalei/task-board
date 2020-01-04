@@ -75,7 +75,7 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
   },
 )
 
-export const changeTitleTabNavigator = ({ name }) => {
+export const changeTitleTabNavigator = name => {
   ProjectTabNavigator.navigationOptions = () => {
     return {
       headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,

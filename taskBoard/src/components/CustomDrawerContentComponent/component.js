@@ -1,7 +1,13 @@
 import styled, { css } from 'styled-components'
 import { Container, Header } from 'native-base'
-// import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome5'
+
+export const StyleActivityIndicator = styled(ActivityIndicator)`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`
 
 export const StyledDrawerContainer = styled(Container)`
   flex: 1;
@@ -30,7 +36,7 @@ export const StyledDrawerProfileText = styled.Text`
   font-size: ${props => props.theme.fontSizes[2]};
 `
 export const StyledDrawerIcon = styled(Icon)`
-  color: ${props => props.theme.colors.gray};
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray)};
   font-size: ${props => props.theme.fontSizes[5]};
 `
 
@@ -74,6 +80,6 @@ export const StyledDrawerProjectContainer = styled.View`
 `
 export const StyledDrawerProjectText = styled.Text`
   padding-left: ${props => props.theme.space[5]};
-  color: ${props => props.theme.colors.gray};
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray)};
   font-size: ${props => props.theme.fontSizes[1]};
 `
