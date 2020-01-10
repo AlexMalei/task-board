@@ -8,10 +8,19 @@ export const PROJECT_BOARDS_SUBSCRIPTION = gql`
         name
         order
         tasks {
+          id
           name
           order
           content
-          user_id
+          user {
+            avatar_url
+            display_name
+          }
+          type {
+            name
+            color
+            background_color
+          }
         }
       }
     }

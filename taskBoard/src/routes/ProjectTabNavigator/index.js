@@ -1,13 +1,13 @@
 import React from 'react'
-import { withNavigation } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
+
 import NavigationService from '@/services/Navigation'
 
-import { HOME_PAGE_PATH, TASKS_PAGE_PATH, BOARDS_PAGE_PATH, ACTIVITY_PAGE_PATH, CALENDAR_PAGE_PATH } from '@/constants'
 import TasksScreen from '@/screens/Tasks'
 import BoardsScreen from '@/screens/Boards'
 import ActivityScreen from '@/screens/Activity'
-import CalendarScreen from '@/screens/Calendar'
+import CalendarNavigator from '@/routes/CalendarNavigator'
+import { TASKS_PAGE_PATH, BOARDS_PAGE_PATH, ACTIVITY_PAGE_PATH, CALENDAR_PAGE_PATH } from '@/constants'
 
 import { theme } from '@/theme'
 import HeaderIcon from '@/components/HeaderIcon'
@@ -39,15 +39,14 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
     },
 
     [CALENDAR_PAGE_PATH]: {
-      screen: CalendarScreen,
-
+      screen: CalendarNavigator,
       navigationOptions: {
         title: 'Calendar',
       },
     },
   },
   {
-    initialRouteName: TASKS_PAGE_PATH,
+    initialRouteName: CALENDAR_PAGE_PATH,
     lazy: true,
     //lazyPlaceholderComponent
     swipeEnabled: false,

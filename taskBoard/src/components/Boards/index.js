@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { FlatList, ActivityIndicator, TouchableOpacity, Text } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { ActivityIndicator, PanResponder } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
-import { StyledBackgroundContainer, StyledText } from './component'
+import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
-import { theme } from '@/theme'
 import Board from '@/components/Board'
-
 const keyExtractor = ({ id }) => id
 
-const renderItem = ({ item, drag, isActive }) => {
-  return <Board name={item.name} onLongPress={drag} isActive={isActive} />
+const renderItem = ({ item: { name, tasks }, drag, isActive }) => {
+  return <Board name={name} onLongPress={drag} isActive={isActive} tasks={tasks} />
 }
 
 const orderSortCallback = (first, second) => first.order - second.order
@@ -21,10 +19,10 @@ const orderSortCallback = (first, second) => first.order - second.order
 //@todo: to avoid this must use React.memo with function, that check changes in received data and try to avoid unnecessary re-renderings
 
 const Boards = () => {
-  const exampleProjectId = '2fd42ceb-7341-4059-84c8-423766d3b70a'
+  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
   const [localBoards, setLocalBoards] = useState([])
 
-  const { loading, error, data } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {
+  const { loading } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {
     variables: { id: exampleProjectId },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       const boards = data?.projects_by_pk?.boards

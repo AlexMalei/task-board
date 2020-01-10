@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 
 import FormTitle from '@/fields/FormTitle'
 import Input from '@/fields/Input'
-import Button from '@/fields/Button'
+import FormButton from '@/fields/FormButton'
 import Form from '@/forms/Form'
 import { signUpSchema } from '@/validators'
 import { AuthAPI } from '@/api'
@@ -69,9 +69,9 @@ const SignUpForm = ({ initialValues }) => {
               placeholder="Something about yourself"
             />
 
-            <Button loading={loading} onClick={() => handleSignUp(values.email, values.password)}>
+            <FormButton loading={loading} onClick={() => handleSignUp(values.email, values.password)}>
               Sign Up
-            </Button>
+            </FormButton>
           </Form>
         )
       }}

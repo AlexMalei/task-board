@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import Avatar from '@/fields/Avatar'
 import ProfileDataItem from './ProfileDataItem'
 import { StyledProfileContainer, StyledAvatarSection, StyledDetailsSection } from './component'
+import { theme } from '@/theme'
 
 const ProfileView = ({ avatar, email, name, role }) => {
   return (
     <StyledProfileContainer>
       <StyledAvatarSection>
-        <Avatar avatarUrl={avatar} size="xlarge" name={name} />
+        <Avatar avatarUrl={avatar} size={theme.avatarSizes.xlarge} userName={name} />
       </StyledAvatarSection>
       <StyledDetailsSection>
         <ProfileDataItem icon="people" title="Name" subtitle={name} />

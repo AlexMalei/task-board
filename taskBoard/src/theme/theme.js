@@ -7,6 +7,8 @@ const lightGrey = '#ECECEC'
 const pampas = '#EEEBE5'
 const gray = '#9b9b9b'
 const gold = '#FFC200'
+const cararra = '#F7F6F3'
+const dawnPink = '#F6E9E9'
 
 const error = '#CF1A17'
 
@@ -17,11 +19,15 @@ const colors = {
   lightGrey,
   darkGrey,
   pampas,
+  cararra,
+  dawnPink,
   gray,
   gold,
   codGray,
   error,
 }
+
+const font = 'Heebo'
 
 const fontSizes = [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 8]
 
@@ -35,10 +41,46 @@ const sizePx = {
   0: '0px',
 }
 
+const light = 200
+const medium = 400
+const normal = 500
+const semiBold = 600
+const bold = 700
+const regular = medium
+
+const fontWeights = {
+  light,
+  medium,
+  normal,
+  semiBold,
+  bold,
+  regular,
+}
+
+const avatarSizes = {
+  xsmall: 20,
+  small: 60,
+  medium: 80,
+  large: 100,
+  xlarge: 150,
+}
+
+const checkBoxSizes = {
+  xsmall: 20,
+  small: 30,
+  medium: 40,
+  large: 50,
+  xlarge: 60,
+}
+
 const space = [0, 4, 8, 16, 20, 24, 28, 32, 64, 128]
 
 export const theme = {
   colors,
   space,
   fontSizes,
+  fontWeights,
+  avatarSizes,
+  checkBoxSizes,
+  font,
 }
