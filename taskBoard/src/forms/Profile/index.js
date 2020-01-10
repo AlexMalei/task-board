@@ -7,7 +7,7 @@ import FormButton from '@/fields/FormButton'
 import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
-
+import { theme } from '@/theme'
 import Apps from '@/components/uploadImage'
 
 const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPress }) => {

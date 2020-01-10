@@ -10,7 +10,6 @@ import { TASKS_PAGE_PATH, defaultRoute, ADD_PROJECT_PATH } from '@/constants'
 import ModalAddProject from '@/forms/ModalAddProject'
 import { getUserIdFromToken } from '@/helpers'
 import { useAsync } from '@/hooks'
-import NavigationService from '@/services/Navigation'
 import { theme } from '@/theme'
 import Spinner from '@/fields/Spinner'
 
