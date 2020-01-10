@@ -133,7 +133,7 @@ const CustomDrawerContentComponent = props => {
               </SafeAreaView>
             </StyledDrawerContentMargin>
           </ScrollView>
-          <ModalAddProject isModalVisible={isVisible} setIsVisible={setIsVisible} />
+          <ModalAddProject isModalVisible={isVisible} setIsVisible={setIsVisible} id={userId} />
         </StyledDrawerContainer>
       )}
     </React.Fragment>

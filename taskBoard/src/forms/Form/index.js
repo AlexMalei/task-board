@@ -17,7 +17,12 @@ const Form = ({ children }) => {
 
   return (
     <View style={{ flex: 1, height }} onLayout={event => saveAllScreenContainerHeight(event)}>
-      <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={0} extraScrollHeight={0}>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="always"
+        enableOnAndroid={true}
+        extraHeight={0}
+        extraScrollHeight={0}
+      >
         <StyledFormContainer style={[heightStyle]} behavior="padding" keyboardVerticalOffset={0}>
           {children}
         </StyledFormContainer>

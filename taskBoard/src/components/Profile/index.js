@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, Text } from 'react-native'
+import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 
 import ProfileView from '@/components/ProfileView'
@@ -55,7 +55,7 @@ const Profile = ({ navigation: { state, setParams } }) => {
           onUpdatePress={(name, role, about) => handleUpdateProfile(name, role, about)}
         />
       ) : (
-        <ProfileView avatar={avatarUrl} email={email} name={displayName} role={role}></ProfileView>
+        <ProfileView avatar={avatarUrl} email={email} name={displayName} role={role} />
       )}
     </React.Fragment>
   )
