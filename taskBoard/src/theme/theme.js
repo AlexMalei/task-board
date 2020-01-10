@@ -9,6 +9,8 @@ const gray = '#9b9b9b'
 const gold = '#FFC200'
 const cararra = '#F7F6F3'
 const dawnPink = '#F6E9E9'
+const red = '#CF1A17'
+const mineShaft = '#202020'
 
 const error = '#CF1A17'
 
@@ -24,6 +26,8 @@ const colors = {
   gray,
   gold,
   codGray,
+  red,
+  mineShaft,
   error,
 }
 

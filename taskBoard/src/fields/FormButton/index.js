@@ -10,10 +10,11 @@ const FormButton = ({ children, loading, onClick, useBackground, ...props }) => 
 
   return (
     <ReactButton
+      {...props}
       buttonStyle={[styles.button, backgroundStyle]}
       titleStyle={[styles.content, styles.boldText]}
       loadingStyle={styles.content}
-      loadingProps={{ color: 'black' }}
+      loadingProps={{ color: theme.colors.black }}
       title={children}
       type={useBackground ? 'solid' : 'clear'}
       loading={loading}
@@ -37,10 +38,10 @@ const styles = StyleSheet.create({
   },
 
   boldText: {
-    fontWeight: 'bold',
+    fontWeight: `${theme.fontWeights.bold}`,
     fontSize: 14,
 
-    color: 'black',
+    color: theme.colors.black,
   },
 })
 

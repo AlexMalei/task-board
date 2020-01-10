@@ -8,7 +8,7 @@ export const StyledProjectsContainer = styled.View`
 export const StyledPageTitle = styled.Text`
   padding-bottom: 5px;
 
-  font-size: 24px;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   text-align: center;
 `

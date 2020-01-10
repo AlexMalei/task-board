@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+import { theme } from '@/theme'
+
 import {
   StyledBorderContainer,
   StyledDataContainer,
@@ -16,7 +18,7 @@ const ProfileDataItem = ({ icon, title, subtitle }) => {
     <StyledBorderContainer>
       <StyledDataContainer>
         <StyledContainer>
-          {icon && <Icon name={icon} size={24} style={{ color: 'black', marginRight: 20 }} />}
+          {icon && <Icon name={icon} size={24} style={{ color: theme.colors.black, marginRight: 20 }} />}
         </StyledContainer>
 
         <StyledContentContainer>

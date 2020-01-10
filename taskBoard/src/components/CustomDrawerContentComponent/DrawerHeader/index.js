@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { View, Picker, YellowBox, TouchableHighlight } from 'react-native'
+import React from 'react'
+import { View, TouchableHighlight } from 'react-native'
 
 import DropdownProfileDrawer from '@/components/CustomDrawerContentComponent/DropdownHeaderDrawer'
 import NavigationService from '@/services/Navigation'

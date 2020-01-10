@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, ScrollView, Dimensions, Keyboard, KeyboardAvoidView } from 'react-native'
+import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { StyledFormContainer } from './component'

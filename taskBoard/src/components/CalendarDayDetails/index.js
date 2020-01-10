@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { StyleSheet, ActivityIndicator } from 'react-native'
 import moment from 'moment'
 import { useMutation, useSubscription } from '@apollo/react-hooks'
 
@@ -40,7 +39,6 @@ const CalendarDayDetails = ({ navigation }) => {
     variables: { projectId, deadline: date },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       setMutationLoading(false)
-      setTasks([])
       let localTasks = []
       data?.projects_by_pk?.boards.forEach(({ tasks: boardTasks }) => {
         localTasks = localTasks.concat(boardTasks)

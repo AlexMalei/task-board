@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
 
 import Input from '@/fields/Input'
