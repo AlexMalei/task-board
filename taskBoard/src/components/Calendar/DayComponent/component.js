@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const StyledDayContainer = styled.View`
+export const StyledDayContainer = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0 ${({ cellMargin }) => cellMargin}px;

@@ -2,11 +2,25 @@ import styled from 'styled-components'
 import Avatar from '@/fields/Avatar'
 
 export const StyledContainer = styled.View`
+  flex: 1;
+
   padding: 20px 25px;
   margin: 10px 0;
 
   background-color: ${({ theme }) => theme.colors.cararra};
   border-radius: 8;
+`
+
+export const StyledCheckBoxContainer = styled.View`
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+`
+
+export const StyledTaskDescription = styled.View`
+  flex: 7;
+  flex-direction: column;
 `
 
 export const StyledContent = styled.Text`
@@ -15,7 +29,6 @@ export const StyledContent = styled.Text`
 `
 
 export const StyledFooter = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;

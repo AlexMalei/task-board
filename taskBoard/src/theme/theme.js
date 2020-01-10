@@ -65,6 +65,14 @@ const avatarSizes = {
   xlarge: 150,
 }
 
+const checkBoxSizes = {
+  xsmall: 20,
+  small: 30,
+  medium: 40,
+  large: 50,
+  xlarge: 60,
+}
+
 const space = [0, 4, 8, 16, 20, 24, 28, 32, 64, 128]
 
 export const theme = {
@@ -73,5 +81,6 @@ export const theme = {
   fontSizes,
   fontWeights,
   avatarSizes,
+  checkBoxSizes,
   font,
 }

@@ -1,16 +1,29 @@
 import gql from 'graphql-tag'
 
-export const CALENDAR_TASKS_SUBSCRIPTIONS = gql`
-  subscription profileData($projectId: uuid!) {
+export const CALENDAR_TASKS_COUNT_SUBSCRIPTIONS = gql`
+  subscription tasksCountData($projectId: uuid!) {
     projects_by_pk(id: $projectId) {
       boards {
-        id
         tasks(where: { archived: { _eq: false } }) {
+          id
+          deadline
+        }
+      }
+    }
+  }
+`
+
+export const CALENDAR_TASKS_DETAILS_SUBSCRIPTION = gql`
+  subscription tasksDetailsData($projectId: uuid!, $deadline: date!) {
+    projects_by_pk(id: $projectId) {
+      boards {
+        tasks(where: { archived: { _eq: false }, deadline: { _eq: $deadline } }) {
           id
           deadline
           name
           order
           content
+          published
           type {
             color
             background_color
@@ -25,6 +38,3 @@ export const CALENDAR_TASKS_SUBSCRIPTIONS = gql`
     }
   }
 `
-// if we need tasks where deadline after current date
-// tasks(where: { deadline: { _gt: "2019-12-30" } }) {
-//, $currentDate: String!
