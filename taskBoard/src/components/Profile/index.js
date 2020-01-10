@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 
 import ProfileView from '@/components/ProfileView'

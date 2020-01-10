@@ -7,8 +7,8 @@ export const StyledInputContainer = styled.View`
 `
 
 export const InputTitle = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: ${({ theme }) => theme.fontSizes[2]};
 `
 
 export const TextInput = styled.TextInput`

@@ -5,6 +5,6 @@ export const StyledIcon = styled(Icon)`
   margin-left: 10;
   margin-right: 10;
 
-  font-size: 30;
-  color: ${props => props.theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+  color: ${({ theme }) => theme.colors.black};
 `

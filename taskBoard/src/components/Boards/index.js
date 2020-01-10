@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
@@ -7,6 +6,7 @@ import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
 import Board from '@/components/Board'
+import Spinner from '@/fields/Spinner'
 
 const keyExtractor = ({ id }) => id
 
@@ -54,7 +54,7 @@ const Boards = () => {
   return (
     <StyledBackgroundContainer>
       {loading ? (
-        <ActivityIndicator size="large" color="black" />
+        <Spinner />
       ) : (
         <DraggableFlatList
           data={localBoards}
