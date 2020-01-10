@@ -8,10 +8,10 @@ export const TitleContainer = styled.View`
   margin-bottom: 20px;
 
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.lightGrey};
+  border-bottom-color: ${({ theme }) => theme.colors.lightGrey};
 `
 
 export const Title = styled.Text`
-  font-weight: bold;
-  font-size: 36px;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: ${({ theme }) => theme.fontSizes[7]};
 `

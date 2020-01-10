@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+
+import { theme } from '@/theme'
 
 import { StyledProjectContainer, StyledText, StyledProjectTitle } from './component'
 
@@ -16,7 +17,7 @@ const Project = ({ name, membersCount, boardsCount, tasksCount, color }) => {
 }
 
 Project.defaultProps = {
-  color: '#E89A68',
+  color: theme.colors.gold,
 }
 
 Project.propTypes = {

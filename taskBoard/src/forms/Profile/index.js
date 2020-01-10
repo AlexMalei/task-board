@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
 
 import Input from '@/fields/Input'
-import Button from '@/fields/Button'
+import FormButton from '@/fields/FormButton'
 import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
+
 import Apps from '@/components/uploadImage'
 
 const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPress }) => {
@@ -16,9 +16,8 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
       {({ values, touched, errors, handleChange, handleBlur }) => {
         return (
           <Form>
-            <Avatar avatarUrl={avatarUrl} name={name} size="large" />
+            <Avatar avatarUrl={avatarUrl} userName={name} size={theme.avatarSizes.large} />
             <Apps />
-
             <Input
               label="Name"
               value={values.name}
@@ -49,10 +48,12 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
               placeholder="Input info about yourself"
             />
 
-            <Button onClick={() => onUpdatePress(values.name, values.role, values.about)}>Update profile</Button>
-            <Button useBackground={false} onClick={onCancelPress}>
+            <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about)}>
+              Update profile
+            </FormButton>
+            <FormButton useBackground={false} onClick={onCancelPress}>
               Cancel
-            </Button>
+            </FormButton>
           </Form>
         )
       }}

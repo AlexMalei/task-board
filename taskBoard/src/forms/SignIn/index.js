@@ -6,7 +6,7 @@ import { Formik } from 'formik'
 
 import FormTitle from '@/fields/FormTitle'
 import Input from '@/fields/Input'
-import Button from '@/fields/Button'
+import FormButton from '@/fields/FormButton'
 import Form from '@/forms/Form'
 import { signInSchema } from '@/validators'
 import { AuthAPI } from '@/api'
@@ -23,7 +23,7 @@ const SignInForm = ({ initialValues }) => {
     try {
       setLoading(true)
 
-      const result = await AuthAPI.signIn(email, password)
+      await AuthAPI.signIn(email, password)
       const token = await firebase.auth().currentUser.getIdToken()
       AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
 
@@ -69,9 +69,9 @@ const SignInForm = ({ initialValues }) => {
               placeholder="*************"
             />
 
-            <Button loading={loading} onClick={() => handleSignIn(values.email, values.password)}>
+            <FormButton loading={loading} onClick={() => handleSignIn(values.email, values.password)}>
               Sign In
-            </Button>
+            </FormButton>
           </Form>
         )
       }}

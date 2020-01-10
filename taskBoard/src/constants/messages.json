@@ -3,7 +3,7 @@
     "error": {
       "email": "Invalid email!",
       "password": "Invalid password!",
-      "aboutYourself": "Invalid info about youself!",
+      "aboutYourself": "Invalid info about yourself!"
     },
     "required": {
       "email": "Email is required!",

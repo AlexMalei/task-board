@@ -7,10 +7,11 @@ export const StyledAvatarSection = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: white;
+
+  background-color: ${({ theme }) => theme.colors.white};
 `
 
 export const StyledDetailsSection = styled.View`
   flex: 1;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
 `

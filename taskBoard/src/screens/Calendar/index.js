@@ -1,12 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 
-const Calendar = () => {
-  return (
-    <View>
-      <Text>Project Calendar</Text>
-    </View>
-  )
+import Calendar from '@/components/Calendar'
+
+const CalendarScreen = () => {
+  return <Calendar />
 }
 
-export default Calendar
+export default CalendarScreen

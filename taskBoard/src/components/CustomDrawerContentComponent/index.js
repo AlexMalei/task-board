@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { View, FlatList, SafeAreaView, ScrollView, TouchableOpacity, Text, Button } from 'react-native'
-
-import { useSubscription, useMutation } from '@apollo/react-hooks'
+import { View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { useSubscription } from '@apollo/react-hooks'
 import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
 import NavigationService from '@/services/Navigation'
@@ -11,6 +10,9 @@ import { TASKS_PAGE_PATH, defaultRoute, ADD_PROJECT_PATH } from '@/constants'
 import ModalAddProject from '@/forms/ModalAddProject'
 import { getUserIdFromToken } from '@/helpers'
 import { useAsync } from '@/hooks'
+import NavigationService from '@/services/Navigation'
+import { theme } from '@/theme'
+import Spinner from '@/fields/Spinner'
 
 import {
   StyledDrawerProjectContainer,
@@ -68,8 +70,9 @@ const CustomDrawerContentComponent = props => {
   const [isVisible, setIsVisible] = useState(false)
 
   const { data: userId } = useAsync(getUserIdFromToken)
+  const [selectedCategory, setSelectedCategory] = useState('')
 
-  const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
+  const { loading: profileLoading, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
 
@@ -81,7 +84,7 @@ const CustomDrawerContentComponent = props => {
   return (
     <React.Fragment>
       {profileLoading ? (
-        <StyleActivityIndicator size={'large'} />
+        <Spinner />
       ) : (
         <StyledDrawerContainer>
           <ScrollView>
@@ -123,6 +126,7 @@ const CustomDrawerContentComponent = props => {
                       index={index}
                       selected={selectedProject}
                       onPress={() => onItem(project, navigate, setSelected, setSelectedProject, index)}
+                      style={selectedCategory === index ? styles.selected : null}
                     />
                   )}
                 />
@@ -143,3 +147,12 @@ const CustomDrawerContentComponent = props => {
 console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
 
 export default CustomDrawerContentComponent
+
+const styles = StyleSheet.create({
+  selected: {
+    color: theme.colors.red,
+  },
+  buttonText: {
+    color: theme.colors.red,
+  },
+})

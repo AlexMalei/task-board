@@ -15,6 +15,7 @@ export const REGISTER_PATH = 'Register'
 export const TASKS_PAGE_PATH = 'ProjectTasks'
 export const BOARDS_PAGE_PATH = 'ProjectBoards'
 export const ACTIVITY_PAGE_PATH = 'ProjectActivity'
+
 export const CALENDAR_PAGE_PATH = 'ProjectCalendar'
 
 export const defaultRoute = [
@@ -22,3 +23,6 @@ export const defaultRoute = [
   { name: MY_TASKS_PAGE_PATH, icon: 'tasks' },
   { name: NOTIFICATIONS_PAGE_PATH, icon: 'comments-dollar' },
 ]
+
+export const CALENDAR_MAIN_PAGE_PATH = 'ProjectCalendarMain'
+export const CALENDAR_DAY_DETAILS_PATH = 'ProjectCalendarDayDetails'
