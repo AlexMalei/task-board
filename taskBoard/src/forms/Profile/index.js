@@ -4,7 +4,7 @@ import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
 
 import Input from '@/fields/Input'
-import Button from '@/fields/Button'
+import FormButton from '@/fields/FormButton'
 import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
@@ -48,10 +48,12 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
               placeholder="Input info about yourself"
             />
 
-            <Button onClick={() => onUpdatePress(values.name, values.role, values.about)}>Update profile</Button>
-            <Button useBackground={false} onClick={onCancelPress}>
+            <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about)}>
+              Update profile
+            </FormButton>
+            <FormButton useBackground={false} onClick={onCancelPress}>
               Cancel
-            </Button>
+            </FormButton>
           </Form>
         )
       }}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
-import BoardButton from '@/fields/BoardButton'
+import Button from '@/fields/Button'
 import Task from '@/components/Task'
 import DraggableButton from '@/components/Draggable/Button'
 
@@ -23,7 +23,7 @@ const Board = ({ name, tasks, onLongPress, isActive }) => {
       <StyledBoardHeader>
         <StyledTitle>{name}</StyledTitle>
         <DraggableButton handleClick={handleAddTaskClick}>
-          {({ buttonHandlers }) => <BoardButton {...buttonHandlers}>+ Add Task</BoardButton>}
+          {({ buttonHandlers }) => <Button {...buttonHandlers}>+ Add Task</Button>}
         </DraggableButton>
       </StyledBoardHeader>
       <StyledTasksContainer>
