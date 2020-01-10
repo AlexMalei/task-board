@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
   boldText: {
     fontWeight: `${theme.fontWeights.bold}`,
-    fontSize: 14,
+    fontSize: theme.fontSizes[1],
 
     color: theme.colors.black,
   },

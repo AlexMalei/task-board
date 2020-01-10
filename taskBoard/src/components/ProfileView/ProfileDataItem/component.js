@@ -13,7 +13,7 @@ export const StyledDataContainer = styled.View`
   padding-bottom: 16;
   padding-right: 24;
 
-  border-bottom-color: grey;
+  border-bottom-color: ${({ theme }) => theme.colors.gray};
   border-bottom-width: ${StyleSheet.hairlineWidth};
 `
 
@@ -32,12 +32,12 @@ export const StyledTitle = styled.Text`
   align-items: center;
 
   font-weight: bold;
-  color: black;
+  color: ${({ theme }) => theme.colors.black};
 `
 
 export const StyledSubtitle = styled.Text`
   margin-top: 4;
 
   color: blue;
-  font-size: 15;
+  font-size: ${({ theme }) => theme.fontSizes[2]};
 `
