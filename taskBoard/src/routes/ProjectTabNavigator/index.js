@@ -61,14 +61,14 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
       },
       labelStyle: {
         fontSize: theme.fontSizes[0],
-        fontWeight: 'bold',
+        fontWeight: `${theme.fontWeights.bold}`,
       },
     },
     navigationOptions: {
       drawerLabel: 'ProjectNavigator',
       title: '',
       tabBarLabel: 'ProjectNavigator',
-      inactiveTintColor: 'grey',
+      inactiveTintColor: theme.colors.gray,
       headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
     },
   },

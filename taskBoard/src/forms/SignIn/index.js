@@ -23,7 +23,7 @@ const SignInForm = ({ initialValues }) => {
     try {
       setLoading(true)
 
-      const result = await AuthAPI.signIn(email, password)
+      await AuthAPI.signIn(email, password)
       const token = await firebase.auth().currentUser.getIdToken()
       AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
 

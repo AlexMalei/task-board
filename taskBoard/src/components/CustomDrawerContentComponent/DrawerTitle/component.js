@@ -2,24 +2,26 @@ import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export const StyledDrawerTitle = styled.View`
-  height: 80;
-  align-items: center;
-  background-color: ${props => props.theme.colors.black};
   justify-content: flex-start;
   flex-direction: row;
+  align-items: center;
+  height: 80px;
+
+  background-color: ${({ theme }) => theme.colors.black};
 `
 export const StyledDrawerIconTitle = styled(Icon)`
-  margin-left: 15;
-  color: ${props => props.theme.colors.gold};
-  font-size: 36;
+  margin-left: 15px;
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+  color: ${({ theme }) => theme.colors.gold};
 `
 export const StyledDrawerIconSearch = styled(Icon)`
   left: 70;
-  color: #9b9b9b;
-  font-size: 32;
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+  color: ${({ theme }) => theme.colors.gray};
 `
 export const StyledTitleHeaderText = styled.Text`
-  font-size: 16;
   padding-left: 10;
-  color: ${props => props.theme.colors.gold};
+  font-size: ${({ theme }) => theme.fontSizes[2]};
+
+  color: ${({ theme }) => theme.colors.gold};
 `

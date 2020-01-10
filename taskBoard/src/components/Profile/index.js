@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, Text } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 
 import ProfileView from '@/components/ProfileView'
@@ -10,6 +10,7 @@ import { UPDATE_PROFILE_DATA } from '@/mutations'
 import { useAsync } from '@/hooks'
 import { PROFILE_PAGE_PATH } from '@/constants'
 import { getUserIdFromToken } from '@/helpers'
+import Spinner from '@/fields/Spinner'
 
 const Profile = ({ navigation: { state, setParams } }) => {
   const [editMode, setEditMode] = useState(false)
@@ -44,7 +45,7 @@ const Profile = ({ navigation: { state, setParams } }) => {
   return (
     <React.Fragment>
       {profileLoading ? (
-        <ActivityIndicator size="large" />
+        <Spinner />
       ) : editMode ? (
         <ProfileForm
           about={aboutMe}

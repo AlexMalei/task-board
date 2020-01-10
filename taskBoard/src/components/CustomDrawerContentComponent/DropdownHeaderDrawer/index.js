@@ -6,6 +6,7 @@ import { LOGIN_PATH, PROFILE_PAGE_PATH, LOGOUT_PATH, SETTINGS_PATH } from '@/con
 import NavigationService from '@/services/Navigation'
 import { doLogout } from '@/utils'
 import { AuthAPI } from '@/api'
+import { theme } from '@/theme'
 
 import { StyledDrawerIcon } from './component'
 
@@ -58,9 +59,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: '#202020',
-    color: 'white',
-    fontSize: 14,
+
+    backgroundColor: theme.colors.mineShaft,
+    color: theme.colors.white,
+    fontSize: theme.fontSizes[1],
   },
 })
 

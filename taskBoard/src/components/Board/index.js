@@ -1,12 +1,15 @@
 import React from 'react'
 
-import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 import Button from '@/fields/Button'
 import Task from '@/components/Task'
 import DraggableButton from '@/components/Draggable/Button'
+import { theme } from '@/theme'
+
+import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 
 const Board = ({ name, tasks, onLongPress, isActive }) => {
-  const handleAddTaskClick = () => {
+  const handleAddTaskPress = () => {
+    //@todo: add modal window for adding task after button press
     console.log('button ADD TASK was clicked')
   }
 
@@ -14,7 +17,7 @@ const Board = ({ name, tasks, onLongPress, isActive }) => {
     <StyledContainer
       onLongPress={onLongPress}
       style={{
-        borderColor: isActive ? 'red' : 'none',
+        borderColor: isActive ? theme.colors.red : 'none',
         borderWidth: isActive ? 2 : 0,
       }}
       activeOpacity={0.8}
@@ -22,7 +25,7 @@ const Board = ({ name, tasks, onLongPress, isActive }) => {
     >
       <StyledBoardHeader>
         <StyledTitle>{name}</StyledTitle>
-        <DraggableButton handleClick={handleAddTaskClick}>
+        <DraggableButton handlePress={handleAddTaskPress}>
           {({ buttonHandlers }) => <Button {...buttonHandlers}>+ Add Task</Button>}
         </DraggableButton>
       </StyledBoardHeader>

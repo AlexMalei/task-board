@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  ActivityIndicator,
-  StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native'
-import { useSubscription, useMutation } from '@apollo/react-hooks'
+import React, { useState } from 'react'
+import { View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { useSubscription } from '@apollo/react-hooks'
 import { DrawerItems } from 'react-navigation-drawer'
 import PropTypes from 'prop-types'
 
@@ -21,6 +11,9 @@ import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { getUserIdFromToken } from '@/helpers'
 import { TASKS_PAGE_PATH } from '@/constants'
 import { useAsync } from '@/hooks'
+import NavigationService from '@/services/Navigation'
+import { theme } from '@/theme'
+import Spinner from '@/fields/Spinner'
 
 import {
   StyledDrawerProjectContainer,
@@ -34,8 +27,6 @@ import {
   StyledTitleAddProject,
   StyledDrawerProjectText,
 } from './component'
-import NavigationService from '@/services/Navigation'
-import styled from 'styled-components'
 
 const Item = ({ item: { id, name }, onPress }) => {
   return (
@@ -48,16 +39,12 @@ const Item = ({ item: { id, name }, onPress }) => {
   )
 }
 
-const initialState = {
-  selectedCategory: '',
-}
-
 const CustomDrawerContentComponent = props => {
   const { data: userId } = useAsync(getUserIdFromToken)
 
-  const [state, setState] = useState(initialState)
+  const [selectedCategory, setSelectedCategory] = useState('')
 
-  const { loading: profileLoading, error: profileError, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
+  const { loading: profileLoading, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
 
@@ -67,7 +54,7 @@ const CustomDrawerContentComponent = props => {
   return (
     <React.Fragment>
       {profileLoading ? (
-        <ActivityIndicator size="large" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }} />
+        <Spinner />
       ) : (
         <StyledDrawerContainer>
           <ScrollView>
@@ -106,7 +93,7 @@ const CustomDrawerContentComponent = props => {
                         navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
                         NavigationService.closeDrawer()
                       }}
-                      style={state.selectedCategory === index ? styles.selected : null}
+                      style={selectedCategory === index ? styles.selected : null}
                     />
                   )}
                   keyExtractor={project => project.id}
@@ -131,9 +118,9 @@ export default CustomDrawerContentComponent
 
 const styles = StyleSheet.create({
   selected: {
-    color: 'red',
+    color: theme.colors.red,
   },
   buttonText: {
-    color: 'red',
+    color: theme.colors.red,
   },
 })

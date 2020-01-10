@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { theme } from '@/theme'
+
 export const StyledContainer = styled.TouchableOpacity`
   z-index: 10;
 
@@ -29,7 +31,7 @@ export const StyledTitle = styled.Text`
   z-index: 11;
 
   font-size: ${({ theme }) => theme.fontSizes[3]};
-  font-weight: bold;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `
 
 export const StyledTasksContainer = styled.View`

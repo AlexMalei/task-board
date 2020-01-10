@@ -3,27 +3,29 @@ import { Header } from 'native-base'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export const StyledDrawerHeader = styled(Header)`
-  height: 80;
-  background-color: ${props => props.theme.colors.codGray};
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+
+  height: 80;
+  background-color: ${({ theme }) => theme.colors.codGray};
 `
 export const StyledDrawerImageProfile = styled.Image`
+  justify-content: center;
   height: 48;
   width: 48;
+
   border-radius: 75;
-  justify-content: center;
 `
 export const StyledDrawerProfileText = styled.Text`
-  color: ${props => props.theme.colors.white};
-  font-size: ${props => props.theme.fontSizes[2]};
+  font-size: ${({ theme }) => theme.fontSizes[2]};
+  color: ${({ theme }) => theme.colors.white};
 `
 export const StyledDrawerTextGray = styled.Text`
-  color: ${props => props.theme.colors.gray};
-  font-size: ${props => props.theme.fontSizes[1]};
+  font-size: ${({ theme }) => theme.fontSizes[1]};
+  color: ${({ theme }) => theme.colors.gray};
 `
 export const StyledDrawerIcon = styled(Icon)`
-  color: ${props => props.theme.colors.gray};
-  font-size: ${props => props.theme.fontSizes[6]};
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+  color: ${({ theme }) => theme.colors.gray};
 `

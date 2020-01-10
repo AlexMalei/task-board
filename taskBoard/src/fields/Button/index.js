@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    fontWeight: 'bold',
+    fontWeight: `${theme.fontWeights.bold}`,
     fontSize: theme.fontSizes[0],
 
     color: theme.colors.black,

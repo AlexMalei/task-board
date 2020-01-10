@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { CheckBox as ReactCheckBox } from 'react-native-elements'
 
+import { theme } from '@/theme'
+
 const Checkbox = ({ onPress, ...props }) => {
   return (
     <ReactCheckBox
@@ -11,8 +13,8 @@ const Checkbox = ({ onPress, ...props }) => {
       textStyle={styles.checkBoxWrapper}
       onIconPress={onPress}
       {...props}
-      checkedColor="#B8B8B8"
-      uncheckedColor="#B8B8B8"
+      checkedColor={theme.colors.gray}
+      uncheckedColor={theme.colors.gray}
     />
   )
 }

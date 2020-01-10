@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { ActivityIndicator, PanResponder } from 'react-native'
+import React, { useState } from 'react'
+import { ActivityIndicator } from 'react-native'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
@@ -7,6 +7,7 @@ import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
 import Board from '@/components/Board'
+
 const keyExtractor = ({ id }) => id
 
 const renderItem = ({ item: { name, tasks }, drag, isActive }) => {
@@ -19,6 +20,7 @@ const orderSortCallback = (first, second) => first.order - second.order
 //@todo: to avoid this must use React.memo with function, that check changes in received data and try to avoid unnecessary re-renderings
 
 const Boards = () => {
+  //@todo: make getting projectId from params
   const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
   const [localBoards, setLocalBoards] = useState([])
 
