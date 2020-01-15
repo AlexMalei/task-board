@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { useSubscription } from '@apollo/react-hooks'
 import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
@@ -24,7 +24,6 @@ import {
   StyledTitleProject,
   StyledTitleAddProject,
   StyledDrawerProjectText,
-  StyleActivityIndicator,
 } from './component'
 
 const Item = ({ item: { name, icon }, onPress, index, selected }) => {

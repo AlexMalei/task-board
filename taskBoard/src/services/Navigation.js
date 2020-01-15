@@ -51,8 +51,6 @@ export default class NavigationService {
       return
     }
 
-    console.log('777')
-
     NavigationService.navigator.dispatch(DrawerActions.closeDrawer())
   }
 }

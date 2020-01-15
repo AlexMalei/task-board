@@ -1,5 +1,4 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { Avatar as ReactAvatar } from 'react-native-elements'
 
 import { getInitials } from '@/utils'
@@ -9,18 +8,7 @@ const DEFAULT_USER_NAME = 'No Name'
 
 const Avatar = ({ avatarUrl, userName, size, edit }) => {
   return avatarUrl ? (
-    <ReactAvatar
-      rounded
-      size={size}
-      source={{ uri: avatarUrl }}
-      avatarStyle={{
-        //@todo: try to fix this
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: theme.colors.white,
-        borderTopLeftRadius: 1,
-        borderStyle: 'solid',
-      }}
-    />
+    <ReactAvatar rounded size={size} source={{ uri: avatarUrl }} />
   ) : (
     <ReactAvatar rounded size={size} title={getInitials(userName || DEFAULT_USER_NAME)} />
   )

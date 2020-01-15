@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 
 import ProfileView from '@/components/ProfileView'
@@ -10,29 +10,48 @@ import { useAsync } from '@/hooks'
 import { PROFILE_PAGE_PATH } from '@/constants'
 import { getUserIdFromToken } from '@/helpers'
 import Spinner from '@/fields/Spinner'
+import firebase from '@/firebase'
 
 const Profile = ({ navigation: { state, setParams } }) => {
   const [editMode, setEditMode] = useState(false)
+
   const { data: userId } = useAsync(getUserIdFromToken)
   const { loading: profileLoading, error: profileError, data } = useSubscription(PROFILE_DATA_SUBSCRIPTION, {
     variables: { id: userId || '' },
   })
+  const { id, about_me: aboutMe, avatar_url: avatarUrl, display_name: displayName, role, email } =
+    data?.users_by_pk || {}
 
   const [updateProfile] = useMutation(UPDATE_PROFILE_DATA)
+
+  const { params } = state
+  const editModeParam = params?.editMode
 
   const onClose = () => {
     setEditMode(false)
   }
 
-  const handleUpdateProfile = (name, role, about) => {
-    updateProfile({ variables: { id: userId, role, name, about } })
-    onClose()
+  const handleUpdateProfile = (name, role, about, avatar) => {
+    const uploadImage = async (avatar, userId) => {
+      const response = await fetch(avatar)
+      const blob = await response.blob()
+
+      const ref = firebase
+        .storage()
+        .ref()
+        .child(`tutorials/images/${userId}`)
+
+      await ref.put(blob)
+      return ref.getDownloadURL()
+    }
+
+    uploadImage(avatar, id).then(url => {
+      updateProfile({
+        variables: { id: userId, role, name, about, avatarUrl: url },
+      })
+      onClose()
+    })
   }
-
-  const { about_me: aboutMe, avatar_url: avatarUrl, display_name: displayName, role, email } = data?.users_by_pk || {}
-
-  const { params } = state
-  const editModeParam = params?.editMode
 
   useEffect(() => {
     if (editModeParam && editMode !== editModeParam) {
@@ -42,22 +61,23 @@ const Profile = ({ navigation: { state, setParams } }) => {
   })
 
   return (
-    <React.Fragment>
+    <Fragment>
       {profileLoading ? (
         <Spinner />
       ) : editMode ? (
         <ProfileForm
+          id={id}
           about={aboutMe}
-          avatarUrl={avatarUrl}
+          avatar={avatarUrl}
           name={displayName}
           role={role}
           onCancelPress={() => onClose()}
-          onUpdatePress={(name, role, about) => handleUpdateProfile(name, role, about)}
+          onUpdatePress={(name, role, about, avatar) => handleUpdateProfile(name, role, about, avatar)}
         />
       ) : (
-        <ProfileView avatar={avatarUrl} email={email} name={displayName} role={role} />
+        <ProfileView email={email} name={displayName} role={role} avatar={avatarUrl} />
       )}
-    </React.Fragment>
+    </Fragment>
   )
 }
 

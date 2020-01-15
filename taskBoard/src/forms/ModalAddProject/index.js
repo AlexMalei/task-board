@@ -17,6 +17,7 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
   }
 
   const handleAddProject = (user_id, background_color, name, task_prefix) => {
+    console.log('1')
     toggleModal(setIsVisible, isModalVisible)
     const tt = addProject({
       variables: { user_id: user_id, background_color: background_color, name: name, task_prefix: task_prefix },
@@ -51,13 +52,13 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
                   onChangeText={handleChange('name')}
                   placeholder="Project name"
                 />
-                <Button style={styles.buttonPosition} onClick={() => handleAddProject(id, '#FF5600', values.name, '0')}>
+                <Button style={styles.buttonPosition} onPress={() => handleAddProject(id, '#FF5600', values.name, '0')}>
                   Create
                 </Button>
                 <Button
                   useBackground={false}
                   title="Hide modal"
-                  onClick={() => toggleModal(setIsVisible, isModalVisible)}
+                  onPress={() => toggleModal(setIsVisible, isModalVisible)}
                 >
                   Cancel
                 </Button>
