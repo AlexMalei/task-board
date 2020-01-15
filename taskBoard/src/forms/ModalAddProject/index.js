@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import React from 'react'
 import Modal from 'react-native-modal'
+import { StyleSheet, View, Text } from 'react-native'
 import { Formik } from 'formik'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -17,9 +17,8 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
   }
 
   const handleAddProject = (user_id, background_color, name, task_prefix) => {
-    console.log('1')
     toggleModal(setIsVisible, isModalVisible)
-    const tt = addProject({
+    addProject({
       variables: { user_id: user_id, background_color: background_color, name: name, task_prefix: task_prefix },
     }).then(
       ({
@@ -27,7 +26,7 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
           insert_projects: { returning },
         },
       }) => {
-        console.log('id', returning[0].id)
+        returning[0].id
       },
     )
   }
@@ -76,7 +75,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 250,
   },
-  buttonPosition: {},
+  buttonPosition: {
+    marginVertical: 5,
+  },
 })
 
 ModalAddProject.defaultProps = {
