@@ -8,6 +8,7 @@ import Form from '@/forms/Form'
 import Input from '@/fields/Input'
 import Button from '@/fields/Button'
 import { ADD_PROJECT } from '@/mutations'
+import { theme } from '@/theme'
 
 const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
   const [addProject] = useMutation(ADD_PROJECT)
@@ -38,7 +39,7 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
       animationInTiming={800}
       animationOutTiming={800}
       backdropOpacity={0.8}
-      backdropColor={'white'}
+      backdropColor={theme.colors.red}
     >
       <View style={styles.appContainer}>
         <Formik initialValues={{ name }}>
@@ -51,7 +52,10 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
                   onChangeText={handleChange('name')}
                   placeholder="Project name"
                 />
-                <Button style={styles.buttonPosition} onPress={() => handleAddProject(id, '#FF5600', values.name, '0')}>
+                <Button
+                  style={styles.buttonPosition}
+                  onPress={() => handleAddProject(id, theme.colors.dawnPink, values.name, '0')}
+                >
                   Create
                 </Button>
                 <Button
