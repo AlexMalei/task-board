@@ -130,6 +130,7 @@ android {
 
     defaultConfig {
         applicationId "com.taskboard"
+        multiDexEnabled true
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -180,7 +181,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-firebase')
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-core:16.0.9"
 
@@ -189,6 +189,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation project(':react-native-datetimepicker')
+    compile 'com.android.support:multidex:1.0.0'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

@@ -1,22 +1,31 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 
-import Input from '@/fields/Input'
-import FormButton from '@/fields/FormButton'
-import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
-import { profileSchema } from '@/validators'
 import { theme } from '@/theme'
+import Input from '@/fields/Input'
+import Avatar from '@/fields/Avatar'
+import FormButton from '@/fields/FormButton'
+import { profileSchema } from '@/validators'
 
-const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPress }) => {
+const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, onPickImage }) => {
   return (
-    <Formik initialValues={{ name, role, about }} validationSchema={profileSchema}>
-      {({ values, touched, errors, handleChange, handleBlur }) => {
+    <Formik initialValues={{ name, role, about, avatar }} validationSchema={profileSchema}>
+      {({ values, touched, errors, handleChange, handleBlur, setFieldValue }) => {
+        const handleUploadAvatar = avatar => {
+          setFieldValue('avatar', avatar)
+        }
         return (
           <Form>
-            <Avatar avatarUrl={avatarUrl} userName={name} size={theme.avatarSizes.large} />
-
+            <Avatar
+              avatarUrl={values.avatar}
+              userName={name}
+              size={theme.avatarSizes.large}
+              onPickImage={onPickImage}
+              onHandleUploadAvatar={handleUploadAvatar}
+              update={true}
+            />
             <Input
               label="Name"
               value={values.name}
@@ -48,7 +57,7 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
               multiline
             />
 
-            <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about)}>
+            <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about, values.avatar)}>
               Update profile
             </FormButton>
             <FormButton useBackground={false} onClick={onCancelPress}>
@@ -62,7 +71,7 @@ const ProfileForm = ({ avatarUrl, name, role, about, onUpdatePress, onCancelPres
 }
 
 ProfileForm.defaultProps = {
-  avatarUrl: '',
+  avatar: '',
   name: '',
   role: '',
   about: '',

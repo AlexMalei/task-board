@@ -1,6 +1,13 @@
 import styled, { css } from 'styled-components'
 import { Container, Header } from 'native-base'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { ActivityIndicator } from 'react-native'
+import Icon from 'react-native-vector-icons/dist/FontAwesome5'
+
+export const StyleActivityIndicator = styled(ActivityIndicator)`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`
 
 export const StyledDrawerContainer = styled(Container)`
   flex: 1;
@@ -33,8 +40,8 @@ export const StyledDrawerProfileText = styled.Text`
   color: ${({ theme }) => theme.colors.white};
 `
 export const StyledDrawerIcon = styled(Icon)`
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray)};
   font-size: ${({ theme }) => theme.fontSizes[6]};
-  color: ${({ theme }) => theme.colors.gray};
 `
 
 export const StyledDataTasks = styled.View`
@@ -73,11 +80,10 @@ export const StyledDrawerProjectContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 4px;
-
   left: ${({ theme }) => theme.space[1]};
 `
 export const StyledDrawerProjectText = styled.Text`
-  padding-left: ${({ theme }) => theme.space[5]};
-  font-size: ${({ theme }) => theme.fontSizes[1]};
-  color: ${({ theme }) => theme.colors.gray};
+  padding-left: ${props => props.theme.space[5]};
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray)};
+  font-size: ${props => props.theme.fontSizes[1]};
 `
