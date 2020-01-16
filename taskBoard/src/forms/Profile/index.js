@@ -8,9 +8,8 @@ import Input from '@/fields/Input'
 import Avatar from '@/fields/Avatar'
 import FormButton from '@/fields/FormButton'
 import { profileSchema } from '@/validators'
-import UpdateProfileImage from '@/components/UpdateProfileImage'
 
-const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress }) => {
+const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, onPickImage }) => {
   return (
     <Formik initialValues={{ name, role, about, avatar }} validationSchema={profileSchema}>
       {({ values, touched, errors, handleChange, handleBlur, setFieldValue }) => {
@@ -19,8 +18,14 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress }
         }
         return (
           <Form>
-            <Avatar avatarUrl={values.avatar} userName={name} size={theme.avatarSizes.large} />
-            <UpdateProfileImage onUploadAvatar={handleUploadAvatar} />
+            <Avatar
+              avatarUrl={values.avatar}
+              userName={name}
+              size={theme.avatarSizes.large}
+              onPickImage={onPickImage}
+              onHandleUploadAvatar={handleUploadAvatar}
+              update={true}
+            />
             <Input
               label="Name"
               value={values.name}
