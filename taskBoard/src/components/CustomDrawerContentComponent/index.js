@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { useSubscription } from '@apollo/react-hooks'
-import { DrawerItems } from 'react-navigation-drawer'
-import PropTypes from 'prop-types'
-
-import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
-import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
 import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
 import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
-import { getUserIdFromToken } from '@/helpers'
-import { TASKS_PAGE_PATH } from '@/constants'
-import { useAsync } from '@/hooks'
 import NavigationService from '@/services/Navigation'
+import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
+import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
+import { TASKS_PAGE_PATH, defaultRoute } from '@/constants'
+import ModalAddProject from '@/forms/ModalAddProject'
+import { getUserIdFromToken } from '@/helpers'
+import { useAsync } from '@/hooks'
 import { theme } from '@/theme'
 import Spinner from '@/fields/Spinner'
 
@@ -28,20 +26,48 @@ import {
   StyledDrawerProjectText,
 } from './component'
 
-const Item = ({ item: { id, name }, onPress }) => {
+const Item = ({ item: { name, icon }, onPress, index, selected }) => {
+  icon = icon ? icon : 'pied-piper-alt'
   return (
     <TouchableOpacity onPress={onPress}>
       <StyledDrawerProjectContainer>
-        <StyledDrawerIcon name="local-play" />
-        <StyledDrawerProjectText>{name}</StyledDrawerProjectText>
+        <StyledDrawerIcon name={icon} isActive={selected === index} />
+        <StyledDrawerProjectText isActive={selected === index}>{name}</StyledDrawerProjectText>
       </StyledDrawerProjectContainer>
     </TouchableOpacity>
   )
 }
 
-const CustomDrawerContentComponent = props => {
-  const { data: userId } = useAsync(getUserIdFromToken)
+const onItem = ({ name, icon }, navigate, setSelected, setSelectedProject, index) => {
+  changeTitleTabNavigator(name)
+  if (icon) {
+    navigate(name)
+    setSelected(index)
+    setSelectedProject(false)
+  } else {
+    navigate(TASKS_PAGE_PATH)
+    setSelectedProject(index)
+    setSelected(false)
+  }
+  NavigationService.closeDrawer()
+}
 
+const FlatListHeader = name => {
+  return <StyledTitleProject>{name}</StyledTitleProject>
+}
+
+const handleKeyExtractor = ({ id }) => id
+
+const onAddProject = setIsVisible => {
+  setIsVisible(true)
+}
+
+const CustomDrawerContentComponent = props => {
+  const [selected, setSelected] = useState(0)
+  const [selectedProject, setSelectedProject] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+
+  const { data: userId } = useAsync(getUserIdFromToken)
   const [selectedCategory, setSelectedCategory] = useState('')
 
   const { loading: profileLoading, data } = useSubscription(USER_DATA_SUBSCRIPTION, {
@@ -49,7 +75,9 @@ const CustomDrawerContentComponent = props => {
   })
 
   const { projects, display_name, avatar_url, role } = data?.users_by_pk || {}
-  const { navigation } = props
+  const {
+    navigation: { navigate },
+  } = props
 
   return (
     <React.Fragment>
@@ -60,7 +88,6 @@ const CustomDrawerContentComponent = props => {
           <ScrollView>
             <DrawerTitle />
             <DrawerHeader name={display_name} avatar={avatar_url} role={role} />
-
             <StyledDataTasks>
               <View>
                 <StyledDataTasksText>129</StyledDataTasksText>
@@ -71,37 +98,44 @@ const CustomDrawerContentComponent = props => {
                 <StyledDrawerTextGray>Open Tasks</StyledDrawerTextGray>
               </View>
             </StyledDataTasks>
-
             <StyledDrawerContentMargin>
-              <StyledDrawerTextGray>MENU</StyledDrawerTextGray>
-              <DrawerItems {...props} />
-              <StyledTitleProject>PROJECTS</StyledTitleProject>
               <SafeAreaView>
                 <FlatList
-                  data={projects}
-                  ListEmptyComponent={
-                    <View>
-                      <Text>The list of projects is empty...</Text>
-                    </View>
-                  }
+                  data={defaultRoute}
+                  ListHeaderComponent={FlatListHeader('MENU')}
+                  keyExtractor={handleKeyExtractor}
                   renderItem={({ item: project, index }) => (
                     <Item
                       item={project}
                       index={index}
-                      onPress={() => {
-                        changeTitleTabNavigator(project)
-                        navigation.navigate(TASKS_PAGE_PATH, { projectId: project.id, name: project.name })
-                        NavigationService.closeDrawer()
-                      }}
+                      selected={selected}
+                      onPress={() => onItem(project, navigate, setSelected, setSelectedProject, index)}
+                    />
+                  )}
+                />
+
+                <FlatList
+                  data={projects}
+                  ListHeaderComponent={FlatListHeader('PROJECTS')}
+                  keyExtractor={handleKeyExtractor}
+                  renderItem={({ item: project, index }) => (
+                    <Item
+                      item={project}
+                      index={index}
+                      selected={selectedProject}
+                      onPress={() => onItem(project, navigate, setSelected, setSelectedProject, index)}
                       style={selectedCategory === index ? styles.selected : null}
                     />
                   )}
-                  keyExtractor={project => project.id}
                 />
-                <StyledTitleAddProject>+ Add a Project</StyledTitleAddProject>
+
+                <StyledTitleAddProject onPress={() => onAddProject(setIsVisible)}>
+                  + Add a Project
+                </StyledTitleAddProject>
               </SafeAreaView>
             </StyledDrawerContentMargin>
           </ScrollView>
+          <ModalAddProject isModalVisible={isVisible} setIsVisible={setIsVisible} id={userId} />
         </StyledDrawerContainer>
       )}
     </React.Fragment>
@@ -109,10 +143,6 @@ const CustomDrawerContentComponent = props => {
 }
 
 console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
-
-Item.propTypes = {
-  title: PropTypes.string.isRequired,
-}
 
 export default CustomDrawerContentComponent
 

@@ -3,6 +3,7 @@ import { View, TouchableHighlight } from 'react-native'
 
 import DropdownProfileDrawer from '@/components/CustomDrawerContentComponent/DropdownHeaderDrawer'
 import NavigationService from '@/services/Navigation'
+import { PROFILE_PAGE_PATH } from '@/constants'
 
 import {
   StyledDrawerHeader,
@@ -10,7 +11,6 @@ import {
   StyledDrawerProfileText,
   StyledDrawerTextGray,
 } from './component'
-import { PROFILE_PAGE_PATH } from '@/constants'
 
 const onUserProfile = () => {
   NavigationService.navigate(PROFILE_PAGE_PATH)
