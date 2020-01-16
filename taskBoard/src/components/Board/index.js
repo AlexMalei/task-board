@@ -8,11 +8,6 @@ import { theme } from '@/theme'
 import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 
 const Board = ({ name, tasks, onLongPress, isActive }) => {
-  const handleAddTaskPress = () => {
-    //@todo: add modal window for adding task after button press
-    console.log('button ADD TASK was clicked')
-  }
-
   return (
     <StyledContainer
       onLongPress={onLongPress}

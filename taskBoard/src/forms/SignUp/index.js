@@ -67,6 +67,7 @@ const SignUpForm = ({ initialValues }) => {
               error={errors['aboutYourself']}
               touched={touched['aboutYourself']}
               placeholder="Something about yourself"
+              multiline
             />
 
             <FormButton loading={loading} onClick={() => handleSignUp(values.email, values.password)}>
