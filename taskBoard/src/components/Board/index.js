@@ -8,6 +8,9 @@ import { theme } from '@/theme'
 import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 
 const Board = ({ name, tasks, onLongPress, isActive }) => {
+  const handleAddTaskPress = () => {
+    console.log('Add Task button was pressed')
+  }
   return (
     <StyledContainer
       onLongPress={onLongPress}
