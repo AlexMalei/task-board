@@ -54,6 +54,7 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, 
               error={errors['about']}
               touched={touched['about']}
               placeholder="Input info about yourself"
+              multiline
             />
 
             <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about, values.avatar)}>

@@ -9,10 +9,8 @@ import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer }
 
 const Board = ({ name, tasks, onLongPress, isActive }) => {
   const handleAddTaskPress = () => {
-    //@todo: add modal window for adding task after button press
-    console.log('button ADD TASK was clicked')
+    console.log('Add Task button was pressed')
   }
-
   return (
     <StyledContainer
       onLongPress={onLongPress}

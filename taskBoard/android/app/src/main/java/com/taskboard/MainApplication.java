@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -13,8 +14,9 @@ import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
@@ -46,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new RNFirebaseStoragePackage());
 
           packages.add(new RNFirebaseAuthPackage());
+          //packages.add(new RNDateTimePickerPackage());
           return packages;
         }
 
