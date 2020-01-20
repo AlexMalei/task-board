@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "npx react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -26,6 +26,7 @@
     "formik": "^2.0.6",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "jetifier": "^1.6.5",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
