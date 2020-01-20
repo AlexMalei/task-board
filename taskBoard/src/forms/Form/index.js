@@ -21,7 +21,7 @@ const Form = ({ children }) => {
         extraHeight={0}
         extraScrollHeight={0}
       >
-        <StyledFormContainer style={[heightStyle]} behavior="padding" keyboardVerticalOffset={0}>
+        <StyledFormContainer behavior="padding" keyboardVerticalOffset={0}>
           {children}
         </StyledFormContainer>
       </KeyboardAwareScrollView>
