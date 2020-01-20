@@ -21,7 +21,7 @@ const orderSortCallback = (first, second) => first.order - second.order
 
 const Boards = () => {
   //@todo: make getting projectId from params
-  const exampleProjectId = '425c8285-df19-4178-833f-c7b8a4042ad7'
+  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
   const [localBoards, setLocalBoards] = useState([])
 
   const { loading } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {

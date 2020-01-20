@@ -181,6 +181,7 @@ android {
 }
 
 dependencies {
+
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-core:16.0.9"
 
@@ -188,8 +189,10 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    compile 'com.android.support:multidex:1.0.0'
+    implementation project(':@react-native-community_datetimepicker')
+    implementation project(':react-native-firebase')
 
+    compile 'com.android.support:multidex:1.0.0'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

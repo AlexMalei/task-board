@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { theme } from '@/theme'
 import { StyledInputContainer, TextInput, InputTitle } from './component'
 
-const Input = ({ label, error, touched, ...props }) => {
+const Input = ({ label, error, touched, multiline, keyboardType, ...props }) => {
   //@todo: error text layout
   return (
     <StyledInputContainer>
@@ -13,10 +13,17 @@ const Input = ({ label, error, touched, ...props }) => {
         style={error && touched ? styles.errorStyle : null}
         autoCorrect={false}
         placeholderTextColor="#13131380"
+        multiline={multiline}
+        keyboardType={keyboardType}
         {...props}
       />
     </StyledInputContainer>
   )
+}
+
+Input.defaultProps = {
+  multiline: false,
+  keyboardType: 'default',
 }
 
 const styles = StyleSheet.create({
