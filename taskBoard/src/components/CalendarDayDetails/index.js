@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { useMutation, useSubscription, useLazyQuery } from '@apollo/react-hooks'
 
-import Task from '@/components/Task'
-import Button from '@/fields/Button'
 import { CALENDAR_TASKS_DETAILS_SUBSCRIPTION } from '@/subscriptions'
-import { UPDATE_TASK_DATA } from '@/mutations'
-import Spinner from '@/fields/Spinner'
-import Modal from '@/components/Modal'
-import AddTaskForm from '@/forms/AddTask'
-import { INSERT_TASK_DATA } from '@/mutations'
+import { INSERT_TASK_DATA, UPDATE_TASK_DATA } from '@/mutations'
 import { GET_MAX_TASK_ORDER_ON_BOARD } from '@/queries'
+import Task from '@/components/Task'
+import Modal from '@/components/Modal'
+import Button from '@/fields/Button'
+import Spinner from '@/fields/Spinner'
+import AddTaskForm from '@/forms/AddTask'
 
 import { StyledDayDetailsContainer, StyledHeader, StyledDate, StyledTasks } from './component'
 
@@ -43,9 +42,8 @@ const CalendarDayDetails = ({ navigation }) => {
   const [insertTask] = useMutation(INSERT_TASK_DATA, {
     variables: {},
     onCompleted: data => {
-      console.log('mutation completed')
       setMutationLoading(false)
-      //@todo: make redirect to new task screen
+      handleCloseModal()
     },
   })
 
