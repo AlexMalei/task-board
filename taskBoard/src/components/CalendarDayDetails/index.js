@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { useMutation, useSubscription } from '@apollo/react-hooks'
+import { useMutation, useSubscription, useLazyQuery } from '@apollo/react-hooks'
 
-import Task from '@/components/Task'
-import Button from '@/fields/Button'
 import { CALENDAR_TASKS_DETAILS_SUBSCRIPTION } from '@/subscriptions'
-import { UPDATE_TASK_DATA } from '@/mutations'
-import Spinner from '@/fields/Spinner'
+import { INSERT_TASK_DATA, UPDATE_TASK_DATA } from '@/mutations'
+import { GET_MAX_TASK_ORDER_ON_BOARD } from '@/queries'
+import Task from '@/components/Task'
 import Modal from '@/components/Modal'
+import Button from '@/fields/Button'
+import Spinner from '@/fields/Spinner'
 import AddTaskForm from '@/forms/AddTask'
-import { INSERT_TASK } from '@/mutations'
 
 import { StyledDayDetailsContainer, StyledHeader, StyledDate, StyledTasks } from './component'
 
 //@todo: remove button feedback
-//@todo: add route to modal window of add tasks
 
 const CalendarDayDetails = ({ navigation }) => {
   const [modalVisibility, setModalVisibility] = useState(false)
   const [mutationLoading, setMutationLoading] = useState(false)
   const [tasks, setTasks] = useState([])
+  const [addingTaskData, setAddingTaskData] = useState({})
 
   const date = navigation.getParam('date')
   const projectId = navigation.getParam('projectId')
@@ -39,10 +39,60 @@ const CalendarDayDetails = ({ navigation }) => {
     })
   }
 
-  const [insertTask] = useMutation(INSERT_TASK)
+  const [insertTask] = useMutation(INSERT_TASK_DATA, {
+    variables: {},
+    onCompleted: data => {
+      setMutationLoading(false)
+      handleCloseModal()
+    },
+  })
 
-  const handleAddTaskPress = (name, content, deadline, board_id, type_id, user_id, priority, number, published) => {
-    insertTask({ variables: { name, content, deadline, board, type, user, priority, number, published } })
+  const [getMaxTaskOrderOnBoard] = useLazyQuery(GET_MAX_TASK_ORDER_ON_BOARD, {
+    variables: {},
+    onCompleted: ({
+      tasks_aggregate: {
+        aggregate: {
+          max: { order },
+        },
+      },
+    }) => {
+      const { name, content, deadline, boardId, typeId, userId, priority, number } = addingTaskData
+
+      insertTask({
+        variables: {
+          name,
+          content,
+          deadline,
+          board_id: boardId,
+          type_id: typeId,
+          user_id: userId,
+          priority,
+          number,
+          order: order ? order + 1 : 0,
+          published: true,
+          archived: false,
+        },
+      })
+    },
+  })
+
+  const handleAddTaskPress = (name, content, deadline, board, type, user, priority, number) => {
+    setMutationLoading(true)
+
+    setAddingTaskData({
+      name,
+      content,
+      deadline,
+      boardId: board.id,
+      typeId: type.id,
+      userId: user.id,
+      priority,
+      number,
+    })
+
+    getMaxTaskOrderOnBoard({
+      variables: { boardId: board.id },
+    })
   }
 
   const { loading: subscriptionLoading } = useSubscription(CALENDAR_TASKS_DETAILS_SUBSCRIPTION, {
@@ -64,7 +114,12 @@ const CalendarDayDetails = ({ navigation }) => {
   return (
     <StyledDayDetailsContainer>
       <Modal isVisible={modalVisibility} onClose={handleCloseModal}>
-        <AddTaskForm onCancelPress={handleCloseModal} projectId={projectId} onSubmitPress={handleAddTaskPress} />
+        <AddTaskForm
+          onCancelPress={handleCloseModal}
+          projectId={projectId}
+          onSubmitPress={handleAddTaskPress}
+          selectedDate={date}
+        />
       </Modal>
       <StyledHeader>
         <StyledDate>{moment(date).format('ddd, D MMM YYYY')}</StyledDate>

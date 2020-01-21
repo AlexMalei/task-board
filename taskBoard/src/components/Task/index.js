@@ -14,6 +14,7 @@ import {
 
 import { theme } from '@/theme'
 
+//@todo: fix getting members from tasks, instead of concrete record of user table
 const Task = ({
   checkBoxVisibility,
   onCheckBoxPress,
@@ -23,7 +24,7 @@ const Task = ({
     name,
     order,
     published,
-    user: { avatar_url: avatarUrl, display_name: userName },
+    user /* : { avatar_url: avatarUrl, display_name: userName } */,
     type: { name: typeName, color, background_color },
   },
 }) => {
@@ -44,8 +45,12 @@ const Task = ({
         <StyledContent>{name}</StyledContent>
         <StyledFooter>
           <StyledUserAvatar
-            userName={userName}
-            avatarUrl={avatarUrl}
+            //@todo: fix
+            userName={'Alexander Malei' /* userName */}
+            //@todo: fix
+            avatarUrl={
+              'https://firebasestorage.googleapis.com/v0/b/education-board-api.appspot.com/o/tutorials%2Fimages%2Fs1AfPA8IwAZBBiYZs3XqRAaav5s1?alt=media&token=8449011e-27a7-45eb-927d-6bd524d6df95' /* avatarUrl */
+            }
             size={theme.avatarSizes.xsmall}
           ></StyledUserAvatar>
           <StyledTypeLabel style={typeStyle}>{typeName}</StyledTypeLabel>
