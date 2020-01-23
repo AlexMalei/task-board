@@ -36,15 +36,3 @@ export const StyledFooter = styled.View`
 `
 
 export const StyledUserAvatar = styled(Avatar)``
-
-export const StyledTypeLabel = styled.Text`
-  margin-left: 5px;
-  padding: 3px 6px;
-
-  font-size: ${({ theme }) => theme.fontSizes[0]};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-
-  border-radius: 11px;
-
-  text-transform: uppercase;
-`

@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { theme } from '@/theme'
-
 export const StyledContainer = styled.TouchableOpacity`
   z-index: 10;
 

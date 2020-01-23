@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const Tasks = ({ navigation }) => {
-  return (
-    <View>
-      <Text>Project Tasks</Text>
-    </View>
-  )
+import ProjectTasks from '@/components/Tasks'
+
+const Tasks = () => {
+  return <ProjectTasks />
 }
 
 export default Tasks
