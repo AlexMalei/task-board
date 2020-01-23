@@ -6,6 +6,7 @@ export const TitleContainer = styled.View`
   align-items: center;
   padding: 50px 0 50px 0;
   margin-bottom: 20px;
+  width: 100%;
 
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.lightGrey};
