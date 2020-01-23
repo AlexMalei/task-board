@@ -1,3 +1,4 @@
+//@todo: fix: swap colors darkGray and gray
 const lightGreen = '#CEF9C6'
 const white = '#FFFFFF'
 const codGray = '#131313'
@@ -63,7 +64,7 @@ const fontWeights = {
 
 const avatarSizes = {
   xsmall: 20,
-  small: 60,
+  small: 48,
   medium: 80,
   large: 100,
   xlarge: 150,
