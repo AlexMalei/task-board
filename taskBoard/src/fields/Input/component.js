@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const StyledInputContainer = styled.View`
+  flex: 1;
   justify-content: center;
   width: 100%;
-  padding: 20px 0;
 `
 
 export const InputTitle = styled.Text`
