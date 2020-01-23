@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { Formik } from 'formik'
@@ -72,6 +72,7 @@ const AddTaskForm = ({
               error={errors['name']}
               touched={touched['name']}
               placeholder="Input name"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -83,6 +84,7 @@ const AddTaskForm = ({
               touched={touched['content']}
               placeholder="Input content"
               multiline
+              containerStyle={styles.input}
             />
 
             <DateTimePicker
@@ -125,6 +127,7 @@ const AddTaskForm = ({
               touched={touched['priority']}
               placeholder="Input priority"
               keyboardType="number-pad"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -136,6 +139,7 @@ const AddTaskForm = ({
               touched={touched['number']}
               placeholder="Input number"
               keyboardType="number-pad"
+              containerStyle={styles.input}
             />
 
             <FormButton
@@ -155,6 +159,12 @@ const AddTaskForm = ({
     </Formik>
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: 20,
+  },
+})
 
 AddTaskForm.defaultProps = {
   name: 'TEST TASK NAME',

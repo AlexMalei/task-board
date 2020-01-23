@@ -51,6 +51,7 @@ const ModalAddProject = ({ isModalVisible, setIsVisible, name, id }) => {
                   value={values.name}
                   onChangeText={handleChange('name')}
                   placeholder="Project name"
+                  containerStyle={styles.input}
                 />
                 <Button
                   style={styles.buttonPosition}
@@ -81,6 +82,9 @@ const styles = StyleSheet.create({
   },
   buttonPosition: {
     marginVertical: 5,
+  },
+  input: {
+    marginVertical: 20,
   },
 })
 
