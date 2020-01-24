@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.View`
-  margin: 10px 10px 10px ${({ theme }) => theme.avatarSizes.small / 2}px;
+  margin: 10px 0 10px ${({ theme }) => theme.avatarSizes.small / 2}px;
   padding: 20px 20px 20px 40px;
 
   font-weight: ${({ theme }) => theme.fontWeights.regular};
@@ -14,8 +14,6 @@ export const Container = styled.View`
 export const Date = styled.Text`
   font-weight: ${({ theme }) => theme.fontWeights.regular};
   font-size: ${({ theme }) => theme.fontSizes[0]};
-
-  text-transform: capitalize;
 `
 
 export const Header = styled.View`

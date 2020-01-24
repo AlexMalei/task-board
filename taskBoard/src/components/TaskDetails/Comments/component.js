@@ -11,10 +11,6 @@ export const CommentAddContainer = styled.View`
   align-items: center;
 `
 
-export const CommentInput = styled(Input)`
-  height: 40px;
-`
-
 export const SectionLabel = styled.Text`
   margin-bottom: 20px;
 

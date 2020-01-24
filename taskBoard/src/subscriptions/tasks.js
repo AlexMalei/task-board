@@ -19,7 +19,7 @@ export const TASKS_SUBSCRIPTION = gql`
         avatar_url
         display_name
       }
-      comments {
+      comments(order_by: { created_at: desc }) {
         created_at
         content
         user {

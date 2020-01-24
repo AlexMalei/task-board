@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
 export const DetailsSectionContainer = styled.View`
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   min-height: 60px;
