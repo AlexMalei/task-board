@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
 export const StyledInputContainer = styled.View`
   flex: 1;
@@ -16,4 +17,20 @@ export const TextInput = styled.TextInput`
 
   border-radius: 8px;
   background-color: ${props => props.theme.colors.darkGrey};
+`
+
+export const SubmitIconContainer = styled.TouchableOpacity`
+  position: absolute;
+  right: 0;
+
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+`
+
+export const SubmitIcon = styled(Icon)`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+
+  color: ${({ theme }) => theme.colors.gray};
 `
