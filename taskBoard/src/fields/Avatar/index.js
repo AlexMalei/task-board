@@ -1,18 +1,30 @@
 import React from 'react'
 import { Avatar as ReactAvatar } from 'react-native-elements'
+import normalize from 'react-native-normalize'
 
 import { getInitials } from '@/utils'
 import { theme } from '@/theme'
 
 const DEFAULT_USER_NAME = 'No Name'
 
-const Avatar = ({ avatarUrl, userName, size, onPickImage, onHandleUploadAvatar, update, containerStyle }) => {
+const Avatar = ({
+  avatarUrl,
+  userName,
+  size,
+  onPickImage,
+  onHandleUploadAvatar,
+  update,
+  containerStyle,
+  avatarStyle,
+}) => {
+  console.log('size', size)
   return avatarUrl ? (
     <ReactAvatar
       containerStyle={containerStyle}
+      avatarStyle={avatarStyle}
       onPress={() => update && onPickImage(onHandleUploadAvatar)}
       rounded
-      size={size}
+      size={normalize(size)}
       source={{ uri: avatarUrl }}
     />
   ) : (
@@ -24,6 +36,7 @@ Avatar.defaultProps = {
   size: theme.avatarSizes.medium,
   edit: false,
   containerStyle: {},
+  avatarStyle: {},
   userName: DEFAULT_USER_NAME,
 }
 
