@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Alert } from 'react-native'
 import firebase from 'react-native-firebase'
@@ -56,6 +57,7 @@ const SignInForm = ({ initialValues }) => {
               error={errors['email']}
               touched={touched['email']}
               placeholder="example@gmail.com"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -67,6 +69,7 @@ const SignInForm = ({ initialValues }) => {
               error={errors['password']}
               touched={touched['password']}
               placeholder="*************"
+              containerStyle={styles.input}
             />
 
             <FormButton loading={loading} onClick={() => handleSignIn(values.email, values.password)}>
@@ -78,6 +81,12 @@ const SignInForm = ({ initialValues }) => {
     </Formik>
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    marginVertical: 20,
+  },
+})
 
 SignInForm.defaultProps = {
   initialValues: {

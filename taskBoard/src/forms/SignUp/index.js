@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import firebase from 'react-native-firebase'
 import { Formik } from 'formik'
@@ -57,6 +58,7 @@ const SignUpForm = ({ initialValues }) => {
               error={errors['password']}
               touched={touched['password']}
               placeholder="*************"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -68,6 +70,7 @@ const SignUpForm = ({ initialValues }) => {
               touched={touched['aboutYourself']}
               placeholder="Something about yourself"
               multiline
+              containerStyle={styles.input}
             />
 
             <FormButton loading={loading} onClick={() => handleSignUp(values.email, values.password)}>
@@ -79,6 +82,12 @@ const SignUpForm = ({ initialValues }) => {
     </Formik>
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    marginVertical: 20,
+  },
+})
 
 SignUpForm.defaultProps = {
   initialValues: {

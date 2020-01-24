@@ -8,7 +8,7 @@ import { GET_MAX_TASK_ORDER_ON_BOARD } from '@/queries'
 import Task from '@/components/Task'
 import Modal from '@/components/Modal'
 import Button from '@/fields/Button'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 import AddTaskForm from '@/forms/AddTask'
 
 import { StyledDayDetailsContainer, StyledHeader, StyledDate, StyledTasks } from './component'

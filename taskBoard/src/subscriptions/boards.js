@@ -7,7 +7,7 @@ export const PROJECT_BOARDS_SUBSCRIPTION = gql`
         id
         name
         order
-        tasks {
+        tasks(order_by: { order: asc }) {
           id
           name
           order

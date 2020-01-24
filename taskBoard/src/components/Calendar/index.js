@@ -6,14 +6,15 @@ import { CalendarList } from 'react-native-calendars'
 import { CALENDAR_TASKS_COUNT_SUBSCRIPTIONS } from '@/subscriptions'
 import { theme } from '@/theme'
 import { DAY_CELL_MARGIN, DAY_CELL_SIZE, AMOUNT_MONTH_TO_SCROLL } from '@/constants'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 
 import DayComponent from './DayComponent'
 
 const CALENDAR_MAIN_STYLES_KEY = 'stylesheet.calendar.main'
 const CALENDAR_HEADER_STYLES_KEY = 'stylesheet.calendar.header'
 
-//@todo: check if deadline date needed to display on calendar(or other dates)
+//@todo: fix calendar days in bottom of month
+
 const Calendar = () => {
   //@todo: make getting projectId from params
   const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'

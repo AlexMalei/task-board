@@ -4,7 +4,7 @@ import { useSubscription } from '@apollo/react-hooks'
 
 import { PROJECTS_SUBSCRIPTION } from '@/subscriptions'
 import Project from '@/components/Project'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 
 import { StyledProjectsContainer, StyledPageTitle } from './component'
 

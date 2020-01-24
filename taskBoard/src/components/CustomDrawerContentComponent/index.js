@@ -11,7 +11,7 @@ import ModalAddProject from '@/forms/ModalAddProject'
 import { getUserIdFromToken } from '@/helpers'
 import { useAsync } from '@/hooks'
 import { theme } from '@/theme'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 
 import {
   StyledDrawerProjectContainer,
