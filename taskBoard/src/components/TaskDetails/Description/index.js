@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { SectionTextContent, TaskDescriptionContainer, SectionLabelWithMargin } from './component'
+import { DescriptionContent, DescriptionContainer, SectionLabelWithMargin } from './component'
 
 const Description = ({ content }) => {
   return (
-    <TaskDescriptionContainer>
+    <DescriptionContainer>
       <SectionLabelWithMargin>Description</SectionLabelWithMargin>
-      <SectionTextContent>{content}</SectionTextContent>
-    </TaskDescriptionContainer>
+      <DescriptionContent>{content}</DescriptionContent>
+    </DescriptionContainer>
   )
 }
 
