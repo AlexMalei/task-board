@@ -27,7 +27,7 @@ import {
 } from './component'
 
 const Item = ({ item: { name, icon }, onPress, index, selected }) => {
-  icon = icon ? icon : 'pied-piper-alt'
+  icon = icon ? icon : 'meetup'
   return (
     <TouchableOpacity onPress={onPress}>
       <StyledDrawerProjectContainer>
