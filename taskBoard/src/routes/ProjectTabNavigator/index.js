@@ -3,10 +3,10 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 
 import NavigationService from '@/services/Navigation'
 
-import TasksScreen from '@/screens/Tasks'
 import BoardsScreen from '@/screens/Boards'
 import ActivityScreen from '@/screens/Activity'
 import CalendarNavigator from '@/routes/CalendarNavigator'
+import TasksNavigator from '@/routes/TasksNavigator'
 import { TASKS_PAGE_PATH, BOARDS_PAGE_PATH, ACTIVITY_PAGE_PATH, CALENDAR_PAGE_PATH } from '@/constants'
 
 import { theme } from '@/theme'
@@ -15,7 +15,7 @@ import HeaderIcon from '@/components/HeaderIcon'
 const ProjectTabNavigator = createMaterialTopTabNavigator(
   {
     [TASKS_PAGE_PATH]: {
-      screen: TasksScreen,
+      screen: TasksNavigator,
 
       navigationOptions: {
         title: 'Tasks',
@@ -46,7 +46,7 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
     },
   },
   {
-    initialRouteName: CALENDAR_PAGE_PATH,
+    initialRouteName: TASKS_PAGE_PATH,
     lazy: true,
     //lazyPlaceholderComponent
     swipeEnabled: false,

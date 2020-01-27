@@ -9,7 +9,7 @@ import { PROFILE_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_PROFILE_DATA } from '@/mutations'
 import { PROFILE_PAGE_PATH } from '@/constants'
 import { getUserIdFromToken } from '@/helpers'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 import firebase from '@/firebase'
 import { useAsync } from '@/hooks'
 

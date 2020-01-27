@@ -26,3 +26,6 @@ export const defaultRoute = [
 
 export const CALENDAR_MAIN_PAGE_PATH = 'ProjectCalendarMain'
 export const CALENDAR_DAY_DETAILS_PATH = 'ProjectCalendarDayDetails'
+
+export const TASKS_MAIN_PAGE_PATH = 'ProjectTasksMain'
+export const TASKS_DETAILS_PAGE_PATH = 'ProjectTasksDetails'

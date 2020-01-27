@@ -1,4 +1,5 @@
 import React from 'react'
+import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 
@@ -34,6 +35,7 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, 
               error={errors['name']}
               touched={touched['name']}
               placeholder="Input name"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -44,6 +46,7 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, 
               error={errors['role']}
               touched={touched['role']}
               placeholder="Input role"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -55,6 +58,7 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, 
               touched={touched['about']}
               placeholder="Input info about yourself"
               multiline
+              containerStyle={styles.input}
             />
 
             <FormButton onClick={() => onUpdatePress(values.name, values.role, values.about, values.avatar)}>
@@ -69,6 +73,12 @@ const ProfileForm = ({ avatar, name, role, about, onUpdatePress, onCancelPress, 
     </Formik>
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    marginVertical: 20,
+  },
+})
 
 ProfileForm.defaultProps = {
   avatar: '',
