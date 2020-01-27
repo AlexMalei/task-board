@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { Formik } from 'formik'
@@ -11,16 +11,16 @@ import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
 import { theme } from '@/theme'
-import DatePicker from '@/fields/DatePicker'
+import DateTimePicker from '@/fields/DateTimePicker'
 import { GET_PROJECT_DATA_FOR_TASKS } from '@/queries'
 import Menu from '@/fields/Menu'
 
 import { StyledHeaderContainer, StyledHeaderText } from './component'
 
 const AddTaskForm = ({
+  selectedDate,
   name,
   content,
-  deadline,
   board,
   type,
   user,
@@ -35,33 +35,27 @@ const AddTaskForm = ({
     variables: { projectId },
   })
 
-  console.log('projectData', projectData)
-
   const { boards, types: taskTypes, members } = projectData?.projects_by_pk || {}
   const users = members?.map(member => ({ id: member.id, name: member.user.display_name }))
 
   return (
     <Formik
-      initialValues={{ name, content, deadline, board, type, user, priority, number, published }}
+      initialValues={{
+        name,
+        content,
+        deadline: selectedDate,
+        board,
+        type,
+        user,
+        priority,
+        number,
+        published,
+      }}
       validationSchema={profileSchema}
     >
       {({ values, touched, errors, handleChange, handleBlur, setFieldValue }) => {
-        //@todo: name, content,  deadline,  user_id, board_id, type_id
-        //@todo: order is last task.odrer + 1
-
-        const handleDeadlineChange = date => {
-          setFieldValue('deadline', date)
-        }
-        const handleBoardPress = board => {
-          setFieldValue('board', board)
-        }
-
-        const handleTaskTypePress = taskType => {
-          setFieldValue('type', taskType)
-        }
-
-        const handleUserPress = user => {
-          setFieldValue('user', user)
+        const handleFieldChange = (fieldName, value) => {
+          setFieldValue(fieldName, value)
         }
 
         return (
@@ -78,6 +72,7 @@ const AddTaskForm = ({
               error={errors['name']}
               touched={touched['name']}
               placeholder="Input name"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -89,30 +84,38 @@ const AddTaskForm = ({
               touched={touched['content']}
               placeholder="Input content"
               multiline
+              containerStyle={styles.input}
             />
 
-            <DatePicker title="Deadline" date={values.deadline} mode="date" handleDateChange={handleDeadlineChange} />
+            <DateTimePicker
+              title="Deadline"
+              date={values.deadline}
+              mode="date"
+              handleDateChange={date => handleFieldChange('deadline', date)}
+            />
 
-            <Menu items={boards} title="Board" selectedItem={values.board} handleItemPress={handleBoardPress} />
+            <Menu
+              items={users}
+              visibleFieldName="name"
+              title="User"
+              selectedItem={values.user}
+              handleItemPress={user => handleFieldChange('user', user)}
+            />
+
+            <Menu
+              items={boards}
+              visibleFieldName="name"
+              title="Board"
+              selectedItem={values.board}
+              handleItemPress={board => handleFieldChange('board', board)}
+            />
 
             <Menu
               items={taskTypes}
+              visibleFieldName="name"
               title="Task type"
               selectedItem={values.type}
-              handleItemPress={handleTaskTypePress}
-            />
-
-            <Menu items={users} title="User" selectedItem={values.user} handleItemPress={handleUserPress} />
-
-            <Input
-              label="Content"
-              value={values.content}
-              onChangeText={handleChange('content')}
-              onBlur={handleBlur('content')}
-              error={errors['content']}
-              touched={touched['content']}
-              placeholder="Input content"
-              multiline
+              handleItemPress={taskType => handleFieldChange('type', taskType)}
             />
 
             <Input
@@ -124,6 +127,7 @@ const AddTaskForm = ({
               touched={touched['priority']}
               placeholder="Input priority"
               keyboardType="number-pad"
+              containerStyle={styles.input}
             />
 
             <Input
@@ -135,13 +139,13 @@ const AddTaskForm = ({
               touched={touched['number']}
               placeholder="Input number"
               keyboardType="number-pad"
+              containerStyle={styles.input}
             />
-            {/*@todo: make checkbox with published field*/}
 
             <FormButton
               onClick={() => {
-                const { name, content, deadline, board, type, user, priority, number, published } = values
-                onSubmitPress(name, content, deadline, board, type, user, priority, number, published)
+                const { name, content, deadline, board, type, user, priority, number } = values
+                onSubmitPress(name, content, deadline, board, type, user, priority, number)
               }}
             >
               Add task
@@ -156,10 +160,15 @@ const AddTaskForm = ({
   )
 }
 
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: 20,
+  },
+})
+
 AddTaskForm.defaultProps = {
   name: 'TEST TASK NAME',
   content: 'TEST TASK CONTENT',
-  deadline: new Date('2020-01-17'),
   board: {},
   type: {},
   user: {},

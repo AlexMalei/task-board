@@ -6,7 +6,7 @@ import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
 import Board from '@/components/Board'
-import Spinner from '@/fields/Spinner'
+import Spinner from '@/components/Spinner'
 
 const keyExtractor = ({ id }) => id
 
