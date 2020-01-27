@@ -45,6 +45,7 @@ const Calendar = () => {
       theme={{
         [CALENDAR_MAIN_STYLES_KEY]: {
           week: styles.mainWeekRow,
+          container: styles.containerMain,
         },
         [CALENDAR_HEADER_STYLES_KEY]: {
           monthText: styles.headerMonthText,
@@ -104,6 +105,9 @@ const styles = StyleSheet.create({
 
     borderBottomColor: theme.colors.lightGrey,
     borderBottomWidth: 1,
+  },
+  containerMain: {
+    marginBottom: DAY_CELL_SIZE,
   },
 })
 
