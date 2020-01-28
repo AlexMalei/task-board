@@ -48,7 +48,8 @@ const Task = ({
         </StyledCheckBoxContainer>
       )}
       <StyledTaskDescription>
-        <StyledContent>{name}</StyledContent>
+        {/* @todo: fix task name */}
+        <StyledContent>Todo</StyledContent>
         <StyledFooter>
           <StyledUserAvatar
             containerStyle={styles.avatarContainerStyle}

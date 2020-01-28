@@ -1,11 +1,149 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Text, ScrollView } from 'react-native'
+import { Avatar } from 'react-native-elements'
+import { theme } from '@/theme'
 
-const Activity = () => {
+import {
+  StyledBackgroundContainer,
+  StyledBeforeText,
+  StyledContainer,
+  StyledDay,
+  StyledRow,
+  StyledTextDay,
+  StyledAvatar,
+  StyleTextActivity,
+  StyleTextData,
+} from './component'
+
+const Activity = props => {
   return (
-    <View>
-      <Text>Project Activity</Text>
-    </View>
+    <StyledBackgroundContainer>
+      <ScrollView>
+        <StyledContainer>
+          <StyledDay>
+            <StyledTextDay>TODAY</StyledTextDay>
+            <StyledBeforeText />
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'check', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                  Samak mark as done Listing on Product Hunt so that we can reach as many potential usersDarika Samak
+                  mark as done Listing on Product Hunt so that
+                </StyleTextActivity>
+                <StyleTextData>19:40 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'comment', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                  // containerStyle={{ flex: 1, marginTop: 0 }}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                </StyleTextActivity>
+                <StyleTextData>10:20 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'comment', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                  // containerStyle={{ flex: 1, marginTop: 0 }}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                  Samak mark as done Listing on Product Hunt so that we can reach as many potential usersDarika Samak
+                  mark as done Listing on Product Hunt so that we can reach as many potential users Darika Samak mark as
+                  done Listing on Product Hunt so that we can reach as many potential users Darika Samak mark as done
+                  Listing on Product Hunt so that we can reach as many potential users
+                </StyleTextActivity>
+                <StyleTextData>19:00 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+          </StyledDay>
+
+          <StyledDay>
+            <StyledTextDay>YESTERDAY</StyledTextDay>
+            <StyledBeforeText />
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'check', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                  Samak mark as done Listing on Product Hunt so that we can reach as many potential usersDarika Samak
+                  mark as done Listing on Product Hunt so that
+                </StyleTextActivity>
+                <StyleTextData>17:45 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'comment', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                  // containerStyle={{ flex: 1, marginTop: 0 }}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                </StyleTextActivity>
+                <StyleTextData>9:40 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+            <StyledRow>
+              <StyledAvatar>
+                <Avatar
+                  rounded
+                  size={theme.avatarSizes.small}
+                  overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
+                  icon={{ name: 'comment', color: '#1D201C', type: 'font-awesome', size: 20 }}
+                  onPress={() => console.log('Works!')}
+                  activeOpacity={0.7}
+                  // containerStyle={{ flex: 1, marginTop: 0 }}
+                />
+                <StyleTextActivity>
+                  Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users Darika
+                  Samak mark as done Listing on Product Hunt so that we can reach as many potential usersDarika Samak
+                  mark as done Listing on Product Hunt so that we can reach as many potential users Darika Samak mark as
+                  done Listing on Product Hunt so that we can reach as many potential users Darika Samak mark as done
+                  Listing on Product Hunt so that we can reach as many potential users
+                </StyleTextActivity>
+                <StyleTextData>19:40 PM</StyleTextData>
+              </StyledAvatar>
+            </StyledRow>
+          </StyledDay>
+        </StyledContainer>
+      </ScrollView>
+    </StyledBackgroundContainer>
   )
 }
 
