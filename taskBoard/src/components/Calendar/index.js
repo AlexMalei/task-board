@@ -13,18 +13,13 @@ import DayComponent from './DayComponent'
 const CALENDAR_MAIN_STYLES_KEY = 'stylesheet.calendar.main'
 const CALENDAR_HEADER_STYLES_KEY = 'stylesheet.calendar.header'
 
-//@todo: fix calendar days in bottom of month
-
-const Calendar = () => {
-  //@todo: make getting projectId from params
-  const exampleProjectId = '425c8285-df19-4178-833f-c7b8a4042ad7'
+const Calendar = ({ projectId }) => {
   const [deadlineTasksMapObject, setDeadlineTasksMapObject] = useState({})
 
   const { loading } = useSubscription(CALENDAR_TASKS_COUNT_SUBSCRIPTIONS, {
-    variables: { projectId: exampleProjectId },
+    variables: { projectId },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       let deadlineTasksMapObject = {}
-
       data?.projects_by_pk?.boards.forEach(({ tasks }) => {
         tasks.forEach(task => {
           const { deadline } = task
@@ -45,6 +40,7 @@ const Calendar = () => {
       theme={{
         [CALENDAR_MAIN_STYLES_KEY]: {
           week: styles.mainWeekRow,
+          container: styles.containerMain,
         },
         [CALENDAR_HEADER_STYLES_KEY]: {
           monthText: styles.headerMonthText,
@@ -58,7 +54,7 @@ const Calendar = () => {
       scrollEnabled={true}
       dayComponent={({ date, state }) => {
         const tasksByDate = deadlineTasksMapObject[date.dateString]
-        return <DayComponent date={date} state={state} countTasks={tasksByDate?.length} projectId={exampleProjectId} />
+        return <DayComponent date={date} state={state} countTasks={tasksByDate?.length} projectId={projectId} />
       }}
       firstDay={1}
       hideExtraDays={true}
@@ -104,6 +100,9 @@ const styles = StyleSheet.create({
 
     borderBottomColor: theme.colors.lightGrey,
     borderBottomWidth: 1,
+  },
+  containerMain: {
+    marginBottom: DAY_CELL_SIZE,
   },
 })
 

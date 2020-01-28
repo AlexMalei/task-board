@@ -1,6 +1,8 @@
 import React from 'react'
-import { Text, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+import { Text, View, ScrollView } from 'react-native'
 import { Avatar } from 'react-native-elements'
+
 import { theme } from '@/theme'
 
 import {
@@ -15,7 +17,7 @@ import {
   StyleTextData,
 } from './component'
 
-const Activity = props => {
+const Activity = ({ projectId }) => {
   return (
     <StyledBackgroundContainer>
       <ScrollView>
@@ -147,4 +149,8 @@ const Activity = props => {
   )
 }
 
-export default Activity
+const mapStateToProps = ({ project: { projectId } }) => ({
+  projectId,
+})
+
+export default connect(mapStateToProps, null)(Activity)

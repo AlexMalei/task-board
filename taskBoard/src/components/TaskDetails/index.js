@@ -13,7 +13,6 @@ import { GET_USER_DATA } from '@/queries'
 
 import { ScreenContainer } from './component'
 
-//@todo: make logged user data
 const TaskDetails = ({ navigation }) => {
   const [loadingLoggedUser, setLoadingLoggedUser] = useState(true)
   const [loggedUser, setLoggedUser] = useState({})

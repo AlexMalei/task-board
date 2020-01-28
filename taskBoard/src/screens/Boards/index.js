@@ -1,10 +1,14 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
 
 import ProjectBoards from '@/components/Boards'
 
-const Boards = () => {
-  return <ProjectBoards />
+const Boards = ({ projectId }) => {
+  return <ProjectBoards projectId={projectId} />
 }
 
-export default Boards
+const mapStateToProps = ({ project: { projectId } }) => ({
+  projectId,
+})
+
+export default connect(mapStateToProps, null)(Boards)

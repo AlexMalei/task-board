@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { View, FlatList, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { useSubscription } from '@apollo/react-hooks'
-import { changeTitleTabNavigator } from '@/routes/ProjectTabNavigator'
-import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
+import { connect } from 'react-redux'
+
 import NavigationService from '@/services/Navigation'
 import DrawerHeader from '@/components/CustomDrawerContentComponent/DrawerHeader'
 import DrawerTitle from '@/components/CustomDrawerContentComponent/DrawerTitle'
-import { TASKS_PAGE_PATH, defaultRoute } from '@/constants'
 import ModalAddProject from '@/forms/ModalAddProject'
+import Spinner from '@/components/Spinner'
+import { TASKS_MAIN_PAGE_PATH, defaultRoutes } from '@/constants'
+import { changeTabNavigatorOptions } from '@/routes/ProjectTabNavigator'
+import { USER_DATA_SUBSCRIPTION } from '@/subscriptions'
 import { getUserIdFromToken } from '@/helpers'
 import { useAsync } from '@/hooks'
 import { theme } from '@/theme'
-import Spinner from '@/components/Spinner'
+import { fetchSetProjectIdAction } from '@/actions'
 
 import {
   StyledDrawerProjectContainer,
@@ -38,17 +41,21 @@ const Item = ({ item: { name, icon }, onPress, index, selected }) => {
   )
 }
 
-const onItem = ({ name, icon }, navigate, setSelected, setSelectedProject, index) => {
-  changeTitleTabNavigator(name)
+const onItem = ({ name, icon, id }, setSelected, setSelectedProject, index, setProjectId) => {
+  changeTabNavigatorOptions(name, id)
+
   if (icon) {
-    navigate(name)
+    NavigationService.navigate(name)
     setSelected(index)
     setSelectedProject(false)
   } else {
-    navigate(TASKS_PAGE_PATH)
+    //@todo: insert to redux projectId
+    setProjectId(id)
+    NavigationService.navigate(TASKS_MAIN_PAGE_PATH)
     setSelectedProject(index)
     setSelected(false)
   }
+
   NavigationService.closeDrawer()
 }
 
@@ -62,7 +69,7 @@ const onAddProject = setIsVisible => {
   setIsVisible(true)
 }
 
-const CustomDrawerContentComponent = props => {
+const CustomDrawerContentComponent = ({ setProjectId }) => {
   const [selected, setSelected] = useState(0)
   const [selectedProject, setSelectedProject] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
@@ -75,9 +82,6 @@ const CustomDrawerContentComponent = props => {
   })
 
   const { projects, display_name, avatar_url, role } = data?.users_by_pk || {}
-  const {
-    navigation: { navigate },
-  } = props
 
   return (
     <React.Fragment>
@@ -101,7 +105,7 @@ const CustomDrawerContentComponent = props => {
             <StyledDrawerContentMargin>
               <SafeAreaView>
                 <FlatList
-                  data={defaultRoute}
+                  data={defaultRoutes}
                   ListHeaderComponent={FlatListHeader('MENU')}
                   keyExtractor={handleKeyExtractor}
                   renderItem={({ item: project, index }) => (
@@ -109,7 +113,7 @@ const CustomDrawerContentComponent = props => {
                       item={project}
                       index={index}
                       selected={selected}
-                      onPress={() => onItem(project, navigate, setSelected, setSelectedProject, index)}
+                      onPress={() => onItem(project, setSelected, setSelectedProject, index)}
                     />
                   )}
                 />
@@ -123,7 +127,7 @@ const CustomDrawerContentComponent = props => {
                       item={project}
                       index={index}
                       selected={selectedProject}
-                      onPress={() => onItem(project, navigate, setSelected, setSelectedProject, index)}
+                      onPress={() => onItem(project, setSelected, setSelectedProject, index, setProjectId)}
                       style={selectedCategory === index ? styles.selected : null}
                     />
                   )}
@@ -144,8 +148,6 @@ const CustomDrawerContentComponent = props => {
 
 console.disableYellowBox = true //@todo: disable warning componentWillReceiveProps
 
-export default CustomDrawerContentComponent
-
 const styles = StyleSheet.create({
   selected: {
     color: theme.colors.red,
@@ -154,3 +156,9 @@ const styles = StyleSheet.create({
     color: theme.colors.red,
   },
 })
+
+const mapDispatchToProps = dispatch => ({
+  setProjectId: projectId => dispatch(fetchSetProjectIdAction(projectId)),
+})
+
+export default connect(null, mapDispatchToProps)(CustomDrawerContentComponent)

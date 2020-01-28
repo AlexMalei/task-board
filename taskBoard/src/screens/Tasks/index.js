@@ -1,10 +1,14 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
 
 import ProjectTasks from '@/components/Tasks'
 
-const Tasks = () => {
-  return <ProjectTasks />
+const Tasks = ({ projectId }) => {
+  return <ProjectTasks projectId={projectId} />
 }
 
-export default Tasks
+const mapStateToProps = ({ project: { projectId } }) => ({
+  projectId,
+})
+
+export default connect(mapStateToProps, null)(Tasks)
