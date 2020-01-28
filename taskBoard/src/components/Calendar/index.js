@@ -13,15 +13,11 @@ import DayComponent from './DayComponent'
 const CALENDAR_MAIN_STYLES_KEY = 'stylesheet.calendar.main'
 const CALENDAR_HEADER_STYLES_KEY = 'stylesheet.calendar.header'
 
-//@todo: fix calendar days in bottom of month
-
-const Calendar = () => {
-  //@todo: make getting projectId from params
-  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
+const Calendar = ({ projectId }) => {
   const [deadlineTasksMapObject, setDeadlineTasksMapObject] = useState({})
 
   const { loading } = useSubscription(CALENDAR_TASKS_COUNT_SUBSCRIPTIONS, {
-    variables: { projectId: exampleProjectId },
+    variables: { projectId },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       let deadlineTasksMapObject = {}
 
@@ -59,7 +55,7 @@ const Calendar = () => {
       scrollEnabled={true}
       dayComponent={({ date, state }) => {
         const tasksByDate = deadlineTasksMapObject[date.dateString]
-        return <DayComponent date={date} state={state} countTasks={tasksByDate?.length} projectId={exampleProjectId} />
+        return <DayComponent date={date} state={state} countTasks={tasksByDate?.length} projectId={projectId} />
       }}
       firstDay={1}
       hideExtraDays={true}

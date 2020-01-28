@@ -13,8 +13,6 @@ import AddTaskForm from '@/forms/AddTask'
 
 import { StyledDayDetailsContainer, StyledHeader, StyledDate, StyledTasks } from './component'
 
-//@todo: remove button feedback
-
 const CalendarDayDetails = ({ navigation }) => {
   const [modalVisibility, setModalVisibility] = useState(false)
   const [mutationLoading, setMutationLoading] = useState(false)

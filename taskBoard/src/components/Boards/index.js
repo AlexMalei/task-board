@@ -19,13 +19,11 @@ const orderSortCallback = (first, second) => first.order - second.order
 //@todo: after mutation subscription might lead to changing layout (or even blinking without changing data (??) )
 //@todo: to avoid this must use React.memo with function, that check changes in received data and try to avoid unnecessary re-renderings
 
-const Boards = () => {
-  //@todo: make getting projectId from params
-  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
+const Boards = ({ projectId }) => {
   const [localBoards, setLocalBoards] = useState([])
 
   const { loading } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {
-    variables: { id: exampleProjectId },
+    variables: { id: projectId },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       const boards = data?.projects_by_pk?.boards
 
