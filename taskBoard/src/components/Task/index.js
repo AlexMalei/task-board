@@ -43,9 +43,7 @@ const Task = ({
         <StyledFooter>
           <StyledUserAvatar
             containerStyle={styles.avatarContainerStyle}
-            //@todo: fix
-            userName={/* 'Alexander Malei'  */ userName}
-            //@todo: fix
+            userName={userName}
             avatarUrl={avatarUrl}
             size={theme.avatarSizes.xsmall}
           />
