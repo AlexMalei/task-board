@@ -10,8 +10,6 @@ export const PROJECT_BOARDS_SUBSCRIPTION = gql`
         tasks(order_by: { order: asc }) {
           id
           name
-          order
-          content
           user {
             avatar_url
             display_name
