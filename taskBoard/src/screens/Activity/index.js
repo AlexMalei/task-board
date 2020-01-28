@@ -1,12 +1,17 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
 
-const Activity = () => {
+const Activity = ({ projectId }) => {
   return (
     <View>
-      <Text>Project Activity</Text>
+      <Text>{projectId}</Text>
     </View>
   )
 }
 
-export default Activity
+const mapStateToProps = ({ project: { projectId } }) => ({
+  projectId,
+})
+
+export default connect(mapStateToProps, null)(Activity)
