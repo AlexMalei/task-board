@@ -14,12 +14,9 @@ const renderItem = ({ item: { name, tasks } }) => {
   return <Board name={name} tasks={tasks} />
 }
 
-const Boards = () => {
-  //@todo: make getting projectId from params
-  const exampleProjectId = 'f2bcc7b4-d1c6-472d-bf87-6e57e19033eb'
-
+const Boards = ({ projectId }) => {
   const { data, loading } = useSubscription(PROJECT_BOARDS_SUBSCRIPTION, {
-    variables: { id: exampleProjectId },
+    variables: { id: projectId },
   })
 
   const { boards } = data?.projects_by_pk || {}

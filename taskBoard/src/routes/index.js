@@ -16,7 +16,6 @@ import {
   NOTIFICATIONS_PAGE_PATH,
   MY_TASKS_PAGE_PATH,
   PROJECT_TAB_NAVIGATOR,
-  TASKS_PAGE_PATH,
 } from '@/constants'
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
@@ -37,7 +36,7 @@ const HomeScreens = createStackNavigator(
     [PROFILE_PAGE_PATH]: {
       screen: Profile,
     },
-    [TASKS_PAGE_PATH]: {
+    [PROJECT_TAB_NAVIGATOR]: {
       screen: ProjectTabNavigator,
     },
   },
@@ -131,7 +130,6 @@ const SwitchNavigator = createSwitchNavigator(
   {
     [LOGIN_PATH]: AuthNavigator,
     [APP_PATH]: Navigator,
-    [PROJECT_TAB_NAVIGATOR]: ProjectTabNavigator,
   },
   {
     initialRouteName: LOGIN_PATH,
