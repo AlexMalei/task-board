@@ -1,29 +1,25 @@
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { Formik } from 'formik'
 
-import FormTitle from '@/fields/FormTitle'
 import Input from '@/fields/Input'
 import FormButton from '@/fields/FormButton'
-import Avatar from '@/fields/Avatar'
 import Form from '@/forms/Form'
 import { profileSchema } from '@/validators'
-import { theme } from '@/theme'
 import DateTimePicker from '@/fields/DateTimePicker'
 import { GET_PROJECT_DATA_FOR_TASKS } from '@/queries'
 import Menu from '@/fields/Menu'
 
-import { StyledHeaderContainer, StyledHeaderText } from './component'
+import { StyledHeaderContainer, StyledHeaderText, MenuButton } from './component'
 
 const AddTaskForm = ({
   selectedDate,
   name,
   content,
+  needChooseBoard,
   board,
   type,
-  user,
   priority,
   number,
   published,
@@ -35,8 +31,7 @@ const AddTaskForm = ({
     variables: { projectId },
   })
 
-  const { boards, types: taskTypes, members } = projectData?.projects_by_pk || {}
-  const users = members?.map(member => ({ id: member.id, name: member.user.display_name }))
+  const { boards, types: taskTypes } = projectData?.projects_by_pk || {}
 
   return (
     <Formik
@@ -46,7 +41,6 @@ const AddTaskForm = ({
         deadline: selectedDate,
         board,
         type,
-        user,
         priority,
         number,
         published,
@@ -94,29 +88,29 @@ const AddTaskForm = ({
               handleDateChange={date => handleFieldChange('deadline', date)}
             />
 
-            <Menu
-              items={users}
-              visibleFieldName="name"
-              title="User"
-              selectedItem={values.user}
-              handleItemPress={user => handleFieldChange('user', user)}
-            />
-
-            <Menu
-              items={boards}
-              visibleFieldName="name"
-              title="Board"
-              selectedItem={values.board}
-              handleItemPress={board => handleFieldChange('board', board)}
-            />
+            {needChooseBoard && (
+              <Menu
+                items={boards}
+                menuStyle={styles.menu}
+                menuButtonContainer={styles.menuButtonContainer}
+                visibleFieldName="name"
+                title="Board"
+                handleItemPress={board => handleFieldChange('board', board)}
+              >
+                <MenuButton>{values.board.name}</MenuButton>
+              </Menu>
+            )}
 
             <Menu
               items={taskTypes}
+              menuStyle={styles.menu}
+              menuButtonContainer={styles.menuButtonContainer}
               visibleFieldName="name"
               title="Task type"
-              selectedItem={values.type}
               handleItemPress={taskType => handleFieldChange('type', taskType)}
-            />
+            >
+              <MenuButton>{values.type.name}</MenuButton>
+            </Menu>
 
             <Input
               label="Priority"
@@ -144,8 +138,8 @@ const AddTaskForm = ({
 
             <FormButton
               onClick={() => {
-                const { name, content, deadline, board, type, user, priority, number } = values
-                onSubmitPress(name, content, deadline, board, type, user, priority, number)
+                const { name, content, deadline, board, type, priority, number } = values
+                onSubmitPress(name, content, deadline, board, type, priority, number)
               }}
             >
               Add task
@@ -164,14 +158,22 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 20,
   },
+  menu: {
+    width: '80%',
+  },
+  menuButtonContainer: {
+    width: '100%',
+    paddingVertical: 20,
+  },
 })
 
 AddTaskForm.defaultProps = {
   name: 'TEST TASK NAME',
   content: 'TEST TASK CONTENT',
+  needChooseBoard: true,
   board: {},
+  selectedDate: new Date(),
   type: {},
-  user: {},
   priority: 0,
   number: 0,
   published: false,

@@ -11,13 +11,6 @@ export const GET_PROJECT_DATA_FOR_TASKS = gql`
         id
         name
       }
-      members {
-        id
-        user {
-          id
-          display_name
-        }
-      }
     }
   }
 `
