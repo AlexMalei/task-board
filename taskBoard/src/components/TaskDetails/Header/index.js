@@ -36,7 +36,7 @@ const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit }) =>
   return (
     <HeaderContainer>
       <TopRow>
-        <TaskName>{name}</TaskName>
+        <TaskName style={{ includeFontPadding: false }}>{name}</TaskName>
         <IconsContainer>
           <Menu>
             <IconContainer activeOpacity={0.8} style={styles.checkIcon}>

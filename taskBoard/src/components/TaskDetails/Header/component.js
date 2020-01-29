@@ -43,7 +43,8 @@ export const TopRow = styled.View`
 export const IconsContainer = styled.View`
   flex-direction: row;
   justify-content: flex-end;
-  width: 100px;
+  align-items: flex-start;
+  width: 80px;
 `
 
 export const IconContainer = styled.View`
@@ -51,7 +52,7 @@ export const IconContainer = styled.View`
   align-items: center;
   width: 30px;
   height: 30px;
-  margin: 0 0 0 20px;
+  margin: 0 0 0 10px;
 
   background-color: ${({ theme }) => theme.colors.darkGrey};
 `
