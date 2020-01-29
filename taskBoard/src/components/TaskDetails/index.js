@@ -1,22 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
-import { useSubscription, useLazyQuery } from '@apollo/react-hooks'
+import { StyleSheet, Alert } from 'react-native'
+import { useSubscription, useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 import Spinner from '@/components/Spinner'
 import Header from '@/components/TaskDetails/Header'
 import Details from '@/components/TaskDetails/Details'
 import Description from '@/components/TaskDetails/Description'
 import Comments from '@/components/TaskDetails/Comments'
+import NavigationService from '@/services/Navigation'
 import { getUserIdFromToken } from '@/helpers'
 import { TASKS_SUBSCRIPTION } from '@/subscriptions'
 import { GET_USER_DATA } from '@/queries'
+import { DELETE_TASK } from '@/mutations'
 
 import { ScreenContainer } from './component'
 
+//@todo: 1) edit task modal form
 const TaskDetails = ({ navigation }) => {
   const [loadingLoggedUser, setLoadingLoggedUser] = useState(true)
   const [loggedUser, setLoggedUser] = useState({})
   const taskId = navigation.getParam('taskId')
+
+  const handleTaskEdit = () => {
+    console.log('edit')
+  }
+
+  const [deleteTask] = useMutation(DELETE_TASK, {
+    variables: {},
+  })
+
+  const handleTaskDelete = () => {
+    Alert.alert('Do you really want to delete task?', 'This is permanent action', [
+      { text: 'Cancel', onPress: () => {} },
+      {
+        text: 'Delete',
+        onPress: () => {
+          deleteTask({ variables: { taskId } })
+          NavigationService.goBack()
+        },
+      },
+    ])
+  }
 
   const { loading, data: taskData } = useSubscription(TASKS_SUBSCRIPTION, {
     variables: { taskId },
@@ -46,7 +70,13 @@ const TaskDetails = ({ navigation }) => {
     <Spinner />
   ) : (
     <ScreenContainer contentContainerStyle={styles.screenScrollViewStyle}>
-      <Header name={name} authorName={authorName} creationDate={creationDate} />
+      <Header
+        name={name}
+        authorName={authorName}
+        creationDate={creationDate}
+        onTaskEdit={handleTaskEdit}
+        onTaskDelete={handleTaskDelete}
+      />
       <Details participants={participants} deadline={deadline} type={type} />
       <Description content={content} />
       <Comments user={loggedUser} comments={comments} taskId={taskId} />

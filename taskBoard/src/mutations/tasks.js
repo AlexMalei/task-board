@@ -48,3 +48,16 @@ export const INSERT_TASK_DATA = gql`
     }
   }
 `
+
+export const DELETE_TASK = gql`
+  mutation deleteTask($taskId: uuid!) {
+    delete_tasks(where: { id: { _eq: $taskId } }) {
+      returning {
+        id
+      }
+    }
+    delete_comments(where: { task_id: { _eq: $taskId } }) {
+      affected_rows
+    }
+  }
+`

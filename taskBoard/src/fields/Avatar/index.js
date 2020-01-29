@@ -17,7 +17,6 @@ const Avatar = ({
   containerStyle,
   avatarStyle,
 }) => {
-  console.log('size', size)
   return avatarUrl ? (
     <ReactAvatar
       containerStyle={containerStyle}
