@@ -7,7 +7,7 @@ import Button from '@/fields/Button'
 import Spinner from '@/components/Spinner'
 import AddTaskModal from '@/components/Modals/AddTask'
 import { CALENDAR_TASKS_DETAILS_SUBSCRIPTION } from '@/subscriptions'
-import { UPDATE_TASK_DATA } from '@/mutations'
+import { UPDATE_TASK_PUBLISHED_DATA } from '@/mutations'
 
 import { StyledDayDetailsContainer, StyledHeader, StyledDate, StyledTasks } from './component'
 
@@ -19,7 +19,7 @@ const CalendarDayDetails = ({ navigation }) => {
   const date = navigation.getParam('date')
   const projectId = navigation.getParam('projectId')
 
-  const [updateTask] = useMutation(UPDATE_TASK_DATA)
+  const [updateTask] = useMutation(UPDATE_TASK_PUBLISHED_DATA)
 
   const handleCheckBoxPress = (id, published) => {
     updateTask({

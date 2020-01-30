@@ -17,7 +17,7 @@ const Board = ({ id: boardId, name, tasks, projectId }) => {
   }
 
   const handleTaskPress = taskId => {
-    NavigationService.navigate(TASKS_DETAILS_PAGE_PATH, { taskId })
+    NavigationService.navigate(TASKS_DETAILS_PAGE_PATH, { taskId, projectId })
   }
 
   const handleCloseModal = () => {
