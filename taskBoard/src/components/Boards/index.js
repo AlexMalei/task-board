@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
+import Board from '@/components/Board'
+import Spinner from '@/components/Spinner'
 import { StyledBackgroundContainer } from './component'
 import { PROJECT_BOARDS_SUBSCRIPTION } from '@/subscriptions'
 import { UPDATE_BOARD_ORDER } from '@/mutations'
-import Board from '@/components/Board'
-import Spinner from '@/components/Spinner'
 
 const keyExtractor = ({ id }) => id
 
-const renderItem = ({ item: { name, tasks }, drag, isActive }) => {
-  return <Board name={name} onLongPress={drag} isActive={isActive} tasks={tasks} />
+const renderItem = ({ item: { id, name, tasks }, drag, isActive }, projectId) => {
+  return <Board projectId={projectId} id={id} name={name} onLongPress={drag} isActive={isActive} tasks={tasks} />
 }
 
 const orderSortCallback = (first, second) => first.order - second.order
@@ -56,7 +56,7 @@ const Boards = ({ projectId }) => {
       ) : (
         <DraggableFlatList
           data={localBoards}
-          renderItem={renderItem}
+          renderItem={props => renderItem(props, projectId)}
           keyExtractor={keyExtractor}
           onDragEnd={handleDragEnd}
         />

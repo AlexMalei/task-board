@@ -15,6 +15,9 @@ import {
   DeadlineContent,
 } from './component'
 
+const AVATAR_BORDER_WIDTH = 1
+const AVATAR_SIZE = theme.avatarSizes.xsmall + AVATAR_BORDER_WIDTH
+
 const Details = ({ participants, deadline, type }) => {
   const [allParticipantsShow, setAllParticipantsShow] = useState(false)
   const firstParticipantsToShow = participants.slice(0, 3)
@@ -26,10 +29,11 @@ const Details = ({ participants, deadline, type }) => {
   const renderParticipants = participants => {
     return participants.map(participant => (
       <Avatar
-        size={theme.avatarSizes.xsmall}
+        size={AVATAR_SIZE}
         avatarUrl={participant.user.avatar_url}
         userName={participant.user.display_name}
         containerStyle={styles.avatarContainer}
+        avatarStyle={styles.avatar}
       />
     ))
   }
@@ -40,9 +44,15 @@ const Details = ({ participants, deadline, type }) => {
         <ItemLabel>Asign to</ItemLabel>
         <ParticipantsContentContainer>
           {allParticipantsShow ? renderParticipants(participants) : renderParticipants(firstParticipantsToShow)}
-          <ParticipantAddIconContainer>
-            <ParticipantAddIcon name={allParticipantsShow ? 'minus' : 'plus'} onPress={handleAllParticipantsShow} />
-          </ParticipantAddIconContainer>
+          {participants.length > 3 && (
+            <ParticipantAddIconContainer>
+              <ParticipantAddIcon
+                /*  size={AVATAR_SIZE} */
+                name={allParticipantsShow ? 'minus' : 'plus'}
+                onPress={handleAllParticipantsShow}
+              />
+            </ParticipantAddIconContainer>
+          )}
         </ParticipantsContentContainer>
       </DetailsItemContainer>
 
@@ -62,6 +72,11 @@ const Details = ({ participants, deadline, type }) => {
 const styles = StyleSheet.create({
   avatarContainer: {
     marginHorizontal: 1,
+  },
+  avatar: {
+    borderRadius: AVATAR_SIZE / 2,
+    borderColor: 'transparent',
+    borderWidth: 1,
   },
 })
 

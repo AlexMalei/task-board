@@ -1,49 +1,39 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
-import { useQuery } from '@apollo/react-hooks'
 import { Formik } from 'formik'
+import { useQuery } from '@apollo/react-hooks'
 
 import Input from '@/fields/Input'
 import FormButton from '@/fields/FormButton'
 import Form from '@/forms/Form'
-import { profileSchema } from '@/validators'
 import DateTimePicker from '@/fields/DateTimePicker'
-import { GET_PROJECT_DATA_FOR_TASKS } from '@/queries'
 import Menu from '@/fields/Menu'
+import { profileSchema } from '@/validators'
+import { GET_PROJECT_DATA_FOR_TASKS } from '@/queries'
 
 import { StyledHeaderContainer, StyledHeaderText, MenuButton } from './component'
 
-const AddTaskForm = ({
-  selectedDate,
-  name,
-  content,
-  needChooseBoard,
-  board,
-  type,
-  priority,
-  number,
-  published,
+const EditTaskForm = ({
+  projectId,
+  task: { name, content, deadline, type, priority, number },
   onSubmitPress,
   onCancelPress,
-  projectId,
 }) => {
   const { data: projectData } = useQuery(GET_PROJECT_DATA_FOR_TASKS, {
     variables: { projectId },
   })
 
-  const { boards, types: taskTypes } = projectData?.projects_by_pk || {}
+  const { types: taskTypes } = projectData?.projects_by_pk || {}
 
   return (
     <Formik
       initialValues={{
         name,
         content,
-        deadline: selectedDate,
-        board,
+        deadline,
         type,
-        priority,
-        number,
-        published,
+        priority: priority.toString(),
+        number: number.toString(),
       }}
       validationSchema={profileSchema}
     >
@@ -51,11 +41,10 @@ const AddTaskForm = ({
         const handleFieldChange = (fieldName, value) => {
           setFieldValue(fieldName, value)
         }
-
         return (
           <Form>
             <StyledHeaderContainer>
-              <StyledHeaderText>Add Task</StyledHeaderText>
+              <StyledHeaderText>Edit Task</StyledHeaderText>
             </StyledHeaderContainer>
 
             <Input
@@ -87,19 +76,6 @@ const AddTaskForm = ({
               mode="date"
               handleDateChange={date => handleFieldChange('deadline', date)}
             />
-
-            {needChooseBoard && (
-              <Menu
-                items={boards}
-                menuStyle={styles.menu}
-                menuButtonContainer={styles.menuButtonContainer}
-                visibleFieldName="name"
-                title="Board"
-                handleItemPress={board => handleFieldChange('board', board)}
-              >
-                <MenuButton>{values.board.name}</MenuButton>
-              </Menu>
-            )}
 
             <Menu
               items={taskTypes}
@@ -138,11 +114,11 @@ const AddTaskForm = ({
 
             <FormButton
               onClick={() => {
-                const { name, content, deadline, board, type, priority, number } = values
-                onSubmitPress(name, content, deadline, board, type, priority, number)
+                const { name, content, deadline, type, priority, number } = values
+                onSubmitPress(name, content, deadline, type, priority, number)
               }}
             >
-              Add task
+              Edit task
             </FormButton>
             <FormButton useBackground={false} onClick={onCancelPress}>
               Cancel
@@ -167,18 +143,9 @@ const styles = StyleSheet.create({
   },
 })
 
-AddTaskForm.defaultProps = {
-  name: 'TEST TASK NAME',
-  content: 'TEST TASK CONTENT',
-  needChooseBoard: true,
-  board: {},
-  selectedDate: new Date(),
-  type: {},
-  priority: 0,
-  number: 0,
-  published: false,
+EditTaskForm.defaultProps = {
   onUpdatePress: () => {},
   onCancelPress: () => {},
 }
 
-export default AddTaskForm
+export default EditTaskForm

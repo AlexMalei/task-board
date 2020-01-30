@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import normalize from 'react-native-normalize'
 
 import Avatar from '@/fields/Avatar'
 import { parseDate } from '@/helpers'
@@ -39,9 +40,9 @@ const styles = StyleSheet.create({
     top: 20,
     left: -AVATAR_SIZE / 2,
 
-    borderWidth: AVATAR_BORDER_WIDTH,
+    borderWidth: normalize(AVATAR_BORDER_WIDTH),
     borderColor: theme.colors.white,
-    borderRadius: theme.avatarSizes.small / 2,
+    borderRadius: normalize(theme.avatarSizes.small / 2),
   },
 })
 

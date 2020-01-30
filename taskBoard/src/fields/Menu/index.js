@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
 import ReactMenu, { MenuItem } from 'react-native-material-menu'
 
-import { StyledMenuContainer, StyledMenuTitle, StyledMenuTextContainer } from './component'
+import { StyledMenuContainer, StyledMenuTitle, ButtonContainer } from './component'
 
-const Menu = ({ items, visibleFieldName, title, selectedItem, handleItemPress }) => {
+const Menu = ({ items, visibleFieldName, title, handleItemPress, menuStyle, menuButtonContainer, children }) => {
   const [menu, setMenu] = useState(null)
 
   const setMenuRef = ref => {
@@ -21,13 +20,15 @@ const Menu = ({ items, visibleFieldName, title, selectedItem, handleItemPress })
   }
 
   return (
-    <StyledMenuContainer>
-      <StyledMenuTitle>{title}</StyledMenuTitle>
+    <StyledMenuContainer style={menuButtonContainer}>
+      {title && <StyledMenuTitle>{title}</StyledMenuTitle>}
       <ReactMenu
         ref={setMenuRef}
-        style={styles.menu}
+        style={menuStyle}
         button={
-          <StyledMenuTextContainer onPress={showMenu}>{selectedItem?.[visibleFieldName]}</StyledMenuTextContainer>
+          <ButtonContainer activeOpacity={0.8} onPress={showMenu}>
+            {children}
+          </ButtonContainer>
         }
       >
         {items?.map(item => {
@@ -39,13 +40,11 @@ const Menu = ({ items, visibleFieldName, title, selectedItem, handleItemPress })
 }
 
 Menu.defaultProps = {
-  visibleFieldName: 'name',
+  visibleFieldName: null,
+  title: null,
+  menuStyle: {},
+  buttonComponent: null,
+  menuButtonContainer: {},
 }
-
-const styles = StyleSheet.create({
-  menu: {
-    width: '80%',
-  },
-})
 
 export default Menu
