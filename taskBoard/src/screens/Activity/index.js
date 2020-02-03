@@ -24,7 +24,7 @@ const Activity = ({ projectId }) => {
     : {}
 
   return (
-    <ScrollView>
+    <Fragment>
       {loading ? (
         <Spinner />
       ) : (
@@ -34,7 +34,7 @@ const Activity = ({ projectId }) => {
           </StyledContainer>
         </ScrollView>
       )}
-    </ScrollView>
+    </Fragment>
   )
 }
 
