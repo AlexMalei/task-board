@@ -22,13 +22,14 @@ const Calendar = ({ projectId }) => {
       let deadlineTasksMapObject = {}
       data?.projects_by_pk?.boards.forEach(({ tasks }) => {
         tasks.forEach(task => {
+          console.log('task', task)
           const { deadline } = task
           deadlineTasksMapObject[deadline]
             ? deadlineTasksMapObject[deadline].push(task)
             : (deadlineTasksMapObject[deadline] = new Array(task))
         })
       })
-
+      // console.log('deadlineTasksMapObject', deadlineTasksMapObject)
       setDeadlineTasksMapObject(deadlineTasksMapObject)
     },
   })

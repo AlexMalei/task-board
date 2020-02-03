@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import CheckBox from '@/fields/Checkbox'
 import TaskType from '@/components/TaskType'
+import { theme } from '@/theme'
 import {
   StyledContainer,
   StyledContent,
@@ -11,8 +12,6 @@ import {
   StyledUserAvatar,
   StyledTaskDescription,
 } from './component'
-
-import { theme } from '@/theme'
 
 const Task = ({
   checkBoxVisibility,
@@ -39,8 +38,7 @@ const Task = ({
         </StyledCheckBoxContainer>
       )}
       <StyledTaskDescription>
-        {/* @todo: fix task name */}
-        <StyledContent>Todo</StyledContent>
+        <StyledContent>{name}</StyledContent>
         <StyledFooter>
           <StyledUserAvatar
             containerStyle={styles.avatarContainerStyle}
@@ -58,7 +56,6 @@ const Task = ({
 const styles = StyleSheet.create({
   containerWithCheckBox: { flexDirection: 'row' },
   containerWithoutCheckBox: { flexDirection: 'column' },
-
   avatarContainerStyle: {
     marginRight: 5,
   },
