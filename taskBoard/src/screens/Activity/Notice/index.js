@@ -6,7 +6,6 @@ import { StyledRow, StyledPost, StyleTextActivity, StyleTextData } from './compo
 import { parseActivityOnlyTime } from '@/helpers'
 
 const Notice = ({ notice }) => {
-  console.log('notice', notice)
   const { created_at, name, user } = notice
 
   return (
@@ -15,8 +14,8 @@ const Notice = ({ notice }) => {
         <Avatar
           rounded
           size={theme.avatarSizes.small}
-          overlayContainerStyle={{ backgroundColor: '#CEF9C6' }}
-          icon={{ name: 'check', color: '#1D201C', type: 'font-awesome', size: 20 }}
+          overlayContainerStyle={{ backgroundColor: theme.colors.lightGreen }}
+          icon={{ name: 'check', color: theme.colors.darkGrayGreen, type: 'font-awesome', size: 20 }}
           onPress={() => console.log('Works!')}
           activeOpacity={0.7}
         />

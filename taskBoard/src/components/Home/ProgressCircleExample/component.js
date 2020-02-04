@@ -6,5 +6,5 @@ export const StyledTestText = styled.Text`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   left: 47%;
   top: 60%;
-  color: ${({ color }) => (color ? color : 'black')};
+  color: ${({ color }) => (color ? color : theme.colors.black)};
 `

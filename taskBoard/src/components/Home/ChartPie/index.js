@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory-native'
 
-export const ChartPie = ({ workingPai, color }) => {
+import { theme } from '@/theme'
+
+export const ChartPie = ({ workingPie, color }) => {
   const getData = percent => {
     return [
       { x: 1, y: percent },
@@ -14,13 +16,13 @@ export const ChartPie = ({ workingPai, color }) => {
 
   useEffect(() => {
     setStateInterval()
-  }, [workingPai])
+  }, [workingPie])
 
   const setStateInterval = () => {
     let percent = 0
     setTimeout(() => {
       percent += 1 * 100
-      percent = percent > workingPai ? workingPai : percent
+      percent = percent > workingPie ? workingPie : percent
       setPercent(percent)
       setData(getData(percent))
     }, 2000)
@@ -30,7 +32,7 @@ export const ChartPie = ({ workingPai, color }) => {
     <Fragment>
       <VictoryPie
         standalone={true}
-        colorScale={[color, '#eaeaea']}
+        colorScale={[color, theme.colors.darkGrey]}
         animate={{ duration: 700 }}
         width={300}
         height={300}

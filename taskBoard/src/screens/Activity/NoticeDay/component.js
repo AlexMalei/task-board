@@ -6,16 +6,16 @@ export const StyledDay = styled.View`
 `
 export const StyledTextDay = styled.Text`
   padding: 10px 0px;
-  font-size: 16;
+  font-size: ${({ theme }) => theme.fontSizes[2]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: gray;
-  background: white;
+  color: ${({ theme }) => theme.colors.gray};
+  background: ${({ theme }) => theme.colors.white};
 `
 export const StyledBeforeText = styled.Text`
   position: absolute;
   left: 23px;
   width: 2px;
   height: 100%;
-  background: #ececec;
+  background: ${({ theme }) => theme.colors.lightGrey};
   z-index: -1;
 `

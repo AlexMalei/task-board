@@ -9,6 +9,7 @@ import {
   StyledPageTitle,
   StyledTaskCount,
 } from '@/components/Home/component'
+import { theme } from '@/theme'
 import { ChartPie } from './ChartPie'
 import { ChartLine } from './ChartLine'
 
@@ -23,11 +24,11 @@ const Home = () => {
         </StyledContainer>
         <StyledContainer>
           <StyledPageTitle>Working Rate</StyledPageTitle>
-          <ChartPie workingPai={62} color="#7EB973" />
+          <ChartPie workingPie={62} color={theme.colors.organicGreen} />
         </StyledContainer>
         <StyledContainer>
           <StyledPageTitle>Performance</StyledPageTitle>
-          <ChartPie workingPai={47} color="#764CED" />
+          <ChartPie workingPie={47} color={theme.colors.lightBlue} />
         </StyledContainer>
         <StyledContainer>
           <StyledPageTitle>Today Task</StyledPageTitle>
