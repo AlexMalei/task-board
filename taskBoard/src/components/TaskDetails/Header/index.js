@@ -17,7 +17,7 @@ import {
 } from './component'
 
 //@todo: add icons on top of screen
-const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit, onAddParticipant }) => {
+const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit }) => {
   const detailsItems = [
     {
       name: 'Edit',
@@ -29,12 +29,6 @@ const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit, onAd
       name: 'Delete',
       onPress: () => {
         onTaskDelete()
-      },
-    },
-    {
-      name: 'Add participant',
-      onPress: () => {
-        onAddParticipant()
       },
     },
   ]

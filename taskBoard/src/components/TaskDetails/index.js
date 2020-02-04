@@ -9,7 +9,6 @@ import Description from '@/components/TaskDetails/Description'
 import Comments from '@/components/TaskDetails/Comments'
 import NavigationService from '@/services/Navigation'
 import EditTaskModal from '@/components/Modals/EditTask'
-import AddParticipantModal from '@/components/Modals/AddParticipant'
 import { getUserIdFromToken } from '@/helpers'
 import { TASKS_SUBSCRIPTION } from '@/subscriptions'
 import { GET_USER_DATA } from '@/queries'
@@ -17,36 +16,24 @@ import { DELETE_TASK } from '@/mutations'
 
 import { ScreenContainer } from './component'
 
-const initialState = {
-  editModalVisibility: false,
-  addParticipantModalVisibility: false,
-  loadingEditTaskMutation: false,
-  loadingAddParticipantMutation: false,
-  loadingLoggedUser: false,
-  loggedUser: {},
-}
-
 const TaskDetails = ({ navigation }) => {
-  const [state, setState] = useState(initialState)
+  const [modalVisibility, setModalVisibility] = useState(false)
+  const [loadingEditTaskMutation, setLoadingEditTaskMutation] = useState(false)
+  const [loadingLoggedUser, setLoadingLoggedUser] = useState(true)
+  const [loggedUser, setLoggedUser] = useState({})
 
   const taskId = navigation.getParam('taskId')
   const projectId = navigation.getParam('projectId')
 
-  const { loading: loadingTaskData, data: taskData } = useSubscription(TASKS_SUBSCRIPTION, {
-    variables: { taskId },
-  })
-
-  const task = taskData?.tasks?.[0] || {}
-  const { name, content, deadline, participants, created_at: creationDate, user, comments, type } = task
-  const { display_name: authorName } = user || {}
+  const handleTaskEdit = () => {
+    setModalVisibility(true)
+  }
 
   const [deleteTask] = useMutation(DELETE_TASK, {
     variables: {},
   })
 
-  const handleTaskEditPress = () => setState({ ...state, editModalVisibility: true })
-
-  const handleTaskDeletePress = () => {
+  const handleTaskDelete = () => {
     Alert.alert('Do you really want to delete task?', 'This is permanent action', [
       { text: 'Cancel', onPress: () => {} },
       {
@@ -58,22 +45,20 @@ const TaskDetails = ({ navigation }) => {
       },
     ])
   }
-  const handleAddParticipantPress = () => setState({ ...state, addParticipantModalVisibility: true })
 
-  const handleEditTaskCloseModal = () => setState({ ...state, editModalVisibility: false })
-  const handleEditTaskMutationStart = () => setState({ ...state, loadingEditTaskMutation: true })
-  const handleEditTaskMutationEnd = () =>
-    setState({ ...state, editModalVisibility: false, loadingEditTaskMutation: false })
+  const handleCloseModal = () => {
+    setModalVisibility(false)
+  }
 
-  const handleAddParticipantCloseModal = () => setState({ ...state, addParticipantModalVisibility: false })
-  const handleAddParticipantMutationStart = () => setState({ ...state, loadingAddParticipantMutation: true })
-  const handleAddParticipantMutationEnd = () =>
-    setState({ ...state, addParticipantModalVisibility: false, loadingAddParticipantMutation: false })
+  const { loading: loadingTaskData, data: taskData } = useSubscription(TASKS_SUBSCRIPTION, {
+    variables: { taskId },
+  })
 
   const [getCurrentUser] = useLazyQuery(GET_USER_DATA, {
     variables: {},
     onCompleted: ({ users }) => {
-      setState({ ...state, loggedUser: users[0], loadingLoggedUser: false })
+      setLoggedUser(users[0])
+      setLoadingLoggedUser(false)
     },
   })
 
@@ -85,47 +70,37 @@ const TaskDetails = ({ navigation }) => {
     getLoggedUserId()
   }, [])
 
-  const {
-    editModalVisibility,
-    addParticipantModalVisibility,
-    loadingEditTaskMutation,
-    loadingLoggedUser,
-    loggedUser,
-  } = state
+  const task = taskData?.tasks?.[0] || {}
+  const { name, content, deadline, participants, created_at: creationDate, user, comments, type } = task
+  const { display_name: authorName } = user || {}
+
+  const handleEndMutation = () => {
+    handleCloseModal()
+    setLoadingEditTaskMutation(false)
+  }
+  const handleStartMutation = () => {
+    setLoadingEditTaskMutation(true)
+  }
 
   return loadingTaskData || loadingLoggedUser || loadingEditTaskMutation ? (
     <Spinner />
   ) : (
     <ScreenContainer contentContainerStyle={styles.screenScrollViewStyle}>
-      {editModalVisibility && (
+      {modalVisibility && (
         <EditTaskModal
-          modalVisibility={editModalVisibility}
           projectId={projectId}
           task={task}
-          handleCloseModal={handleEditTaskCloseModal}
-          onMutationStart={handleEditTaskMutationStart}
-          onMutationEnd={handleEditTaskMutationEnd}
+          handleCloseModal={handleCloseModal}
+          onMutationStart={handleStartMutation}
+          onMutationEnd={handleEndMutation}
         />
       )}
-
-      {addParticipantModalVisibility && (
-        <AddParticipantModal
-          modalVisibility={addParticipantModalVisibility}
-          projectId={projectId}
-          taskId={taskId}
-          onMutationStart={handleAddParticipantMutationStart}
-          onMutationEnd={handleAddParticipantMutationEnd}
-          handleCloseModal={handleAddParticipantCloseModal}
-        />
-      )}
-
       <Header
         name={name}
         authorName={authorName}
         creationDate={creationDate}
-        onTaskEdit={handleTaskEditPress}
-        onTaskDelete={handleTaskDeletePress}
-        onAddParticipant={handleAddParticipantPress}
+        onTaskEdit={handleTaskEdit}
+        onTaskDelete={handleTaskDelete}
       />
       <Details participants={participants} deadline={deadline} type={type} />
       <Description content={content} />
