@@ -1,5 +1,6 @@
 export const getInitials = (fullName = 'No Name') => {
-  const match = fullName.match(/(\w)?\w*\s*(\w)?/)
+  const userName = fullName || 'No Name'
+  const match = userName.match(/(\w)?\w*\s*(\w)?/)
   return match ? match.slice(1).join('') : ''
 }
 
