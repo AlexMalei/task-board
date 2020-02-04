@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '@/fields/Button'
 import Task from '@/components/Task'
 import DraggableButton from '@/components/Draggable/Button'
+import AddTaskModal from '@/components/Modals/AddTask'
 import { theme } from '@/theme'
 
 import { StyledContainer, StyledTitle, StyledBoardHeader, StyledTasksContainer } from './component'
 
-const Board = ({ name, tasks, onLongPress, isActive }) => {
+const Board = ({ projectId, id: boardId, name, tasks, onLongPress, isActive }) => {
+  const [modalVisibility, setModalVisibility] = useState(false)
+
   const handleAddTaskPress = () => {
-    console.log('Add Task button was pressed')
+    setModalVisibility(true)
   }
+
+  const handleCloseModal = () => {
+    setModalVisibility(false)
+  }
+
+  const handleMutationStart = () => {}
+
+  const handleMutationEnd = () => {
+    handleCloseModal()
+  }
+
   return (
     <StyledContainer
       onLongPress={onLongPress}
@@ -21,6 +35,14 @@ const Board = ({ name, tasks, onLongPress, isActive }) => {
       activeOpacity={0.8}
       isActive={isActive}
     >
+      <AddTaskModal
+        modalVisibility={modalVisibility}
+        projectId={projectId}
+        boardId={boardId}
+        handleCloseModal={handleCloseModal}
+        onMutationStart={handleMutationStart}
+        onMutationEnd={handleMutationEnd}
+      />
       <StyledBoardHeader>
         <StyledTitle>{name}</StyledTitle>
         <DraggableButton handlePress={handleAddTaskPress}>
