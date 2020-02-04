@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, TouchableHighlight } from 'react-native'
+import React, { Fragment } from 'react'
+import { View } from 'react-native'
 
 import DropdownProfileDrawer from '@/components/CustomDrawerContentComponent/DropdownHeaderDrawer'
 import NavigationService from '@/services/Navigation'
@@ -10,6 +10,7 @@ import {
   StyledDrawerImageProfile,
   StyledDrawerProfileText,
   StyledDrawerTextGray,
+  StyledTouchable,
 } from './component'
 
 const onUserProfile = () => {
@@ -19,17 +20,19 @@ const onUserProfile = () => {
 const DrawerHeader = ({ name, avatar, role }) => {
   return (
     <StyledDrawerHeader>
-      <TouchableHighlight onPress={() => onUserProfile()}>
-        <StyledDrawerImageProfile
-          source={{
-            uri: avatar,
-          }}
-        />
-      </TouchableHighlight>
-      <View>
-        <StyledDrawerProfileText>{name}</StyledDrawerProfileText>
-        <StyledDrawerTextGray>{role}</StyledDrawerTextGray>
-      </View>
+      <StyledTouchable onPress={() => onUserProfile()}>
+        <Fragment>
+          <StyledDrawerImageProfile
+            source={{
+              uri: avatar,
+            }}
+          />
+          <View>
+            <StyledDrawerProfileText>{name}</StyledDrawerProfileText>
+            <StyledDrawerTextGray>{role}</StyledDrawerTextGray>
+          </View>
+        </Fragment>
+      </StyledTouchable>
       <DropdownProfileDrawer />
     </StyledDrawerHeader>
   )

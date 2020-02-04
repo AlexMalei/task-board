@@ -11,3 +11,15 @@ export const GET_MAX_TASK_ORDER_ON_BOARD = gql`
     }
   }
 `
+
+export const GET_DATA_CREATED_TASKS = gql`
+  query getDataCreatedTasks($id: uuid!) {
+    tasks(order_by: { created_at: desc }, where: { board: { project_id: { _eq: $id } } }) {
+      created_at
+      name
+      user {
+        display_name
+      }
+    }
+  }
+`

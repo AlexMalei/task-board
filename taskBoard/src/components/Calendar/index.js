@@ -20,7 +20,6 @@ const Calendar = ({ projectId }) => {
     variables: { projectId },
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       let deadlineTasksMapObject = {}
-
       data?.projects_by_pk?.boards.forEach(({ tasks }) => {
         tasks.forEach(task => {
           const { deadline } = task
@@ -29,7 +28,6 @@ const Calendar = ({ projectId }) => {
             : (deadlineTasksMapObject[deadline] = new Array(task))
         })
       })
-
       setDeadlineTasksMapObject(deadlineTasksMapObject)
     },
   })

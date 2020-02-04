@@ -58,6 +58,8 @@
     "react-native-normalize": "^1.0.1",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^2.0.0-alpha.13",
+    "react-native-svg": "^11.0.1",
+    "react-native-svg-charts": "^5.3.0",
     "react-native-svg-uri": "^1.2.3",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
@@ -70,6 +72,8 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^4.4.1",
     "subscriptions-transport-ws": "^0.9.16",
+    "victory": "^34.0.0",
+    "victory-native": "^34.0.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
@@ -95,6 +99,12 @@
     "react-test-renderer": "16.9.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!victory|react-native-svg|react-native)"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }

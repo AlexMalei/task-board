@@ -3,7 +3,6 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 
 import NavigationService from '@/services/Navigation'
 
-import TasksScreen from '@/screens/Tasks'
 import BoardsScreen from '@/screens/Boards'
 import ActivityScreen from '@/screens/Activity'
 import CalendarNavigator from '@/routes/CalendarNavigator'

@@ -12,8 +12,10 @@ const cararra = '#F7F6F3'
 const dawnPink = '#F6E9E9'
 const red = '#CF1A17'
 const mineShaft = '#202020'
-
+const darkGrayGreen = '#1D201C'
 const error = '#CF1A17'
+const organicGreen = '#7EB973'
+const lightBlue = '#764CED'
 
 const colors = {
   black,
@@ -21,6 +23,7 @@ const colors = {
   lightGreen,
   lightGrey,
   darkGrey,
+  darkGrayGreen,
   pampas,
   cararra,
   dawnPink,
@@ -29,6 +32,8 @@ const colors = {
   codGray,
   red,
   mineShaft,
+  organicGreen,
+  lightBlue,
   error,
 }
 
