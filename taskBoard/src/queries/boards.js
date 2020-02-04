@@ -9,14 +9,9 @@ export const GET_PROJECT_DATA_FOR_TASKS = gql`
       }
       types {
         id
+        color
+        background_color
         name
-      }
-      members {
-        id
-        user {
-          id
-          display_name
-        }
       }
     }
   }

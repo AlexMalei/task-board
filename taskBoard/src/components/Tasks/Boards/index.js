@@ -9,9 +9,9 @@ import Spinner from '@/components/Spinner'
 
 const keyExtractor = ({ id }) => id
 
-const renderItem = ({ item: { name, tasks } }) => {
+const renderItem = ({ item: { id, name, tasks } }, projectId) => {
   if (tasks.length === 0) return null
-  return <Board name={name} tasks={tasks} />
+  return <Board name={name} tasks={tasks} projectId={projectId} id={id} />
 }
 
 const Boards = ({ projectId }) => {
@@ -23,7 +23,11 @@ const Boards = ({ projectId }) => {
 
   return (
     <StyledBackgroundContainer>
-      {loading ? <Spinner /> : <FlatList data={boards} renderItem={renderItem} keyExtractor={keyExtractor} />}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <FlatList data={boards} renderItem={props => renderItem(props, projectId)} keyExtractor={keyExtractor} />
+      )}
     </StyledBackgroundContainer>
   )
 }

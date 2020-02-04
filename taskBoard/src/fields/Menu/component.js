@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
 export const StyledMenuContainer = styled.View`
+  flex: 1;
   justify-content: center;
-  width: 100%;
-  padding: 20px 0;
 `
 
 export const StyledMenuTitle = styled.Text`
@@ -11,12 +10,9 @@ export const StyledMenuTitle = styled.Text`
   font-size: ${({ theme }) => theme.fontSizes[2]};
 `
 
-//@todo: fix height of text container according to another fields
-export const StyledMenuTextContainer = styled.Text`
+export const ButtonContainer = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: row;
   justify-content: center;
-  padding: 15px 20px;
-  height: 50px;
-
-  border-radius: 8px;
-  background-color: ${props => props.theme.colors.darkGrey};
+  align-items: center;
 `
