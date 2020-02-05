@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import Menu from '@/fields/Menu'
-import { parseDate } from '@/helpers'
+import { parseDateTimeFromNow } from '@/helpers'
 import {
   HeaderContainer,
   TaskName,
@@ -17,7 +17,7 @@ import {
 } from './component'
 
 //@todo: add icons on top of screen
-const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit }) => {
+const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit, onAddParticipant }) => {
   const detailsItems = [
     {
       name: 'Edit',
@@ -29,6 +29,12 @@ const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit }) =>
       name: 'Delete',
       onPress: () => {
         onTaskDelete()
+      },
+    },
+    {
+      name: 'Add participant',
+      onPress: () => {
+        onAddParticipant()
       },
     },
   ]
@@ -53,7 +59,7 @@ const Header = ({ name, authorName, creationDate, onTaskDelete, onTaskEdit }) =>
 
       <TaskCreationContainer>
         <Author>{`Added by ${authorName}, `}</Author>
-        <Date>{parseDate(creationDate)}</Date>
+        <Date>{parseDateTimeFromNow(creationDate)}</Date>
       </TaskCreationContainer>
     </HeaderContainer>
   )

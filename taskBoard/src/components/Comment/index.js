@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import normalize from 'react-native-normalize'
 
 import Avatar from '@/fields/Avatar'
-import { parseDate } from '@/helpers'
+import { parseDateTimeFromNow } from '@/helpers'
 import { theme } from '@/theme'
 
 import { Container, Date, Header, AuthorTextContainer, AuthorName, AuthorRole, Content } from './component'
@@ -26,7 +26,7 @@ const Comment = ({
           <AuthorName>{`${authorName}, `}</AuthorName>
           <AuthorRole>{role}</AuthorRole>
         </AuthorTextContainer>
-        <Date>{parseDate(creationDate)}</Date>
+        <Date>{parseDateTimeFromNow(creationDate)}</Date>
       </Header>
       <Content>{content}</Content>
     </Container>
