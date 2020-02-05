@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export const parseDate = dateString => {
+export const parseDateTimeFromNow = dateString => {
   return moment(dateString).calendar(null, {
     sameDay: '[Today at] HH:mm',
     nextDay: '[Tomorrow at] HH:mm',
