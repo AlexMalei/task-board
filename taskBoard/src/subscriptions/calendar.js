@@ -17,7 +17,7 @@ export const CALENDAR_TASKS_DETAILS_SUBSCRIPTION = gql`
   subscription tasksDetailsData($projectId: uuid!, $deadline: date!) {
     projects_by_pk(id: $projectId) {
       boards {
-        tasks(where: { archived: { _eq: false }, deadline: { _eq: $deadline } }) {
+        tasks(where: { archived: { _eq: false }, deadline: { _eq: $deadline } }, order_by: { order: asc }) {
           id
           deadline
           name
