@@ -7,6 +7,7 @@ import BoardsScreen from '@/screens/Boards'
 import ActivityScreen from '@/screens/Activity'
 import CalendarNavigator from '@/routes/CalendarNavigator'
 import TasksNavigator from '@/routes/TasksNavigator'
+import ParticipantsHeader from '@/components/ParticipantsHeader'
 import { TASKS_PAGE_PATH, BOARDS_PAGE_PATH, ACTIVITY_PAGE_PATH, CALENDAR_PAGE_PATH } from '@/constants'
 
 import { theme } from '@/theme'
@@ -74,10 +75,13 @@ const ProjectTabNavigator = createMaterialTopTabNavigator(
   },
 )
 
-export const changeTabNavigatorOptions = name => {
+export const changeTabNavigatorOptions = (name, id) => {
+  console.log('id', id)
   ProjectTabNavigator.navigationOptions = () => {
     return {
       headerLeft: () => <HeaderIcon name="menu" onPress={() => NavigationService.openDrawer()} />,
+      headerRight: () => <ParticipantsHeader projectId={id} />,
+
       title: name,
     }
   }

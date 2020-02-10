@@ -16,6 +16,7 @@ import {
   NOTIFICATIONS_PAGE_PATH,
   MY_TASKS_PAGE_PATH,
   PROJECT_TAB_NAVIGATOR,
+  PARTICIPANTS_MAIN_PAGE_PATH,
 } from '@/constants'
 import SignInScreen from '@/screens/SignIn'
 import SignUpScreen from '@/screens/SignUp'
@@ -27,18 +28,14 @@ import Home from '@/components/Home'
 import { theme } from '@/theme'
 
 import ProjectTabNavigator from './ProjectTabNavigator'
+import ParticipantsNavigator from './ParticipantsNavigator'
 
 const HomeScreens = createStackNavigator(
   {
-    [HOME_PAGE_PATH]: {
-      screen: Home,
-    },
-    [PROFILE_PAGE_PATH]: {
-      screen: Profile,
-    },
-    [PROJECT_TAB_NAVIGATOR]: {
-      screen: ProjectTabNavigator,
-    },
+    [HOME_PAGE_PATH]: Home,
+    [PROFILE_PAGE_PATH]: Profile,
+    [PROJECT_TAB_NAVIGATOR]: ProjectTabNavigator,
+    [PARTICIPANTS_MAIN_PAGE_PATH]: ParticipantsNavigator,
   },
   {
     initialRouteName: HOME_PAGE_PATH,

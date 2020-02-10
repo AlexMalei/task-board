@@ -28,3 +28,6 @@ export const CALENDAR_DAY_DETAILS_PATH = 'ProjectCalendarDayDetails'
 
 export const TASKS_MAIN_PAGE_PATH = 'ProjectTasksMain'
 export const TASKS_DETAILS_PAGE_PATH = 'ProjectTasksDetails'
+
+export const PARTICIPANTS_MAIN_PAGE_PATH = 'ProjectParticipantsMain'
+export const PARTICIPANT_DETAILS_PAGE_PATH = 'ProjectParticipantDetails'
