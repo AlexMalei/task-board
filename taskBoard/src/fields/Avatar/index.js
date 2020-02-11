@@ -16,18 +16,28 @@ const Avatar = ({
   update,
   containerStyle,
   avatarStyle,
+  overlayContainerStyle,
+  icon,
 }) => {
   return avatarUrl ? (
     <ReactAvatar
       containerStyle={containerStyle}
-      avatarStyle={avatarStyle}
-      onPress={() => update && onPickImage(onHandleUploadAvatar)}
+      overlayContainerStyle={overlayContainerStyle}
       rounded
       size={normalize(size)}
+      avatarStyle={avatarStyle}
+      onPress={() => update && onPickImage(onHandleUploadAvatar)}
       source={{ uri: avatarUrl }}
     />
   ) : (
-    <ReactAvatar containerStyle={containerStyle} rounded size={size} title={getInitials(userName)} />
+    <ReactAvatar
+      containerStyle={containerStyle}
+      overlayContainerStyle={overlayContainerStyle}
+      rounded
+      size={size}
+      icon={icon}
+      title={icon ? null : getInitials(userName)}
+    />
   )
 }
 
@@ -37,6 +47,7 @@ Avatar.defaultProps = {
   containerStyle: {},
   avatarStyle: {},
   userName: DEFAULT_USER_NAME,
+  overlayContainerStyle: {},
 }
 
 export default Avatar

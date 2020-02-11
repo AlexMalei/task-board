@@ -16,6 +16,6 @@ export const StyleTextActivity = styled.Text`
 `
 export const StyleTextData = styled.Text`
   flex: 2;
-  font-size: 14;
+  font-size: ${({ theme }) => theme.fontSizes[1]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `
