@@ -31,7 +31,7 @@
     "graphql-tag": "^2.10.1",
     "jetifier": "^1.6.5",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
